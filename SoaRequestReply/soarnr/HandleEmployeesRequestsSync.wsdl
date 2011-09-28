@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="HandleEmployeesRequestsSync"
+             targetNamespace="http://xmlns.oracle.com/SoaRequestReply/soarnr/HandleEmployeesRequestsSync"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://xmlns.oracle.com/SoaRequestReply/soarnr/HandleEmployeesRequestsSync"
+             xmlns:ns1="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess" schemaLocation="xsd/EmployeeRequestResponse.xsd" />
+		</schema>
+	</wsdl:types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<wsdl:message name="HandleEmployeesRequestsSyncRequestMessage">
+		<wsdl:part name="payload" element="ns1:process" />
+	</wsdl:message>
+	<wsdl:message name="HandleEmployeesRequestsSyncResponseMessage">
+		<wsdl:part name="payload" element="ns1:processResponse" />
+	</wsdl:message>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<!-- portType implemented by the HandleEmployeesRequestsSync BPEL process -->
+	<wsdl:portType name="HandleEmployeesRequestsSync">
+		<wsdl:operation name="process">
+			<wsdl:input  message="client:HandleEmployeesRequestsSyncRequestMessage" />
+			<wsdl:output message="client:HandleEmployeesRequestsSyncResponseMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> 
+	<plnk:partnerLinkType name="HandleEmployeesRequestsSync">
+		<plnk:role name="HandleEmployeesRequestsSyncProvider">
+			<plnk:portType name="client:HandleEmployeesRequestsSync"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

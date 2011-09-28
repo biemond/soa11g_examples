@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<skins xmlns="http://myfaces.apache.org/trinidad/skin">
+<skin>
+  <id>fcforms.desktop</id>
+  <family>fcforms</family>
+  <extends>fusion.desktop</extends>
+  <style-sheet-name>css/style.css</style-sheet-name>
+</skin>
+</skins>

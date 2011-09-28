@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.59.23"
+          id="TypeInfo" Package="org.w3c.dom" BeanClass="org.w3c.dom.TypeInfo"
+          isJavaBased="true">
+  <Attribute Name="typeName" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="typeNamespace" IsUpdateable="0" Type="java.lang.String"/>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isDerivedFrom"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="typeNamespaceArg" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="typeNameArg" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="derivationMethod" Type="int" isStructured="false"/>
+  </MethodAccessor>
+</JavaBean>

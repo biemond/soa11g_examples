@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:sca="http://xmlns.oracle.com/weblogic/weblogic-sca"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:wlsb="http://xmlns.oracle.com/weblogic/weblogic-sca-binding"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool-2.5.xsd http://xmlns.oracle.com/weblogic/weblogic-sca META-INF/weblogic-sca.xsd">
+  <!--Spring Bean definitions go here-->
+
+   <sca:service target="employee" name="EmployeeServiceEJB"
+      type="nl.whitehorses.soa.spring.enrichment.IEmployee"/>
+
+   <bean class="nl.whitehorses.soa.spring.enrichment.EmployeeEnrichmentImpl" name="employee">
+      <property name="loggerReference"   ref="LogServiceEJB" />
+      <property name="hrModelReference"  ref="HrServiceEJB" />
+      <property name="hrWSModelReference"  ref="HrWSReference" />
+      <property name="mediatorReference" ref="EmployeeMediator" />
+   </bean>
+
+   <sca:reference type="nl.whitehorses.soa.spring.enrichment.IEmployeeMediator"
+                 name="EmployeeMediator"/>
+
+   <sca:reference type="nl.whitehorses.soa.spring.logger.ILogger"
+                 name="LogServiceEJB"/>
+
+   <sca:reference name="HrServiceEJB"
+                 type="nl.whitehorses.soa.model.hr.services.HrModelSessionEJB"/>
+
+   <sca:reference type="nl.whitehorses.soa.model.hr.services.HrSessionBeanService"
+                  name="HrWSReference"/>
+</beans>

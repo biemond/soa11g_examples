@@ -1,0 +1,123 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue Oct 20 01:39:11 PDT 2009
+  Author:  ebiemond
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="HandleEmployeesRequestsSync"
+               targetNamespace="http://xmlns.oracle.com/SoaRequestReply/soarnr/HandleEmployeesRequestsSync"
+               xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+               xmlns:client="http://xmlns.oracle.com/SoaRequestReply/soarnr/HandleEmployeesRequestsSync"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+               xmlns:xpath20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+               xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer/"
+               xmlns:task="http://xmlns.oracle.com/bpel/workflow/task"
+               xmlns:taskservice="http://xmlns.oracle.com/bpel/workflow/taskService"
+               xmlns:wfcommon="http://xmlns.oracle.com/bpel/workflow/common"
+               xmlns:wf="http://schemas.oracle.com/bpel/extension/workflow"
+               xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+               xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+               xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+               xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/SoaRequestReply/soarnr/JmsRequestReply"
+         xmlns:ns2="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess"
+         xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="handleemployeesrequestssync_client" partnerLinkType="client:HandleEmployeesRequestsSync" myRole="HandleEmployeesRequestsSyncProvider"/>
+    <partnerLink myRole="Reply_role" name="JmsRequestReply"
+                 partnerRole="Request_role"
+                 partnerLinkType="ns1:JmsRequestReply_plt"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:HandleEmployeesRequestsSyncRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:HandleEmployeesRequestsSyncResponseMessage"/>
+    <variable name="Invoke_request_jms_Request_InputVariable"
+              messageType="ns1:Request_msg_out"/>
+    <variable name="Receive_response_jms_Reply_InputVariable"
+              messageType="ns1:Reply_msg_in"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in HandleEmployeesRequestsSync.wsdl) -->
+    <receive name="receiveInput" partnerLink="handleemployeesrequestssync_client" portType="client:HandleEmployeesRequestsSync" operation="process" variable="inputVariable" createInstance="yes"/>
+
+    <!-- Generate reply to synchronous request -->
+    <assign name="Assign_key">
+      <copy>
+        <from variable="inputVariable" part="payload"
+              query="/ns2:process/ns2:employee/ns2:key"/>
+        <to variable="Invoke_request_jms_Request_InputVariable" part="process"
+            query="/ns2:process/ns2:employee/ns2:key"/>
+      </copy>
+    </assign>
+    <invoke name="Invoke_request_jms"
+            inputVariable="Invoke_request_jms_Request_InputVariable"
+            partnerLink="JmsRequestReply" portType="ns1:Request_ptt"
+            operation="Request" bpelx:invokeAsDetail="no"/>
+    <receive name="Receive_response_jms" createInstance="no"
+             variable="Receive_response_jms_Reply_InputVariable"
+             partnerLink="JmsRequestReply" portType="ns1:Reply_ptt"
+             operation="Reply"/>
+    <assign name="Assign_output">
+      <copy>
+        <from variable="Receive_response_jms_Reply_InputVariable"
+              part="processResponse"
+              query="/ns2:processResponse/ns2:employee/ns2:key"/>
+        <to variable="outputVariable" part="payload"
+            query="/ns2:processResponse/ns2:employee/ns2:key"/>
+      </copy>
+      <copy>
+        <from variable="Receive_response_jms_Reply_InputVariable"
+              part="processResponse"
+              query="/ns2:processResponse/ns2:employee/ns2:firstName"/>
+        <to variable="outputVariable" part="payload"
+            query="/ns2:processResponse/ns2:employee/ns2:firstName"/>
+      </copy>
+      <copy>
+        <from variable="Receive_response_jms_Reply_InputVariable"
+              part="processResponse"
+              query="/ns2:processResponse/ns2:employee/ns2:lastName"/>
+        <to variable="outputVariable" part="payload"
+            query="/ns2:processResponse/ns2:employee/ns2:lastName"/>
+      </copy>
+    </assign>
+    <reply name="replyOutput" partnerLink="handleemployeesrequestssync_client" portType="client:HandleEmployeesRequestsSync" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

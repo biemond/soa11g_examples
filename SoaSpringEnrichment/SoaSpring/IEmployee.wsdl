@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+     name="IEmployee"
+     targetNamespace="http://enrichment.spring.soa.whitehorses.nl/"
+     xmlns:tns="http://enrichment.spring.soa.whitehorses.nl/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+     xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+    >
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://enrichment.spring.soa.whitehorses.nl/types" xmlns:ns0="http://enrichment.spring.soa.whitehorses.nl/types"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:complexType name="department">
+                <xsd:sequence>
+                    <xsd:element name="departmentId" type="xsd:int" minOccurs="0"/>
+                    <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="employee">
+                <xsd:sequence>
+                    <xsd:element name="department" type="ns0:department" minOccurs="0"/>
+                    <xsd:element name="employeeId" type="xsd:int" minOccurs="0"/>
+                    <xsd:element name="firstName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="lastName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="state" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+        <xsd:schema targetNamespace="http://enrichment.spring.soa.whitehorses.nl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:tns="http://enrichment.spring.soa.whitehorses.nl/" xmlns:ns1="http://enrichment.spring.soa.whitehorses.nl/types">
+            <xsd:import namespace="http://enrichment.spring.soa.whitehorses.nl/types"/>
+            <xsd:complexType name="enrichEmployee">
+                <xsd:sequence>
+                    <xsd:element name="arg0" type="xsd:int"/>
+                    <xsd:element name="arg1" type="xsd:string"/>
+                    <xsd:element name="arg2" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="enrichEmployee" type="tns:enrichEmployee"/>
+            <xsd:complexType name="enrichEmployeeResponse">
+                <xsd:sequence>
+                    <xsd:element name="return" type="ns1:employee"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="enrichEmployeeResponse" type="tns:enrichEmployeeResponse"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="enrichEmployeeInput">
+        <wsdl:part name="parameters" element="tns:enrichEmployee"/>
+    </wsdl:message>
+    <wsdl:message name="enrichEmployeeOutput">
+        <wsdl:part name="parameters" element="tns:enrichEmployeeResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="IEmployee">
+        <wsdl:operation name="enrichEmployee">
+            <wsdl:input message="tns:enrichEmployeeInput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action=""/>
+            <wsdl:output message="tns:enrichEmployeeOutput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action=""/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

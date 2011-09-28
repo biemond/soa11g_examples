@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project default="wsdl2java">
+
+  <path id="classpath.libraries" description=" 3rd party and Axis libs">
+      <fileset dir="C:/java/axis-1_4/lib">
+        <include name="**/*.jar"/>
+      </fileset>
+      <fileset dir="C:/oracle/JDev11114PS/modules">
+        <include name="**/javax.mail_1.1.0.0_1-4-1.jar"/>
+        <include name="**/javax.activation_1.1.0.0_1-1.jar"/>
+      </fileset>
+  </path>
+  
+  <target name="wsdl2java">
+    <java classname="org.apache.axis.wsdl.WSDL2Java" fork="true">
+      <classpath refid="classpath.libraries" />
+      <arg value="-S true" />
+      <arg value="-o" />
+      <arg file="./src"/>
+      <arg file="${basedir}/Customer.wsdl" />
+    </java>
+  </target>
+
+
+</project>

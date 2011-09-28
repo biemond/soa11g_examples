@@ -1,0 +1,26 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View2">
+      <property
+         name="activityId">tasksView</property>
+      <property
+         name="start">true</property>
+      <property
+         name="page">/fragments/tasksView.jsff</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>tasksView&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="thumbnailExpanded">true</property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">239.29883</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">453.0</property>
+   </View>
+</SDM>

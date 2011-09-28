@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.55.36"
+          id="BPMPosition" Package="oracle.tip.pc.services.identity"
+          BeanClass="oracle.tip.pc.services.identity.BPMPosition"
+          isJavaBased="true">
+  <Attribute Name="displayName" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="name" IsUpdateable="0" Type="java.lang.String"/>
+  <AccessorAttribute id="grantees" IsCollection="true"
+                     BeanClass="oracle.tip.pc.services.identity.BPMUser"
+                     CollectionBeanClass="UpdateableCollection"/>
+  <MethodAccessor IsCollection="false" Type="java.lang.String"
+                  id="getDisplayName" ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="java.util.Locale" isStructured="false"/>
+  </MethodAccessor>
+</JavaBean>

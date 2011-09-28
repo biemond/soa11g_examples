@@ -1,0 +1,141 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<jdevws:WebServiceProxy xmlns:jdevws="http://xmlns.oracle.com/jdeveloper/10130/webserviceproxy">
+   <list n="CHILD_NODES">
+      <url path="CustomerManagementSOAPQSService.xml"/>
+      <url path="CustomerManagementSOAPQSService.wsdl"/>
+      <url path="Customer_SCHEMA_2F01_Securing_an_OSB_service_2Fxsd_2FCustomer.xsd"/>
+      <url path="Customer_SCHEMA_2F01_Securing_an_OSB_service_2Fxsd_2FCreditCard.xsd"/>
+      <url path="../types/CardIssuerTyp.java"/>
+      <url path="../types/AddressesTyp.java"/>
+      <url path="../types/RatingTyp.java"/>
+      <url path="CustomerManagementSOAPQSPortClient.java"/>
+      <url path="CustomerManagementSOAPQSService.java"/>
+      <url path="../types/FindCustomerResponse.java"/>
+      <url path="../types/AddressTyp.java"/>
+      <url path="../types/FindCustomer.java"/>
+      <url path="../types/CustomerTyp.java"/>
+      <url path="../types/ObjectFactory.java"/>
+      <url path="../types/CreditCardTyp.java"/>
+      <url path="CustomerManagement.java"/>
+      <url path="../types/package-info.java"/>
+   </list>
+   <hash n="DATA_MODEL">
+      <value n="ATTACHMENT_ENCODING" v="MTOM"/>
+      <list n="LOCAL_FILES"/>
+      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy"/>
+      <url n="ORACLE_WEBSERVICES_XML" path="CustomerManagementSOAPQSService.xml"/>
+      <hash n="PROPERTY_GROUPS">
+         <hash n="WSDL_TO_JAVA_PROPERTIES">
+            <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.WSDLToJavaProperties"/>
+            <value n="WSDL2JAVA_DEFAULT_PACKAGE" v="osb.cookbook.owsm.client"/>
+            <value n="WSDL2JAVA_ROOT_VALUE_PACKAGE" v="osb.cookbook.owsm.types"/>
+         </hash>
+      </hash>
+      <value n="PROXY_ASYNC_METHODS" v="FOR_ENABLED"/>
+      <list n="PROXY_CLIENTS">
+         <url path="CustomerManagementSOAPQSPortClient.java"/>
+      </list>
+      <value n="PROXY_MAPPING_URL"/>
+      <url n="PROXY_ORIGINAL_WSDL_URL" protocol="http" host="localhost" port="7001" path="/01_Securing-an-OSB-service/proxy/Customer" query="WSDL"/>
+      <hash n="PROXY_PORTS">
+         <hash n="CustomerManagementSOAPQSPort">
+            <value n="ACCESSES_DOC_WRAPPPED" v="true"/>
+            <value n="ACCESSES_RPC_ENCODED" v="false"/>
+            <value n="CLASS_NAME" v="osb.cookbook.owsm.client.CustomerManagement"/>
+            <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyPort"/>
+            <value n="NAME" v="CustomerManagementSOAPQSPort"/>
+            <hash n="OPERATIONS">
+               <hash n="findCustomer">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+            </hash>
+            <hash n="PROPERTY_GROUPS">
+               <hash n="WS_CLIENT_POLICY">
+                  <value n="addressing"/>
+                  <list n="management"/>
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.policy.PolicyClientModel"/>
+                  <value n="mtom"/>
+                  <hash n="POLICY_OVERRIDE_PROPERTIES"/>
+                  <list n="security">
+                     <string v="oracle/wss_username_token_client_policy"/>
+                  </list>
+                  <value n="wsrm"/>
+               </hash>
+            </hash>
+            <url n="PROXY_ORIGINAL_PORT_ENDPOINT" protocol="http" host="laptopedwin" port="7001" path="/01_Securing-an-OSB-service/proxy/Customer"/>
+         </hash>
+      </hash>
+      <value n="PROXY_SERVICE_NAME" v="CustomerManagementSOAPQSService"/>
+      <value n="PROXY_SERVICE_NAMESPACE" v="http://osb-cookbook/CustomerManagement"/>
+      <url n="PROXY_TARGET_PROJECT" path="../../../../../CustomerClient.jpr"/>
+      <list n="PROXY_WSDL_IMPORT_LIST">
+         <url path="Customer_SCHEMA_2F01_Securing_an_OSB_service_2Fxsd_2FCustomer.xsd"/>
+         <url path="Customer_SCHEMA_2F01_Securing_an_OSB_service_2Fxsd_2FCreditCard.xsd"/>
+      </list>
+      <url n="PROXY_WSDL_URL" path="CustomerManagementSOAPQSService.wsdl"/>
+      <hash n="REFERENCED_WEBSERVICE">
+         <list n="BD_">
+            <hash>
+               <value n="BOUND_PORT_TYPE" v="{http://osb-cookbook/CustomerManagement}CustomerManagement"/>
+               <value n="DEFAULT_NAME" v="false"/>
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPBinding"/>
+               <value n="NAME" v="{http://osb-cookbook/CustomerManagement}CustomerManagementSOAP"/>
+               <list n="OP_BINDINGS">
+                  <hash>
+                     <value n="BOUND_OPERATION" v="osb.cookbook.owsm.types.CustomerTyp.findCustomer.long"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+               </list>
+               <hash n="PROPERTY_GROUPS"/>
+            </hash>
+         </list>
+         <list n="BINDING_FILES"/>
+         <value n="GUID" v="05f8d5db-0131-1000-8002-7f000001c7ca"/>
+         <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
+         <list n="PO_">
+            <hash>
+               <value n="DEFAULT_NAME" v="false"/>
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPPort"/>
+               <value n="NAME" v="CustomerManagementSOAPQSPort"/>
+               <value n="PORT_BINDING_NAME" v="{http://osb-cookbook/CustomerManagement}CustomerManagementSOAP"/>
+               <list n="PORT_OPS">
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="osb.cookbook.owsm.types.CustomerTyp.findCustomer.long"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+               </list>
+               <hash n="PROPERTY_GROUPS"/>
+               <url n="URL" protocol="http" host="laptopedwin" port="7001" path="/01_Securing-an-OSB-service/proxy/Customer"/>
+            </hash>
+         </list>
+         <hash n="PROPERTY_GROUPS">
+            <hash n="WSDL_TO_JAVA_PROPERTIES">
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.WSDLToJavaProperties"/>
+               <value n="WSDL2JAVA_DEFAULT_PACKAGE" v="osb.cookbook.owsm.client"/>
+               <value n="WSDL2JAVA_ROOT_VALUE_PACKAGE" v="osb.cookbook.owsm.types"/>
+            </hash>
+         </hash>
+         <list n="PT_">
+            <hash>
+               <value n="AUTO_SERVICE_INTERFACE"/>
+               <value n="DEFAULT_NAME" v="false"/>
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.JavaPortType"/>
+               <value n="NAME" v="{http://osb-cookbook/CustomerManagement}CustomerManagement"/>
+               <hash n="PROPERTY_GROUPS"/>
+               <value n="PT_CLASS" v="osb.cookbook.owsm.client.CustomerManagementImpl"/>
+               <value n="PT_SERVICE_INTERFACE" v="osb.cookbook.owsm.client.CustomerManagement"/>
+            </hash>
+         </list>
+         <url n="TARGET_PROJECT" path="../../../../../CustomerClient.jpr"/>
+         <value n="WS_ORIG_GEN_DIRECTION" v="TOP_DOWN"/>
+         <value n="WS_TARGET_NAMESPACE" v="http://osb-cookbook/CustomerManagement"/>
+         <value n="WS_URI" v="CustomerManagementSOAPQSService"/>
+         <url n="WS_WSDL_FILE" protocol="http" host="localhost" port="7001" path="/01_Securing-an-OSB-service/proxy/Customer" query="WSDL"/>
+      </hash>
+      <value n="SERVICE_ASYNC" v="false"/>
+      <value n="USE_WSDL_LOCATION" v="true"/>
+   </hash>
+</jdevws:WebServiceProxy>

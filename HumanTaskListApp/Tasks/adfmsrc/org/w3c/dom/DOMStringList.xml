@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.59.23"
+          id="DOMStringList" Package="org.w3c.dom"
+          BeanClass="org.w3c.dom.DOMStringList" isJavaBased="true">
+  <Attribute Name="length" IsUpdateable="0" Type="int"/>
+  <MethodAccessor IsCollection="false" Type="java.lang.String" id="item"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="index" Type="int" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="contains"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="str" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+</JavaBean>

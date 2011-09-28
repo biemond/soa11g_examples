@@ -1,0 +1,4 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <system systemId="http://virtual:6001/Kerberos-KerberosHelloWS-context-root/HelloServicePort?WSDL"
+          uri="../nl/amis/client/HelloServiceService.wsdl"/>
+</catalog>

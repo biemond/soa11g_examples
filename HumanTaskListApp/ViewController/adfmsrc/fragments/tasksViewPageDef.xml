@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.55.36" id="tasksViewPageDef"
+                Package="fragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <methodIterator Binds="getHumanTasks.result" DataControl="HumanTaskClient"
+                    RangeSize="25"
+                    BeanClass="nl.whitehorses.fcforms.tasks.entities.FcTask"
+                    id="getHumanTasksIterator" ChangeEventPolicy="ppr"/>
+  </executables>
+  <bindings>
+    <methodAction id="getHumanTasks" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="getHumanTasks"
+                  IsViewObjectMethod="false" DataControl="HumanTaskClient"
+                  InstanceName="HumanTaskClient.dataProvider"
+                  ReturnName="HumanTaskClient.methodResults.getHumanTasks_HumanTaskClient_dataProvider_getHumanTasks_result">
+      <NamedData NDName="user" NDValue="#{pageFlowScope.inputUser}" NDType="java.lang.String"/>
+      <NamedData NDName="noOfRecords" NDValue="50" NDType="int"/>
+    </methodAction>
+    <tree IterBinding="getHumanTasksIterator" id="FcTask">
+      <nodeDefinition DefName="nl.whitehorses.fcforms.tasks.entities.FcTask"
+                      Name="FcTask0">
+        <AttrNames>
+          <Item Value="taskNumber"/>
+          <Item Value="title"/>
+          <Item Value="state"/>
+          <Item Value="created"/>
+          <Item Value="expirationDate"/>
+          <Item Value="priority"/>
+          <Item Value="taskId"/>
+          <Item Value="acquiredBy"/>
+          <Item Value="processName"/>
+          <Item Value="instanceId"/>
+          <Item Value="processVersion"/>
+          <Item Value="processCategory"/>
+          <Item Value="taskDescriptionCode"/>
+          <Item Value="outcome"/>
+          <Item Value="assignedToStr"/>
+          <Item Value="text1"/>
+          <Item Value="text2"/>
+          <Item Value="text3"/>
+
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="acquireTask" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="acquireTask"
+                  IsViewObjectMethod="false" DataControl="HumanTaskClient"
+                  InstanceName="HumanTaskClient.dataProvider">
+      <NamedData NDName="taskId" NDValue="#{bindings.getHumanTasksIterator.currentRow.dataProvider.taskId}" NDType="java.lang.String"/>
+      <NamedData NDName="user" NDValue="#{pageFlowScope.inputUser}" NDType="java.lang.String"/>
+      <NamedData NDName="isAllowedToBeAcquiredByUser" NDValue="true"
+                 NDType="boolean"/>
+    </methodAction>
+    <methodAction id="completeTask" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="completeTask"
+                  IsViewObjectMethod="false" DataControl="HumanTaskClient"
+                  InstanceName="HumanTaskClient.dataProvider">
+      <NamedData NDName="taskId"
+                 NDValue="#{bindings.getHumanTasksIterator.currentRow.dataProvider.taskId}" NDType="java.lang.String"/>
+      <NamedData NDName="outcome" NDValue="APPROVE" NDType="java.lang.String"/>
+      <NamedData NDName="user" NDValue="#{pageFlowScope.inputUser}" NDType="java.lang.String"/>
+      <NamedData NDName="comment" NDValue="OK" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="rejectTask" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="completeTask"
+                  IsViewObjectMethod="false" DataControl="HumanTaskClient"
+                  InstanceName="HumanTaskClient.dataProvider">
+      <NamedData NDName="taskId" NDValue="#{bindings.getHumanTasksIterator.currentRow.dataProvider.taskId}" NDType="java.lang.String"/>
+      <NamedData NDName="outcome" NDValue="REJECT" NDType="java.lang.String"/>
+      <NamedData NDName="user" NDValue="#{pageFlowScope.inputUser}" NDType="java.lang.String"/>
+      <NamedData NDName="comment" NDValue="OK" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

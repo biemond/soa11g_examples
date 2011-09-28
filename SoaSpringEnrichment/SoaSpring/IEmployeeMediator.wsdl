@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+     name="IEmployeeMediator"
+     targetNamespace="http://enrichment.spring.soa.whitehorses.nl/"
+     xmlns:tns="http://enrichment.spring.soa.whitehorses.nl/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+     xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+    >
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://enrichment.spring.soa.whitehorses.nl/types" xmlns:ns0="http://enrichment.spring.soa.whitehorses.nl/types"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:complexType name="department">
+                <xsd:sequence>
+                    <xsd:element name="departmentId" type="xsd:int" minOccurs="0"/>
+                    <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="employee">
+                <xsd:sequence>
+                    <xsd:element name="department" type="ns0:department" minOccurs="0"/>
+                    <xsd:element name="employeeId" type="xsd:int" minOccurs="0"/>
+                    <xsd:element name="firstName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="lastName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="state" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+        <xsd:schema targetNamespace="http://enrichment.spring.soa.whitehorses.nl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:tns="http://enrichment.spring.soa.whitehorses.nl/" xmlns:ns1="http://enrichment.spring.soa.whitehorses.nl/types">
+            <xsd:import namespace="http://enrichment.spring.soa.whitehorses.nl/types"/>
+            <xsd:complexType name="processEmployee">
+                <xsd:sequence>
+                    <xsd:element name="arg0" type="ns1:employee"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="processEmployee" type="tns:processEmployee"/>
+            <xsd:complexType name="processEmployeeResponse">
+                <xsd:sequence/>
+            </xsd:complexType>
+            <xsd:element name="processEmployeeResponse" type="tns:processEmployeeResponse"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="processEmployeeInput">
+        <wsdl:part name="parameters" element="tns:processEmployee"/>
+    </wsdl:message>
+    <wsdl:message name="processEmployeeOutput">
+        <wsdl:part name="parameters" element="tns:processEmployeeResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="IEmployeeMediator">
+        <wsdl:operation name="processEmployee">
+            <wsdl:input message="tns:processEmployeeInput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action=""/>
+            <wsdl:output message="tns:processEmployeeOutput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action=""/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

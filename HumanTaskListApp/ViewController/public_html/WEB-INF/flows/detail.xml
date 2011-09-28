@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="detail">
+    <default-activity id="__1">iframe</default-activity>
+    <data-control-scope id="__10">
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__3">
+      <name id="__2">inputTask</name>
+      <value>#{pageFlowScope.inputTask}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__5">
+      <name id="__4">inputIframeUrl</name>
+      <value>#{pageFlowScope.inputIframeUrl}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__6">
+      <name id="__7">tabContext</name>
+      <value>#{pageFlowScope.tabContext}</value>
+      <class>oracle.ui.pattern.dynamicShell.TabContext</class>
+      <required/>
+    </input-parameter-definition>
+    <input-parameter-definition id="__8">
+      <name id="__9">task</name>
+      <value>#{pageFlowScope.task}</value>
+      <class>nl.whitehorses.fcforms.tasks.entities.FcTask</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__80">
+      <name id="__90">user</name>
+      <value>#{pageFlowScope.user}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <view id="iframe">
+      <page>/fragments/iframe.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

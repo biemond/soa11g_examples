@@ -1,0 +1,21 @@
+<?binding.jca WriteFile_file.jca?>
+<wsdl:definitions name="WriteFile" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/file/SoaSpringEnrichment/SoaSpring/WriteFile" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/file/SoaSpringEnrichment/SoaSpring/WriteFile" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:imp1="http://www.whitehorses.nl/spring" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="Write_plt">
+        <plt:role name="Write_role">
+            <plt:portType name="tns:Write_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://www.whitehorses.nl/spring" schemaLocation="xsd/EmployeeEnrichment.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="Write_msg">
+        <wsdl:part name="body" element="imp1:Response"/>
+    </wsdl:message>
+    <wsdl:portType name="Write_ptt">
+        <wsdl:operation name="Write">
+            <wsdl:input message="tns:Write_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

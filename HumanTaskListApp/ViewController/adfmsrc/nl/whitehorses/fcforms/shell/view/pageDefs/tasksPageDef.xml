@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.55.36" id="tasksPageDef"
+                Package="nl.whitehorses.fcforms.shell.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <page path="oracle.ui.pattern.dynamicShell.model.dynamicTabShellDefinition"
+          id="pageTemplateBinding" Refresh="ifNeeded"/>
+    <taskFlow id="welcome1" taskFlowId="/WEB-INF/flows/welcome.xml#welcome"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="tasks1" taskFlowId="/WEB-INF/flows/tasks.xml#tasks"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding">
+      <parameters>
+        <parameter id="inputUser" xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                   value="test3"/>
+      </parameters>
+    </taskFlow>
+  </executables>
+  <bindings>
+    <methodAction id="handleActionEvent"
+                  InstanceName="ContextEvents.dataProvider"
+                  DataControl="ContextEvents" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="handleActionEvent"
+                  IsViewObjectMethod="false">
+      <NamedData NDName="payload" NDType="java.lang.Object"/>
+    </methodAction>
+  </bindings>
+  <eventMap xmlns="http://xmlns.oracle.com/adfm/contextualEvent">
+    <event name="taskEvent">
+      <producer region="*">
+        <consumer region="" handler="handleActionEvent" handleCondition="">
+          <parameters>
+            <parameter name="payload" value="${payLoad}"/>
+          </parameters>
+        </consumer>
+      </producer>
+    </event>
+  </eventMap>
+</pageDefinition>

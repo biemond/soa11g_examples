@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.59.23"
+          id="UserDataHandler" Package="org.w3c.dom"
+          BeanClass="org.w3c.dom.UserDataHandler" isJavaBased="true">
+  <MethodAccessor IsCollection="false" Type="void" id="handle"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="operation" Type="short" isStructured="false"/>
+    <ParameterInfo id="key" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="data" Type="java.lang.Object" isStructured="false"/>
+    <ParameterInfo id="src" Type="org.w3c.dom.Node" isStructured="true"/>
+    <ParameterInfo id="dst" Type="org.w3c.dom.Node" isStructured="true"/>
+  </MethodAccessor>
+</JavaBean>

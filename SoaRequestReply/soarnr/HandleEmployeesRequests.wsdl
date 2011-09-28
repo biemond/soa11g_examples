@@ -1,0 +1,34 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="HandleEmployeesRequests"
+     targetNamespace="http://xmlns.oracle.com/SoaRequestReply/soarnr/HandleEmployeesRequests"
+     xmlns:cb1="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:inp1="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess"
+     xmlns:tns="http://xmlns.oracle.com/SoaRequestReply/soarnr/HandleEmployeesRequests"
+    >
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess" schemaLocation="xsd/EmployeeRequestResponse.xsd" />
+      </schema>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess" schemaLocation="xsd/EmployeeRequestResponse.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="callbackMessage">
+        <wsdl:part name="callback" element="cb1:processResponse"/>
+    </wsdl:message>
+    <wsdl:message name="requestMessage">
+        <wsdl:part name="request" element="cb1:process"/>
+    </wsdl:message>
+    <wsdl:portType name="callback_ptt">
+        <wsdl:operation name="callback">
+            <wsdl:input message="tns:callbackMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="execute_ptt">
+        <wsdl:operation name="execute">
+            <wsdl:input message="tns:requestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

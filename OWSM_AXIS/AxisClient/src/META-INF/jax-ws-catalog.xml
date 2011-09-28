@@ -1,0 +1,4 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <system systemId="http://localhost:7001/01_Securing-an-OSB-service/proxy/Customer?WSDL"
+          uri="../osb/cookbook/owsm/client/CustomerManagementSOAPQSService.wsdl"/>
+</catalog>

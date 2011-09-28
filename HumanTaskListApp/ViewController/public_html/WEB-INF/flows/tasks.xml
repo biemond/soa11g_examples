@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="tasks">
+    <default-activity id="__1">tasksView</default-activity>
+    <input-parameter-definition id="__6">
+      <name id="__7">inputUser</name>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__2">
+      <managed-bean-name id="__3">TaskBean</managed-bean-name>
+      <managed-bean-class id="__4">nl.whitehorses.fcforms.shell.backing.TaskBean</managed-bean-class>
+      <managed-bean-scope id="__5">request</managed-bean-scope>
+    </managed-bean>
+    <view id="tasksView">
+      <page>/fragments/tasksView.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.55.36"
+          id="HumanTaskClient" Package="nl.whitehorses.fcforms.tasks.services"
+          BeanClass="nl.whitehorses.fcforms.tasks.services.HumanTaskClient"
+          isJavaBased="true">
+  <AccessorAttribute id="allBPELUsers" IsCollection="true"
+                     BeanClass="oracle.tip.pc.services.identity.BPMUser"
+                     CollectionBeanClass="UpdateableCollection"/>
+  <AccessorAttribute id="allBPELGroups" IsCollection="true"
+                     BeanClass="oracle.tip.pc.services.identity.BPMGroup"
+                     CollectionBeanClass="UpdateableCollection"/>
+  <MethodAccessor IsCollection="true"
+                  Type="nl.whitehorses.fcforms.tasks.entities.FcTask"
+                  BeanClass="nl.whitehorses.fcforms.tasks.entities.FcTask"
+                  id="getHumanTasks" ReturnNodeName="FcTask"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="user" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="noOfRecords" Type="int" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="assignTask"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="taskId" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="currentUser" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="futureUser" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="isGroup" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="acquireTask"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="taskId" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="user" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="isAllowedToBeAcquiredByUser" Type="boolean"
+                   isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="releaseTask"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="taskId" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="user" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="completeTask"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="taskId" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="outcome" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="user" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="comment" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="setErrorCodeTask"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="errorCode" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="taskId" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="user" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="setTextAttributeOnTask"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="attribute" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="value" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="taskId" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="user" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true"
+                  Type="oracle.tip.pc.services.identity.BPMUser"
+                  BeanClass="oracle.tip.pc.services.identity.BPMUser"
+                  id="getAllBPELUsers" ReturnNodeName="BPMUser"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="groupName" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <ConstructorMethod IsCollection="true"
+                     Type="nl.whitehorses.fcforms.tasks.services.HumanTaskClient"
+                     BeanClass="nl.whitehorses.fcforms.tasks.services.HumanTaskClient"
+                     id="HumanTaskClient"/>
+</JavaBean>

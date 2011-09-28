@@ -1,0 +1,20 @@
+<xs:schema targetNamespace="http://osb-cookbook/creditcard" elementFormDefault="qualified" attributeFormDefault="unqualified"
+     xmlns:tns="http://osb-cookbook/creditcard" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="CreditCard" type="tns:CreditCardTyp"/>
+    <xs:complexType name="CreditCardTyp">
+        <xs:sequence>
+            <xs:element name="CardIssuer" type="tns:CardIssuerTyp"/>
+            <xs:element name="CardNumber" type="xs:string"/>
+            <xs:element name="CardholderName" type="xs:string"/>
+            <xs:element name="ExpirationDate" type="xs:string"/>
+            <xs:element name="CardValidationCode" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="CardIssuerTyp">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="visa"/>
+            <xs:enumeration value="amexco"/>
+            <xs:enumeration value="mastercard"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

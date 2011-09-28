@@ -1,0 +1,12 @@
+<adapter-config name="GetRequest" adapter="JMS Adapter" wsdlLocation="GetRequest.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/wls/TestQ" UIJmsProvider="WLSJMS" UIConnectionName="SOAPS3" adapterRef=""/>
+  <endpoint-activation portType="Consume_Message_ptt" operation="Consume_Message">
+    <activation-spec className="oracle.tip.adapter.jms.inbound.JmsConsumeActivationSpec">
+      <property name="PayloadType" value="TextMessage"/>
+      <property name="UseMessageListener" value="false"/>
+      <property name="DestinationName" value="jms/TestQ"/>
+    </activation-spec>
+  </endpoint-activation>
+
+</adapter-config>

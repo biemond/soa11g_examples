@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.59.23"
+          id="PermissionCollection" Package="java.security"
+          BeanClass="java.security.PermissionCollection" isJavaBased="true">
+  <MethodAccessor IsCollection="false" Type="void" id="add"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="permission" Type="java.security.Permission"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="implies"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="permission" Type="java.security.Permission"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false"
+                  Type="java.util.Enumeration&lt;java.security.Permission>"
+                  id="elements" ReturnNodeName="Return"/>
+  <MethodAccessor IsCollection="false" Type="void" id="setReadOnly"
+                  ReturnNodeName="Return"/>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isReadOnly"
+                  ReturnNodeName="Return"/>
+  <MethodAccessor IsCollection="false" Type="java.lang.String" id="toString"
+                  ReturnNodeName="Return"/>
+  <ConstructorMethod IsCollection="true"
+                     Type="java.security.PermissionCollection"
+                     BeanClass="java.security.PermissionCollection"
+                     id="PermissionCollection"/>
+</JavaBean>

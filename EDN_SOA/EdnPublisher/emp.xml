@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Employee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://nl.whitehorses.employee.event xsd/EmployeeEvent.xsd"
+          xmlns="http://nl.whitehorses.employee.event">
+  <Id>1111</Id>
+</Employee>

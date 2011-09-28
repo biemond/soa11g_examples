@@ -1,0 +1,77 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from CustomerManagementSOAPQSService WSDL service -->
+
+  <service name="CustomerManagementSOAPQSPort" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://osb-cookbook/CustomerManagement"/>
+      <parameter name="wsdlServiceElement" value="CustomerManagementSOAPQSService"/>
+      <parameter name="schemaQualified" value="http://osb-cookbook/customer,http://osb-cookbook/creditcard"/>
+      <parameter name="schemaUnqualified" value="http://osb-cookbook/CustomerManagement"/>
+      <parameter name="wsdlServicePort" value="CustomerManagementSOAPQSPort"/>
+      <parameter name="className" value="osb_cookbook.CustomerManagement.CustomerManagementSOAPImpl"/>
+      <parameter name="wsdlPortType" value="CustomerManagement"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="findCustomer" qname="operNS:FindCustomer" xmlns:operNS="http://osb-cookbook/CustomerManagement" returnQName="Customer" returnType="rtns:CustomerTyp" xmlns:rtns="http://osb-cookbook/customer" soapAction="http://osb-cookbook/CustomerManagement/FindCustomer" >
+        <parameter qname="ID" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="findCustomer"/>
+
+      <typeMapping
+        xmlns:ns="http://osb-cookbook/customer"
+        qname="ns:AddressTyp"
+        type="java:osb_cookbook.customer.AddressTyp"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://osb-cookbook/customer"
+        qname="ns:CustomerTyp"
+        type="java:osb_cookbook.customer.CustomerTyp"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://osb-cookbook/customer"
+        qname="ns:RatingTyp"
+        type="java:osb_cookbook.customer.RatingTyp"
+        serializer="org.apache.axis.encoding.ser.EnumSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://osb-cookbook/creditcard"
+        qname="ns:CardIssuerTyp"
+        type="java:osb_cookbook.creditcard.CardIssuerTyp"
+        serializer="org.apache.axis.encoding.ser.EnumSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://osb-cookbook/creditcard"
+        qname="ns:CreditCardTyp"
+        type="java:osb_cookbook.creditcard.CreditCardTyp"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <arrayMapping
+        xmlns:ns="http://osb-cookbook/customer"
+        qname="ns:AddressesTyp"
+        type="java:osb_cookbook.customer.AddressTyp[]"
+        innerType="cmp-ns:AddressTyp" xmlns:cmp-ns="http://osb-cookbook/customer"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

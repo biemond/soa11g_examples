@@ -1,0 +1,14 @@
+<adapter-config name="JmsRequestResponseSync" adapter="JMS Adapter" wsdlLocation="JmsRequestResponseSync.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/wls/TestQ2" UIJmsProvider="WLSJMS" UiOperationMode="Synchronous" UIConnectionName="SOAPS3" adapterRef=""/>
+  <endpoint-interaction portType="Request_Reply_ptt" operation="Request_Reply" UITransmissionPrimitive="Request-response">
+    <interaction-spec className="oracle.tip.adapter.jms.outbound.JmsRequestReplyInteractionSpec">
+      <property name="TimeToLive" value="0"/>
+      <property name="PayloadType" value="TextMessage"/>
+      <property name="DeliveryMode" value="Persistent"/>
+      <property name="ReplyDestinationName" value="jms/TestQ4"/>
+      <property name="RequestDestinationName" value="jms/TestQ3"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.55.36"
+          id="BPMGroup" Package="oracle.tip.pc.services.identity"
+          BeanClass="oracle.tip.pc.services.identity.BPMGroup"
+          isJavaBased="true">
+  <Attribute Name="email" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="realmName" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="displayName" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="description" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="fullName" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="uniqueName" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="guid" IsUpdateable="0" Type="java.lang.String"
+             PrimaryKey="true" PrecisionRule="false" Precision="0" Scale="0"/>
+  <Attribute Name="tenantID" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="tenantName" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="name" IsUpdateable="0" Type="java.lang.String"/>
+  <AccessorAttribute id="identityType" IsCollection="false"
+                     BeanClass="oracle.tip.pc.services.identity.BPMIdentityType"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="actions" IsCollection="true" Type="java.util.Set"
+                     CollectionBeanClass="UpdateableCollection"/>
+  <AccessorAttribute id="attributes" IsCollection="true" Type="java.util.Map"
+                     CollectionBeanClass="UpdateableCollection"/>
+  <MethodAccessor IsCollection="true" Type="java.util.List" id="getParticipants"
+                  ReturnNodeName="returnValue"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true" Type="java.util.Set" id="getGrantees"
+                  ReturnNodeName="returnValue"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true" Type="java.util.Set" id="getOwners"
+                  ReturnNodeName="returnValue"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isOwneredBy"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="oracle.tip.pc.services.identity.BPMUser"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true"
+                  Type="oracle.tip.pc.services.identity.BPMIdentity"
+                  BeanClass="oracle.tip.pc.services.identity.BPMIdentity"
+                  id="getManagers" ReturnNodeName="BPMIdentity"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isInRole"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="oracle.tip.pc.services.identity.BPMRole"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isInRole"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true" Type="java.util.List" id="getAppRoles"
+                  ReturnNodeName="returnValue"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true" Type="java.util.List" id="getAppRoles"
+                  ReturnNodeName="returnValue"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+    <ParameterInfo id="p1" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true" Type="java.util.List" id="getRoles"
+                  ReturnNodeName="returnValue"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="p0" Type="oracle.tip.pc.services.identity.RoleClassifier"
+                   isStructured="true"/>
+    <ParameterInfo id="p1" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true" Type="java.util.List" id="getGroups"
+                  ReturnNodeName="returnValue"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true" Type="java.util.Set" id="getGrantedRoles"
+                  ReturnNodeName="returnValue"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true" Type="java.util.Set" id="getGrantedRoles"
+                  ReturnNodeName="returnValue"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+    <ParameterInfo id="p1" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true" Type="java.util.Set" id="getOwnedRoles"
+                  ReturnNodeName="returnValue"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isOwner"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="oracle.tip.pc.services.identity.BPMRole"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true"
+                  Type="oracle.tip.pc.services.identity.BPMRole"
+                  BeanClass="oracle.tip.pc.services.identity.BPMRole"
+                  id="getManagedRoles" ReturnNodeName="BPMRole"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="java.lang.String"
+                  id="getDisplayName" ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="java.util.Locale" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="java.lang.Object" id="getAttribute"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="toNode"
+                  ReturnNodeName="Node"/>
+  <MethodAccessor IsCollection="false" Type="boolean" id="equals"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="another" Type="java.lang.Object" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="java.lang.String" id="toString"
+                  ReturnNodeName="Return"/>
+  <MethodAccessor IsCollection="false" Type="int" id="hashCode"
+                  ReturnNodeName="Return"/>
+</JavaBean>

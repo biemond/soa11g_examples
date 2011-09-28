@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://schemas.oracle.com/events/edl" targetNamespace="http://schemas.oracle.com/events/edl/EmployeeEventEDL">
+    <schema-import namespace="http://nl.whitehorses.employee.event" location="xsd/EmployeeEvent.xsd"/>
+    <event-definition name="EmployeeEvent">
+        <content xmlns:ns0="http://nl.whitehorses.employee.event" element="ns0:Employee"/>
+    </event-definition>
+</definitions>

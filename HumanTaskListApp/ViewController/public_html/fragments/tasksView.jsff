@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+        <af:panelGroupLayout id="pgl1">
+          <af:toolbar id="t2" styleClass="AFStretchWidth">
+      <af:commandButton actionListener="#{TaskBean.acquire}"
+                        text="Acquire" id="cbAcquire"/>
+      <af:commandButton actionListener="#{TaskBean.approve}"
+                        text="Aprrove" id="cbComplete"/>
+      <af:commandButton actionListener="#{TaskBean.reject}"
+                        text="Reject" id="cbReject"/>
+      <af:commandButton text="Refresh" id="cbRefresh"
+                              actionListener="#{bindings.getHumanTasks.execute}"/>
+    </af:toolbar>
+          <af:spacer width="10" height="10" id="s1"/>
+          <af:table value="#{bindings.FcTask.collectionModel}" var="row"
+                    rows="#{bindings.FcTask.rangeSize}"
+                    emptyText="#{bindings.FcTask.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    fetchSize="#{bindings.FcTask.rangeSize}"
+                    rowBandingInterval="0"
+                    selectedRowKeys="#{bindings.FcTask.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.FcTask.collectionModel.makeCurrent}"
+                    rowSelection="single" id="t1"
+                    partialTriggers="::cbRefresh ::cbAcquire ::cbComplete ::cbReject"
+                    styleClass="AFStretchWidth" width="400">
+            <af:column sortProperty="taskNumber" sortable="true"
+                       headerText="#{bindings.FcTask.hints.taskNumber.label}"
+                       id="c10">
+                       <af:goLink text="#{row.text1}" targetFrame="_blank"
+                                  destination="#{row.text2}"/>
+    <!--
+              <af:commandLink text="#{row.taskNumber}"
+                              id="cl1" actionListener="#{TaskBean.showTask}">
+                <af:setPropertyListener from="#{row.taskId}"
+                                        to="#{pageFlowScope.taskId}"
+                                        type="action"/>
+                <af:setPropertyListener from="#{row}" to="#{pageFlowScope.task}"
+                                        type="action"/>
+              </af:commandLink>
+     -->
+            </af:column>
+            <af:column sortProperty="title" sortable="true"
+                       headerText="#{bindings.FcTask.hints.title.label}"
+                       id="c8">
+              <af:outputText value="#{row.title}" id="ot10"/>
+            </af:column>
+            <af:column sortProperty="state" sortable="true"
+                       headerText="#{bindings.FcTask.hints.state.label}"
+                       id="c4">
+              <af:outputText value="#{row.state}" id="ot15"/>
+            </af:column>
+            <f:facet name="detailStamp">
+              <af:panelFormLayout id="pfl1">
+                <af:inputText label="#{bindings.FcTask.hints.text1.label}"
+                              value="#{row.text1}" id="ot5000" columns="60"
+                              readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.text2.label}"
+                              value="#{row.text2}" id="ot5001" columns="60"
+                              readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.text3.label}"
+                              value="#{row.text3}" id="ot5002" columns="60"
+                              readOnly="true"/>
+
+                <af:inputText label="#{bindings.FcTask.hints.created.label}"
+                              value="#{row.created}" id="ot500" columns="60"
+                              readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.expirationDate.label}"
+                              value="#{row.expirationDate}" id="ot5"
+                              columns="60" readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.priority.label}"
+                              value="#{row.priority}" id="ot12" columns="60"
+                              readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.taskId.label}"
+                              value="#{row.taskId}" id="ot1" columns="60"
+                              readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.acquiredBy.label}"
+                              value="#{row.acquiredBy}" id="ot2" columns="60"
+                              readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.processName.label}"
+                              value="#{row.processName}" id="ot14" columns="60"
+                              readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.instanceId.label}"
+                              value="#{row.instanceId}" id="ot3" columns="60"
+                              readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.processVersion.label}"
+                              value="#{row.processVersion}" id="ot6"
+                              columns="60" readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.processCategory.label}"
+                              value="#{row.processCategory}" id="ot9"
+                              columns="60" readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.taskDescriptionCode.label}"
+                              value="#{row.taskDescriptionCode}" id="ot13"
+                              columns="60" readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.outcome.label}"
+                              value="#{row.outcome}" id="ot11" columns="60"
+                              readOnly="true"/>
+                <af:inputText label="#{bindings.FcTask.hints.assignedToStr.label}"
+                              value="#{row.assignedToStr}" id="ot4" columns="60"
+                              readOnly="true"/>
+              </af:panelFormLayout>
+            </f:facet>
+          </af:table>
+        </af:panelGroupLayout>
+</jsp:root>

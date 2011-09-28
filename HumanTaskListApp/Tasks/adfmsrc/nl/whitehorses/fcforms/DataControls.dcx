@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataControlConfigs xmlns="http://xmlns.oracle.com/adfm/configuration"
+                    version="11.1.1.55.36" id="DataControls"
+                    Package="nl.whitehorses.fcforms">
+  <AdapterDataControl id="HumanTaskClient"
+                      FactoryClass="oracle.adf.model.adapter.DataControlFactoryImpl"
+                      ImplDef="oracle.adf.model.adapter.bean.BeanDefinition"
+                      SupportsTransactions="false" SupportsSortCollection="true"
+                      SupportsResetState="false" SupportsRangesize="false"
+                      SupportsFindMode="false" SupportsUpdates="true"
+                      Definition="nl.whitehorses.fcforms.tasks.services.HumanTaskClient"
+                      BeanClass="nl.whitehorses.fcforms.tasks.services.HumanTaskClient"
+                      xmlns="http://xmlns.oracle.com/adfm/datacontrol">
+    <CreatableTypes>
+      <TypeInfo FullName="oracle.tip.pc.services.identity.BPMIdentityType"/>
+      <TypeInfo FullName="oracle.tip.pc.services.identity.RoleClassifier"/>
+      <TypeInfo FullName="nl.whitehorses.fcforms.tasks.entities.FcTask"/>
+      <TypeInfo FullName="nl.whitehorses.fcforms.tasks.services.HumanTaskClient"/>
+      <TypeInfo FullName="java.security.Permission"/>
+      <TypeInfo FullName="java.security.PermissionCollection"/>
+    </CreatableTypes>
+    <Source>
+      <bean-definition BeanClass="nl.whitehorses.fcforms.tasks.services.HumanTaskClient"
+                       xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
+    </Source>
+  </AdapterDataControl>
+</DataControlConfigs>

@@ -1,0 +1,13 @@
+<adapter-config name="Response" adapter="JMS Adapter" wsdlLocation="Response.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/wls/TestQ" UIJmsProvider="WLSJMS" UIConnectionName="SOAPS3" adapterRef=""/>
+  <endpoint-interaction portType="Produce_Message_ptt" operation="Produce_Message">
+    <interaction-spec className="oracle.tip.adapter.jms.outbound.JmsProduceInteractionSpec">
+      <property name="TimeToLive" value="0"/>
+      <property name="PayloadType" value="TextMessage"/>
+      <property name="DeliveryMode" value="Persistent"/>
+      <property name="DestinationName" value="jms/TestQ2"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

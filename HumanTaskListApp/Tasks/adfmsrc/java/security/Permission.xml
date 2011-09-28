@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.59.23"
+          id="Permission" Package="java.security"
+          BeanClass="java.security.Permission" isJavaBased="true">
+  <Attribute Name="name" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="actions" IsUpdateable="0" Type="java.lang.String"/>
+  <MethodAccessor IsCollection="false" Type="void" id="checkGuard"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="object" Type="java.lang.Object" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="implies"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="permission" Type="java.security.Permission"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="equals"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="obj" Type="java.lang.Object" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="int" id="hashCode"
+                  ReturnNodeName="Return"/>
+  <MethodAccessor IsCollection="false" Type="java.security.PermissionCollection"
+                  BeanClass="java.security.PermissionCollection"
+                  id="newPermissionCollection"
+                  ReturnNodeName="PermissionCollection"/>
+  <MethodAccessor IsCollection="false" Type="java.lang.String" id="toString"
+                  ReturnNodeName="Return"/>
+  <ConstructorMethod IsCollection="true" Type="java.security.Permission"
+                     BeanClass="java.security.Permission" id="Permission">
+    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
+  </ConstructorMethod>
+</JavaBean>

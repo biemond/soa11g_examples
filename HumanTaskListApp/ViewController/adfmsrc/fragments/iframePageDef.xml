@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.55.36" id="iframePageDef" Package="fragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Name="rejectreason" Type="java.lang.String"/>
+    </variableIterator>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="variables" id="rejectreason1">
+      <AttrNames>
+        <Item Value="rejectreason"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="acquireTask" InstanceName="HumanTaskClient.dataProvider"
+                  DataControl="HumanTaskClient" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="acquireTask"
+                  IsViewObjectMethod="false">
+      <NamedData NDName="taskId" NDValue="${pageFlowScope.inputTask}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="user" NDValue="${pageFlowScope.user}" NDType="java.lang.String"/>
+      <NamedData NDName="isAllowedToBeAcquiredByUser" NDValue="true"
+                 NDType="boolean"/>
+    </methodAction>
+    <methodAction id="releaseTask" InstanceName="HumanTaskClient.dataProvider"
+                  DataControl="HumanTaskClient" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="releaseTask"
+                  IsViewObjectMethod="false">
+      <NamedData NDName="taskId" NDValue="${pageFlowScope.inputTask}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="user" NDValue="${pageFlowScope.user}" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="completeTask" InstanceName="HumanTaskClient.dataProvider"
+                  DataControl="HumanTaskClient" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="completeTask"
+                  IsViewObjectMethod="false">
+      <NamedData NDName="taskId" NDValue="${pageFlowScope.inputTask}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="outcome" NDValue="APPROVE" NDType="java.lang.String"/>
+      <NamedData NDName="user" NDValue="${pageFlowScope.user}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="comment" NDType="java.lang.String"
+                 NDValue="${bindings.rejectreason1.inputValue}"/>
+    </methodAction>
+    <methodAction id="rejectedTask" InstanceName="HumanTaskClient.dataProvider"
+                  DataControl="HumanTaskClient" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="completeTask"
+                  IsViewObjectMethod="false">
+      <NamedData NDName="taskId" NDType="java.lang.String"
+                 NDValue="${pageFlowScope.inputTask}"/>
+      <NamedData NDName="outcome" NDValue="REJECT" NDType="java.lang.String"/>
+      <NamedData NDName="user" NDType="java.lang.String" NDValue="${pageFlowScope.user}"/>
+      <NamedData NDName="comment" NDType="java.lang.String"
+                 NDValue="${bindings.rejectreason1.inputValue}"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

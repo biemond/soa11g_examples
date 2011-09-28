@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle-webservice-clients xmlns:ns2="http://java.sun.com/xml/ns/javaee">
+   <webservice-client>
+      <service-qname localpart="HelloServiceService"
+                     namespaceURI="http://ws.kerberos.owsm.amis.nl/"/>
+      <port-info>
+         <wsdl-port localpart="HelloServicePort"
+                    namespaceURI="http://ws.kerberos.owsm.amis.nl/"/>
+         <runtime/>
+         <policy-references>
+            <policy-reference uri="oracle/wss11_kerberos_token_client_policy"
+                              category="security"/>
+         </policy-references>
+         <operations>
+            <operation name="sayHello"/>
+         </operations>
+      </port-info>
+   </webservice-client>
+</oracle-webservice-clients>

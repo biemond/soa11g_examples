@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.59.23"
+          id="NamedNodeMap" Package="org.w3c.dom"
+          BeanClass="org.w3c.dom.NamedNodeMap" isJavaBased="true">
+  <Attribute Name="length" IsUpdateable="0" Type="int"/>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="getNamedItem"
+                  ReturnNodeName="Node">
+    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="setNamedItem"
+                  ReturnNodeName="Node">
+    <ParameterInfo id="arg" Type="org.w3c.dom.Node" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="removeNamedItem"
+                  ReturnNodeName="Node">
+    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="item" ReturnNodeName="Node">
+    <ParameterInfo id="index" Type="int" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="getNamedItemNS"
+                  ReturnNodeName="Node">
+    <ParameterInfo id="namespaceURI" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="localName" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="setNamedItemNS"
+                  ReturnNodeName="Node">
+    <ParameterInfo id="arg" Type="org.w3c.dom.Node" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="removeNamedItemNS"
+                  ReturnNodeName="Node">
+    <ParameterInfo id="namespaceURI" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="localName" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+</JavaBean>

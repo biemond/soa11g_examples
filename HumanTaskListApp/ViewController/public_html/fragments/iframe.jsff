@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelStretchLayout id="psl1">
+    <f:facet name="center">
+      <af:panelGroupLayout layout="scroll"
+                           xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                           id="pgl1">
+        <af:panelHeader text="Task Details" id="ph1">
+          <f:facet name="toolbar">
+            <af:panelGroupLayout id="pgl2" layout="horizontal">
+              <af:commandButton text="Acquire" id="cbAquire"
+                                actionListener="#{bindings.acquireTask.execute}"
+                                disabled="#{pageFlowScope.task.acquiredBy != null || pageFlowScope.task.state =='COMPLETED'}">
+                  <af:setPropertyListener from="#{pageFlowScope.user}" to="#{pageFlowScope.task.acquiredBy}"
+                                          type="action" />              
+              </af:commandButton>                  
+              <af:commandButton text="Release" id="cbRelease" 
+                                actionListener="#{bindings.releaseTask.execute}"
+                                disabled="#{pageFlowScope.task.acquiredBy == null || pageFlowScope.task.state =='COMPLETED'}">
+                  <af:setPropertyListener from="#{''}" to="#{pageFlowScope.task.acquiredBy}"
+                                          type="action" />              
+              </af:commandButton>                  
+              <af:commandButton text="Approve" id="cbApprove" 
+                                actionListener="#{bindings.completeTask.execute}"
+                                disabled="#{pageFlowScope.task.acquiredBy == null || pageFlowScope.task.state =='COMPLETED'}">
+                  <af:setPropertyListener from="#{'COMPLETED'}" to="#{pageFlowScope.task.state}"
+                                          type="action" />              
+              </af:commandButton>                  
+              <af:commandButton text="Reject" id="cbRject"
+                                actionListener="#{bindings.rejectedTask.execute}"
+                               disabled="#{pageFlowScope.task.acquiredBy == null || pageFlowScope.task.state =='COMPLETED'}">
+                 <af:setPropertyListener from="#{'COMPLETED'}" to="#{pageFlowScope.task.state}"
+                                          type="action" />              
+              
+              </af:commandButton>                 
+              <af:inputText label="Reason" id="it1"
+                            value="#{bindings.rejectreason1.inputValue}"
+                            columns="20" rows="1" autoSubmit="true"/>
+            </af:panelGroupLayout>
+          </f:facet>
+          <af:panelGroupLayout id="pgl3">
+            <af:inputText label="Titel" id="it2"
+                          value="#{pageFlowScope.task.title}" columns="60"
+                          readOnly="true"/>
+          </af:panelGroupLayout>
+        </af:panelHeader>
+      </af:panelGroupLayout>
+      <!-- id="af_one_column_stretched"   -->
+    </f:facet>
+  </af:panelStretchLayout>
+</jsp:root>

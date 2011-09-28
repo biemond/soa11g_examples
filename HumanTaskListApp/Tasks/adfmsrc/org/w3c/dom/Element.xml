@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.59.23"
+          id="Element" Package="org.w3c.dom" BeanClass="org.w3c.dom.Element"
+          isJavaBased="true">
+  <Attribute Name="tagName" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="nodeName" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="nodeValue" Type="java.lang.String"/>
+  <Attribute Name="nodeType" IsUpdateable="0" Type="short"/>
+  <Attribute Name="namespaceURI" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="prefix" Type="java.lang.String"/>
+  <Attribute Name="localName" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="baseURI" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="textContent" Type="java.lang.String"/>
+  <AccessorAttribute id="schemaTypeInfo" IsCollection="false"
+                     BeanClass="org.w3c.dom.TypeInfo"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="parentNode" IsCollection="false"
+                     BeanClass="org.w3c.dom.Node"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="childNodes" IsCollection="false"
+                     BeanClass="org.w3c.dom.NodeList"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="firstChild" IsCollection="false"
+                     BeanClass="org.w3c.dom.Node"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="lastChild" IsCollection="false"
+                     BeanClass="org.w3c.dom.Node"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="previousSibling" IsCollection="false"
+                     BeanClass="org.w3c.dom.Node"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="nextSibling" IsCollection="false"
+                     BeanClass="org.w3c.dom.Node"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="attributes" IsCollection="false"
+                     BeanClass="org.w3c.dom.NamedNodeMap"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="ownerDocument" IsCollection="false"
+                     BeanClass="org.w3c.dom.Document"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <MethodAccessor IsCollection="false" Type="java.lang.String" id="getAttribute"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="setAttribute"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="value" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="removeAttribute"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Attr"
+                  BeanClass="org.w3c.dom.Attr" id="getAttributeNode"
+                  ReturnNodeName="Attr">
+    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Attr"
+                  BeanClass="org.w3c.dom.Attr" id="setAttributeNode"
+                  ReturnNodeName="Attr">
+    <ParameterInfo id="newAttr" Type="org.w3c.dom.Attr" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Attr"
+                  BeanClass="org.w3c.dom.Attr" id="removeAttributeNode"
+                  ReturnNodeName="Attr">
+    <ParameterInfo id="oldAttr" Type="org.w3c.dom.Attr" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.NodeList"
+                  BeanClass="org.w3c.dom.NodeList" id="getElementsByTagName"
+                  ReturnNodeName="NodeList">
+    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="java.lang.String"
+                  id="getAttributeNS" ReturnNodeName="Return">
+    <ParameterInfo id="namespaceURI" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="localName" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="setAttributeNS"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="namespaceURI" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="qualifiedName" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="value" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="removeAttributeNS"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="namespaceURI" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="localName" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Attr"
+                  BeanClass="org.w3c.dom.Attr" id="getAttributeNodeNS"
+                  ReturnNodeName="Attr">
+    <ParameterInfo id="namespaceURI" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="localName" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Attr"
+                  BeanClass="org.w3c.dom.Attr" id="setAttributeNodeNS"
+                  ReturnNodeName="Attr">
+    <ParameterInfo id="newAttr" Type="org.w3c.dom.Attr" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.NodeList"
+                  BeanClass="org.w3c.dom.NodeList" id="getElementsByTagNameNS"
+                  ReturnNodeName="NodeList">
+    <ParameterInfo id="namespaceURI" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="localName" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="hasAttribute"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="hasAttributeNS"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="namespaceURI" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="localName" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="setIdAttribute"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="isId" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="setIdAttributeNS"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="namespaceURI" Type="java.lang.String"
+                   isStructured="false"/>
+    <ParameterInfo id="localName" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="isId" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="setIdAttributeNode"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="idAttr" Type="org.w3c.dom.Attr" isStructured="true"/>
+    <ParameterInfo id="isId" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="insertBefore"
+                  ReturnNodeName="Node">
+    <ParameterInfo id="newChild" Type="org.w3c.dom.Node" isStructured="true"/>
+    <ParameterInfo id="refChild" Type="org.w3c.dom.Node" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="replaceChild"
+                  ReturnNodeName="Node">
+    <ParameterInfo id="newChild" Type="org.w3c.dom.Node" isStructured="true"/>
+    <ParameterInfo id="oldChild" Type="org.w3c.dom.Node" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="removeChild"
+                  ReturnNodeName="Node">
+    <ParameterInfo id="oldChild" Type="org.w3c.dom.Node" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="appendChild"
+                  ReturnNodeName="Node">
+    <ParameterInfo id="newChild" Type="org.w3c.dom.Node" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="hasChildNodes"
+                  ReturnNodeName="Return"/>
+  <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
+                  BeanClass="org.w3c.dom.Node" id="cloneNode"
+                  ReturnNodeName="Node">
+    <ParameterInfo id="deep" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="normalize"
+                  ReturnNodeName="Return"/>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isSupported"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="feature" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="version" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="hasAttributes"
+                  ReturnNodeName="Return"/>
+  <MethodAccessor IsCollection="false" Type="short" id="compareDocumentPosition"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="other" Type="org.w3c.dom.Node" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isSameNode"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="other" Type="org.w3c.dom.Node" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="java.lang.String" id="lookupPrefix"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="namespaceURI" Type="java.lang.String"
+                   isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isDefaultNamespace"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="namespaceURI" Type="java.lang.String"
+                   isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="java.lang.String"
+                  id="lookupNamespaceURI" ReturnNodeName="Return">
+    <ParameterInfo id="prefix" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isEqualNode"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="arg" Type="org.w3c.dom.Node" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="java.lang.Object" id="getFeature"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="feature" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="version" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="java.lang.Object" id="setUserData"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="key" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="data" Type="java.lang.Object" isStructured="false"/>
+    <ParameterInfo id="handler" Type="org.w3c.dom.UserDataHandler"
+                   isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="java.lang.Object" id="getUserData"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="key" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+</JavaBean>

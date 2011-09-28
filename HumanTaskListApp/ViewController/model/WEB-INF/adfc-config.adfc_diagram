@@ -1,0 +1,39 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View2">
+      <property
+         name="activityId">tasks</property>
+      <property
+         name="page">/tasks.jspx</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>tasks&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">414.79883</property>
+      <property
+         name="x">124.5</property>
+   </View>
+   <WildcardControlFlowRule
+      id="WildcardControlFlowRule3">
+      <property
+         name="activityId">*</property>
+      <property
+         name="y">190.29883</property>
+      <property
+         name="x">302.0</property>
+   </WildcardControlFlowRule>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="WildcardControlFlowRule3"
+      to="View2">
+      <property
+         name="fromOutcome">tasks</property>
+      <property
+         name="sdm:polyPoints">B50,302.0,232.94824,124.5,360.44824,T50</property>
+   </ControlFlowCase>
+</SDM>

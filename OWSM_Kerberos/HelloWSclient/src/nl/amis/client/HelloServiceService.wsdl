@@ -1,0 +1,73 @@
+<definitions
+     name="HelloServiceService"
+     targetNamespace="http://ws.kerberos.owsm.amis.nl/"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://ws.kerberos.owsm.amis.nl/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns="http://schemas.xmlsoap.org/ws/2004/09/policy"
+         xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" orawsp:provides="{http://docs.oasis-open.org/ns/opencsa/sca/200903}authentication, {http://docs.oasis-open.org/ns/opencsa/sca/200903}clientAuthentication, {http://docs.oasis-open.org/ns/opencsa/sca/200903}clientAuthentication.message, {http://schemas.oracle.com/ws/2006/01/policy}token.kerberos"
+         wsu:Id="wss11_kerberos_token_service_policy">
+        <sp:SymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+                <sp:SupportingTokens>
+                    <wsp:Policy>
+                        <sp:KerberosToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Once">
+                            <wsp:Policy>
+                                <sp:WssGssKerberosV5ApReqToken11/>
+                            </wsp:Policy>
+                        </sp:KerberosToken>
+                    </wsp:Policy>
+                </sp:SupportingTokens>
+                <sp:Layout>
+                    <wsp:Policy>
+                        <sp:Strict/>
+                    </wsp:Policy>
+                </sp:Layout>
+                <sp:OnlySignEntireHeadersAndBody/>
+            </wsp:Policy>
+        </sp:SymmetricBinding>
+        <sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy/>
+        </sp:Wss11>
+    </wsp:Policy>
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://ws.kerberos.owsm.amis.nl/" schemaLocation="HelloServicePort_xsd_1.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="sayHello">
+        <part name="parameters" element="tns:sayHello"/>
+    </message>
+    <message name="sayHelloResponse">
+        <part name="parameters" element="tns:sayHelloResponse"/>
+    </message>
+    <portType name="HelloService">
+        <operation name="sayHello">
+            <input message="tns:sayHello"/>
+            <output message="tns:sayHelloResponse"/>
+        </operation>
+    </portType>
+    <binding name="HelloServicePortBinding" type="tns:HelloService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#wss11_kerberos_token_service_policy"
+             wsdl:required="false"/>
+        <operation name="sayHello">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="HelloServiceService">
+        <port name="HelloServicePort" binding="tns:HelloServicePortBinding">
+            <soap:address location="http://virtual:6001/Kerberos-KerberosHelloWS-context-root/HelloServicePort"/>
+        </port>
+    </service>
+</definitions>

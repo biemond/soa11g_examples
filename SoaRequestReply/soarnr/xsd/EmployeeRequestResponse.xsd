@@ -1,0 +1,34 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess"
+     targetNamespace="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess"
+     elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <element name="process">
+        <complexType>
+            <sequence>
+                <element name="employee">
+                    <complexType>
+                        <sequence>
+                            <element name="key" type="int"/>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="processResponse">
+        <complexType>
+            <sequence>
+                <element name="employee">
+                    <complexType>
+                        <sequence>
+                            <element name="key" type="int"/>
+                            <element name="firstName" type="string"/>
+                            <element name="lastName" type="string"/>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+</schema>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by eeko (EMBRACE) -->

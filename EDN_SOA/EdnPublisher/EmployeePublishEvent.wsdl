@@ -1,0 +1,22 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="EmployeePublishEvent"
+     targetNamespace="http://xmlns.oracle.com/SOAEDN/EdnPublisher/EmployeePublishEvent"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:inp1="http://nl.whitehorses.employee.event"
+     xmlns:tns="http://xmlns.oracle.com/SOAEDN/EdnPublisher/EmployeePublishEvent"
+    >
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://nl.whitehorses.employee.event" schemaLocation="xsd/EmployeeEvent.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="requestMessage">
+        <wsdl:part name="request" element="inp1:Employee"/>
+    </wsdl:message>
+    <wsdl:portType name="execute_ptt">
+        <wsdl:operation name="execute">
+            <wsdl:input message="tns:requestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

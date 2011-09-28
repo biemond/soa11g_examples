@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:panelGroupLayout id="pgl1" halign="center" layout="vertical">
+    <af:outputText value="Welcome" id="ot1"
+                   inlineStyle="color:Blue; font-size:x-large; font-weight:bold;"/>
+  </af:panelGroupLayout>
+</jsp:root>

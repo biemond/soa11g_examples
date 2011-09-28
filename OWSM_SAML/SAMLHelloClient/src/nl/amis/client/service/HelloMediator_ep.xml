@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle-webservice-clients xmlns:ns2="http://java.sun.com/xml/ns/javaee">
+   <webservice-client>
+      <service-qname localpart="HelloMediator_ep"
+                     namespaceURI="http://xmlns.oracle.com/Test/Hello/HelloMediator"/>
+      <port-info>
+         <wsdl-port localpart="execute_pt"
+                    namespaceURI="http://xmlns.oracle.com/Test/Hello/HelloMediator"/>
+         <runtime/>
+         <policy-references>
+            <policy-reference uri="oracle/wss_username_token_client_policy"
+                              category="security"/>
+         </policy-references>
+         <operations>
+            <operation name="execute"/>
+         </operations>
+      </port-info>
+   </webservice-client>
+</oracle-webservice-clients>

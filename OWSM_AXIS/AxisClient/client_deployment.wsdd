@@ -1,0 +1,32 @@
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <transport name="http" pivot="java:org.apache.axis.transport.http.HTTPSender"/>
+  <globalConfiguration >
+   <!-- wss10_username_token_with_message_protection -->
+   <requestFlow>
+     <handler type="java:org.apache.ws.axis.security.WSDoAllSender" >
+       <parameter name="passwordCallbackClass" value="osb.cookbook.owsm.axis.PWCallback"/>
+       <parameter name="passwordType" value="PasswordText"/>
+       <parameter name="user" value="osbbook"/>
+       <parameter name="action" value="UsernameToken Timestamp Signature Encrypt"/>
+       <parameter name="encryptionKeyTransportAlgorithm" value="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"/>
+       <parameter name="encryptionKeyIdentifier" value="DirectReference" />
+       <parameter name="encryptionPropFile" value="crypto.properties" />
+       <parameter name="encryptionUser" value="serverkey" />
+       <parameter name="encryptionParts" value="{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd}UsernameToken;{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body" />
+       <parameter name="signatureUser" value="clientkey" />
+       <parameter name="signaturePropFile" value="crypto.properties" />
+       <parameter name="signatureKeyIdentifier" value="DirectReference" />
+       <parameter name="signatureParts" value="{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd}UsernameToken;{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;{Element}{http://schemas.xmlsoap.org/soap/envelope/}Body" />
+     </handler>
+   </requestFlow>
+   <responseFlow>
+     <handler type="java:org.apache.ws.axis.security.WSDoAllReceiver">
+       <parameter name="passwordCallbackClass" value="osb.cookbook.owsm.axis.PWCallback"/>
+       <parameter name="action" value="Signature Timestamp Encrypt" />
+       <parameter name="signaturePropFile" value="crypto.properties" />
+       <parameter name="decryptionPropFile" value="crypto.properties" />
+       <parameter name="enableSignatureConfirmation"  value="false" />
+     </handler>
+   </responseFlow>
+  </globalConfiguration >
+</deployment>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="CustomerManagement" targetNamespace="http://osb-cookbook/CustomerManagement" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N2="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="http://osb-cookbook/CustomerManagement">
+<wsp:Policy wsu:Id="CustomerManagementSOAPQSPort_Fault_Policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"/>
+<wsp:Policy wsu:Id="CustomerManagementSOAPQSPort_Input_Policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+<sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+<sp:Body/>
+<sp:Header Namespace="http://www.w3.org/2005/08/addressing"/>
+<sp:Header Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing"/>
+<sp:Header Name="fmw-context" Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+</sp:SignedParts>
+<sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+<sp:Body/>
+<sp:Header Name="fmw-context" Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+</sp:EncryptedParts>
+</wsp:Policy>
+<wsp:Policy wsu:Id="CustomerManagementSOAPQSPort_Output_Policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+<sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+<sp:Body/>
+</sp:SignedParts>
+<sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+<sp:Body/>
+</sp:EncryptedParts>
+</wsp:Policy>
+<wsp:Policy orawsp:provides="{http://docs.oasis-open.org/ns/opencsa/sca/200903}authentication, {http://docs.oasis-open.org/ns/opencsa/sca/200903}clientAuthentication, {http://docs.oasis-open.org/ns/opencsa/sca/200903}clientAuthentication.message, {http://schemas.oracle.com/ws/2006/01/policy}token.usernamePassword, {http://schemas.oracle.com/ws/2006/01/policy}token.x509, {http://docs.oasis-open.org/ns/opencsa/sca/200903}integrity, {http://docs.oasis-open.org/ns/opencsa/sca/200903}integrity.message, {http://docs.oasis-open.org/ns/opencsa/sca/200903}confidentiality, {http://docs.oasis-open.org/ns/opencsa/sca/200903}confidentiality.message, {http://schemas.oracle.com/ws/2006/01/policy}messageProtection" wsu:Id="wss10_username_token_with_message_protection_service_policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+<sp:AsymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+<wsp:Policy>
+<sp:InitiatorToken>
+<wsp:Policy>
+<sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Always">
+<wsp:Policy>
+<sp:WssX509V3Token10/>
+</wsp:Policy>
+</sp:X509Token>
+</wsp:Policy>
+</sp:InitiatorToken>
+<sp:RecipientToken>
+<wsp:Policy>
+<sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Always">
+<wsp:Policy>
+<sp:WssX509V3Token10/>
+</wsp:Policy>
+</sp:X509Token>
+</wsp:Policy>
+</sp:RecipientToken>
+<sp:AlgorithmSuite>
+<wsp:Policy>
+<sp:Basic128/>
+</wsp:Policy>
+</sp:AlgorithmSuite>
+<sp:Layout>
+<wsp:Policy>
+<sp:Lax/>
+</wsp:Policy>
+</sp:Layout>
+<sp:IncludeTimestamp/>
+<sp:OnlySignEntireHeadersAndBody/>
+</wsp:Policy>
+</sp:AsymmetricBinding>
+<sp:Wss10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+<wsp:Policy/>
+</sp:Wss10>
+<sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+<wsp:Policy>
+<sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+<wsp:Policy>
+<sp:WssUsernameToken10/>
+</wsp:Policy>
+</sp:UsernameToken>
+</wsp:Policy>
+</sp:SignedSupportingTokens>
+</wsp:Policy>
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://osb-cookbook/CustomerManagement" xmlns:WL5G3N3="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:WL5G3N4="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:cus="http://osb-cookbook/customer" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://osb-cookbook/CustomerManagement" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://osb-cookbook/customer" 
+            	schemaLocation="./Customer.xsd"/>
+            <xsd:element name="FindCustomer">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ID" type="xsd:long"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="FindCustomerResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Customer" type="cus:CustomerTyp"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="FindCustomerRequest">
+        <wsdl:part name="parameters" element="WL5G3N1:FindCustomer"/>
+    </wsdl:message>
+    <wsdl:message name="FindCustomerResponse">
+        <wsdl:part name="parameters" element="WL5G3N1:FindCustomerResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="CustomerManagement">
+        <wsdl:operation name="FindCustomer">
+            <wsdl:input message="WL5G3N1:FindCustomerRequest"/>
+            <wsdl:output message="WL5G3N1:FindCustomerResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CustomerManagementSOAP" type="WL5G3N1:CustomerManagement">
+        <WL5G3N2:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      <wsp:PolicyReference URI="#wss10_username_token_with_message_protection_service_policy" wsdl:required="false" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"/>
+        <wsdl:operation name="FindCustomer">
+            <WL5G3N2:operation soapAction="http://osb-cookbook/CustomerManagement/FindCustomer"/>
+            <wsdl:input>
+                <WL5G3N2:body use="literal"/>
+      <wsp:PolicyReference URI="#CustomerManagementSOAPQSPort_Input_Policy" wsdl:required="false" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"/>
+            </wsdl:input>
+            <wsdl:output>
+                <WL5G3N2:body use="literal"/>
+      <wsp:PolicyReference URI="#CustomerManagementSOAPQSPort_Output_Policy" wsdl:required="false" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CustomerManagementSOAPQSService">
+        <wsdl:port name="CustomerManagementSOAPQSPort" binding="WL5G3N1:CustomerManagementSOAP">
+            <WL5G3N2:address location="http://SOAPS3.alfa.local:8011/01_Securing-an-OSB-service/proxy/Customer"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

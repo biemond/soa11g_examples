@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1" title="Tasks">
+      <af:form id="f1">
+        <af:pageTemplate viewId="/oracle/ui/pattern/dynamicShell/dynamicTabShell.jspx"
+                         value="#{bindings.pageTemplateBinding}" id="pt1">
+          <f:facet name="copyright">
+            <af:outputText value="Copyrights 2011" id="ot1"/>
+          </f:facet>
+          <f:facet name="navigation">
+              <af:panelGroupLayout id="pgl1"
+                                   inlineStyle="width:375px; height:650.0px;">
+              <af:region value="#{bindings.tasks1.regionModel}" id="r2"/>
+            </af:panelGroupLayout>
+          </f:facet>
+          <f:facet name="globalLinks"/>
+          <f:facet name="status"/>
+          <f:facet name="globalToolbar"/>
+          <f:facet name="globalSearch"/>
+          <f:facet name="globalTabs">
+            <af:navigationPane id="np1">
+              <af:commandNavigationItem text="Tasks"
+                                        id="cni1" action="tasks"
+                                        selected="true"/>
+            </af:navigationPane>
+          </f:facet>
+          <f:facet name="welcome">
+            <af:region value="#{bindings.welcome1.regionModel}" id="r1"/>
+          </f:facet>
+          <f:facet name="innerToolbar"/>
+          <f:attribute name="navSplitterPosition" value="400"/>
+          <f:attribute name="legalAreaPosition" value="20"/>
+          <f:attribute name="brandingTitle" value="Tasks"/>
+          <f:attribute name="headerSplitterPosition" value="60"/>
+        </af:pageTemplate>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

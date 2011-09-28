@@ -1,0 +1,31 @@
+<wsdl:definitions
+     name="JmsRequestResponseSync"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/jms/SoaRequestReply/soarnr/JmsRequestResponseSync"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/jms/SoaRequestReply/soarnr/JmsRequestResponseSync"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:msg_in_out="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+    >
+  <plt:partnerLinkType name="Request_Reply_plt" >
+    <plt:role name="Request_Reply_role" >
+      <plt:portType name="tns:Request_Reply_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess" schemaLocation="xsd/EmployeeRequestResponse.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="Request_Reply_msg_in">
+        <wsdl:part name="process" element="msg_in_out:process"/>
+    </wsdl:message>
+    <wsdl:message name="Request_Reply_msg_out">
+        <wsdl:part name="processResponse" element="msg_in_out:processResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="Request_Reply_ptt">
+        <wsdl:operation name="Request_Reply">
+            <wsdl:input message="tns:Request_Reply_msg_in"/>
+            <wsdl:output message="tns:Request_Reply_msg_out"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
