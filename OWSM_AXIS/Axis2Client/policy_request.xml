@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<wsp:Policy wsu:Id="CustomerManagementSOAPQSPort_Input_Policy"
+            xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+            xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+    <wsp:ExactlyOne>
+        <wsp:All>
+
+            <sp:AsymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+                <wsp:Policy>
+                    <sp:InitiatorToken>
+                        <wsp:Policy>
+                            <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Always">
+                                <wsp:Policy>
+                                    <sp:WssX509V3Token10/>
+                                </wsp:Policy>
+                            </sp:X509Token>
+                        </wsp:Policy>
+                    </sp:InitiatorToken>
+                    <sp:RecipientToken>
+                        <wsp:Policy>
+                            <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Always">
+                                <wsp:Policy>
+                                    <sp:WssX509V3Token10/>
+                                </wsp:Policy>
+                            </sp:X509Token>
+                        </wsp:Policy>
+                    </sp:RecipientToken>
+                    <sp:AlgorithmSuite>
+                        <wsp:Policy>
+                            <sp:Basic128/>
+                        </wsp:Policy>
+                    </sp:AlgorithmSuite>
+                    <sp:Layout>
+                        <wsp:Policy>
+                            <sp:Lax/>
+                        </wsp:Policy>
+                    </sp:Layout>
+                    <sp:IncludeTimestamp/>
+                    <sp:OnlySignEntireHeadersAndBody/>
+                </wsp:Policy>
+            </sp:AsymmetricBinding>
+
+            <sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+                <wsp:Policy>
+                    <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                        <wsp:Policy>
+                            <sp:WssUsernameToken10/>
+                        </wsp:Policy>
+                    </sp:UsernameToken>
+                </wsp:Policy>
+            </sp:SignedSupportingTokens>
+  
+            <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+                <sp:Body/>
+                <sp:Header Namespace="http://www.w3.org/2005/08/addressing"/>
+                <sp:Header Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing"/>
+                <sp:Header Name="fmw-context"
+                           Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+            </sp:SignedParts>
+   
+            <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+                <sp:Body/>
+                <sp:Header Name="fmw-context"
+                           Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+            </sp:EncryptedParts>
+	
+  		<ramp:RampartConfig xmlns:ramp="http://ws.apache.org/rampart/policy"> 
+				<ramp:user>osbbook</ramp:user>
+				<ramp:encryptionUser>serverKey</ramp:encryptionUser>
+				<ramp:userCertAlias>clientkey</ramp:userCertAlias>
+				<ramp:passwordCallbackClass>osb.cookbook.owsm.axis.PWCallback</ramp:passwordCallbackClass>
+				<ramp:signatureCrypto>
+					<ramp:crypto provider="org.apache.ws.security.components.crypto.Merlin">
+						<ramp:property name="org.apache.ws.security.crypto.merlin.keystore.type">JKS</ramp:property>
+						<ramp:property name="org.apache.ws.security.crypto.merlin.file">c:/oracle/client_2.jks</ramp:property>
+						<ramp:property name="org.apache.ws.security.crypto.merlin.keystore.password">welcome</ramp:property>
+					</ramp:crypto>
+				</ramp:signatureCrypto>
+				<ramp:encryptionCypto>
+					<ramp:crypto provider="org.apache.ws.security.components.crypto.Merlin">
+						<ramp:property name="org.apache.ws.security.crypto.merlin.keystore.type">JKS</ramp:property>
+						<ramp:property name="org.apache.ws.security.crypto.merlin.file">c:/oracle/client_2.jks</ramp:property>
+						<ramp:property name="org.apache.ws.security.crypto.merlin.keystore.password">welcome</ramp:property>
+					</ramp:crypto>
+				</ramp:encryptionCypto>
+			</ramp:RampartConfig>
+        </wsp:All>
+    </wsp:ExactlyOne>
+</wsp:Policy>

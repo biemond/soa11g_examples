@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://osb-cookbook/customer" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:tns="http://osb-cookbook/customer" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:credit="http://osb-cookbook/creditcard">
+	<xs:import namespace="http://osb-cookbook/creditcard" schemaLocation="./CreditCard.xsd"/>
+	<xs:element name="Customer" type="tns:CustomerTyp"/>
+	<xs:complexType name="CustomerTyp">
+		<xs:sequence>
+			<xs:element name="ID" type="xs:long"/>
+			<xs:element name="FirstName" type="xs:string"/>
+			<xs:element name="LastName" type="xs:string"/>
+			<xs:element name="EmailAddress" type="xs:string"/>
+			<xs:element name="Addresses" type="tns:AddressesTyp"/>
+			<xs:element name="BirthDate" type="xs:date"/>
+			<xs:element name="Rating" type="tns:RatingTyp"/>
+			<xs:element name="Gender" type="xs:string"/>
+			<xs:element name="CreditCard" type="credit:CreditCardTyp"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AddressesTyp">
+		<xs:sequence>
+			<xs:element name="Address" type="tns:AddressTyp" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AddressTyp">
+		<xs:sequence>
+			<xs:element name="Street" type="xs:string"/>
+			<xs:element name="PostalCode" type="xs:string"/>
+			<xs:element name="City" type="xs:string"/>
+			<xs:element name="Country" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="RatingTyp">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="AA"/>
+			<xs:enumeration value="AAA"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
