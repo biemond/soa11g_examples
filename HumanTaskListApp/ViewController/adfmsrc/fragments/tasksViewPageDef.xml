@@ -16,8 +16,10 @@
                   IsViewObjectMethod="false" DataControl="HumanTaskClient"
                   InstanceName="HumanTaskClient.dataProvider"
                   ReturnName="HumanTaskClient.methodResults.getHumanTasks_HumanTaskClient_dataProvider_getHumanTasks_result">
-      <NamedData NDName="user" NDValue="#{pageFlowScope.inputUser}" NDType="java.lang.String"/>
-      <NamedData NDName="noOfRecords" NDValue="50" NDType="int"/>
+      <NamedData NDName="user" NDValue="#{pageFlowScope.TaskBean.username}" 
+                 NDType="java.lang.String"/>
+      <NamedData NDName="noOfRecords"
+                 NDValue="#{pageFlowScope.TaskBean.maxRows}" NDType="int"/>
     </methodAction>
     <tree IterBinding="getHumanTasksIterator" id="FcTask">
       <nodeDefinition DefName="nl.whitehorses.fcforms.tasks.entities.FcTask"
@@ -50,7 +52,7 @@
                   IsViewObjectMethod="false" DataControl="HumanTaskClient"
                   InstanceName="HumanTaskClient.dataProvider">
       <NamedData NDName="taskId" NDValue="#{bindings.getHumanTasksIterator.currentRow.dataProvider.taskId}" NDType="java.lang.String"/>
-      <NamedData NDName="user" NDValue="#{pageFlowScope.inputUser}" NDType="java.lang.String"/>
+      <NamedData NDName="user" NDValue="#{pageFlowScope.TaskBean.username}" NDType="java.lang.String"/>
       <NamedData NDName="isAllowedToBeAcquiredByUser" NDValue="true"
                  NDType="boolean"/>
     </methodAction>
@@ -61,7 +63,7 @@
       <NamedData NDName="taskId"
                  NDValue="#{bindings.getHumanTasksIterator.currentRow.dataProvider.taskId}" NDType="java.lang.String"/>
       <NamedData NDName="outcome" NDValue="APPROVE" NDType="java.lang.String"/>
-      <NamedData NDName="user" NDValue="#{pageFlowScope.inputUser}" NDType="java.lang.String"/>
+      <NamedData NDName="user" NDValue="#{pageFlowScope.TaskBean.username}" NDType="java.lang.String"/>
       <NamedData NDName="comment" NDValue="OK" NDType="java.lang.String"/>
     </methodAction>
     <methodAction id="rejectTask" RequiresUpdateModel="true"
@@ -70,7 +72,7 @@
                   InstanceName="HumanTaskClient.dataProvider">
       <NamedData NDName="taskId" NDValue="#{bindings.getHumanTasksIterator.currentRow.dataProvider.taskId}" NDType="java.lang.String"/>
       <NamedData NDName="outcome" NDValue="REJECT" NDType="java.lang.String"/>
-      <NamedData NDName="user" NDValue="#{pageFlowScope.inputUser}" NDType="java.lang.String"/>
+      <NamedData NDName="user" NDValue="#{pageFlowScope.TaskBean.username}" NDType="java.lang.String"/>
       <NamedData NDName="comment" NDValue="OK" NDType="java.lang.String"/>
     </methodAction>
     <methodAction id="fireTaskEvent" InstanceName="ContextEvents.dataProvider"

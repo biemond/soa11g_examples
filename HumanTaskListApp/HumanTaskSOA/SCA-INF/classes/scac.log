@@ -1,0 +1,2 @@
+[WARN ][jrockit] PermSize=32m ignored: Not a valid option for JRockit
+[WARN ][jrockit] MaxPermSize=256m ignored: Not a valid option for JRockit

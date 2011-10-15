@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adf-config xmlns="http://xmlns.oracle.com/adf/config"
+            xmlns:adf="http://xmlns.oracle.com/adf/config/properties"
+            xmlns:sec="http://xmlns.oracle.com/adf/security/config">
+  <adf:adf-properties-child xmlns="http://xmlns.oracle.com/adf/config/properties">
+    <adf-property name="adfAppUID"
+                  value="FCFormsShell.nl.whitehorses.fcforms.shell"/>
+  </adf:adf-properties-child>
+  <sec:adf-security-child xmlns="http://xmlns.oracle.com/adf/security/config">
+    <CredentialStoreContext credentialStoreClass="oracle.adf.share.security.providers.jps.CSFCredentialStore"
+                            credentialStoreLocation="./jps-config.xml"/>
+  </sec:adf-security-child>
+  <adf-mds-config xmlns="http://xmlns.oracle.com/adf/mds/config">
+    <mds-config xmlns="http://xmlns.oracle.com/mds/config">
+      <persistence-config>
+        <metadata-namespaces/>
+        <metadata-store-usages/>
+      </persistence-config>
+    </mds-config>
+  </adf-mds-config>
+</adf-config>

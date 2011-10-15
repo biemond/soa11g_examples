@@ -3,16 +3,39 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
           xmlns:f="http://java.sun.com/jsf/core">
         <af:panelGroupLayout id="pgl1">
-          <af:toolbar id="t2" styleClass="AFStretchWidth">
-      <af:commandButton actionListener="#{TaskBean.acquire}"
+    <af:panelFormLayout id="pfl2">
+    <af:inputText label="Task user"
+                        value="#{pageFlowScope.TaskBean.username}"
+                        id="it1" autoSubmit="true"
+                        valueChangeListener="#{pageFlowScope.TaskBean.humanTaskChanged}"/>
+    <af:selectOneChoice label="Maximum Rows"
+                        value="#{pageFlowScope.TaskBean.maxRows}"
+                        valueChangeListener="#{pageFlowScope.TaskBean.humanTaskChanged}"
+                        id="soc1" autoSubmit="true">
+      <af:selectItem label="All" value="0" id="si4"/>
+      <af:selectItem label="20" value="20" id="si3"/>
+      <af:selectItem label="50" value="50" id="si2"/>
+      <af:selectItem label="100" value="100" id="si1"/>
+    </af:selectOneChoice>
+    <af:selectOneChoice label="Order By"
+                        valueChangeListener="#{pageFlowScope.TaskBean.humanTaskChanged}"
+                        id="soc2" autoSubmit="true">
+      <af:selectItem label="Priority, Id" value="PRIO" id="si40"/>
+      <af:selectItem label="Id" value="ID" id="si30"/>
+      <af:selectItem label="Escalation Desc" value="ESC_DESC" id="si20"/>
+      <af:selectItem label="Escalation Asc"  value="ESC_ASC" id="si10"/>
+    </af:selectOneChoice>
+    </af:panelFormLayout>
+    <af:toolbar id="t2" styleClass="AFStretchWidth">
+               <af:commandButton actionListener="#{pageFlowScope.TaskBean.acquire}"
                         text="Acquire" id="cbAcquire"/>
-      <af:commandButton actionListener="#{TaskBean.approve}"
+               <af:commandButton actionListener="#{pageFlowScope.TaskBean.approve}"
                         text="Approve" id="cbComplete"/>
-      <af:commandButton actionListener="#{TaskBean.reject}"
+               <af:commandButton actionListener="#{pageFlowScope.TaskBean.reject}"
                         text="Reject" id="cbReject"/>
-      <af:commandButton text="Refresh" id="cbRefresh"
+               <af:commandButton text="Refresh" id="cbRefresh"
                               actionListener="#{bindings.getHumanTasks.execute}"/>
-    </af:toolbar>
+          </af:toolbar>
           <af:spacer width="10" height="10" id="s1"/>
           <af:table value="#{bindings.FcTask.collectionModel}" var="row"
                     rows="#{bindings.FcTask.rangeSize}"
@@ -28,7 +51,7 @@
                        headerText="#{bindings.FcTask.hints.taskNumber.label}"
                        id="c10">
               <af:commandLink text="#{row.taskNumber}"
-                              id="cl1" actionListener="#{TaskBean.showTask}">
+                              id="cl1" actionListener="#{pageFlowScope.TaskBean.showTask}">
                 <af:setPropertyListener from="#{row.taskId}"
                                         to="#{pageFlowScope.taskId}"
                                         type="action"/>

@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
+import javax.faces.event.ValueChangeEvent;
+
 import nl.whitehorses.fcforms.tasks.entities.FcTask;
 
 import oracle.adf.controller.ControllerContext;
@@ -28,6 +30,10 @@ public class TaskBean {
 
     public TaskBean() {
     }
+
+    private String  username = "weblogic";
+    private Long    maxRows = 50L;
+
 
     public void acquire(ActionEvent actionEvent) {
         // Add event code here...
@@ -83,4 +89,31 @@ public class TaskBean {
         
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void humanTaskChanged(ValueChangeEvent valueChangeEvent) {
+
+        // Add event code here...
+        BindingContainer bindings =
+            BindingContext.getCurrent().getCurrentBindingsEntry();
+
+        OperationBinding method2 = bindings.getOperationBinding("getHumanTasks");
+        method2.execute();
+
+    }
+
+
+    public void setMaxRows(Long maxRows) {
+        this.maxRows = maxRows;
+    }
+
+    public Long getMaxRows() {
+        return maxRows;
+    }
 }

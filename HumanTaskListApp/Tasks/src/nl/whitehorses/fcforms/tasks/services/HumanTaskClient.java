@@ -27,9 +27,9 @@ public class HumanTaskClient {
     private static final Log logger = LogFactory.getLog(HumanTaskClient.class);
 
     /**
-     * Maximum aantal taken dat in één keer verwerkt mag worden door BPEL PM.
+     * Maximum aantal taken dat in ï¿½ï¿½n keer verwerkt mag worden door BPEL PM.
      */
-    private static final int MAXIMUM_NUMBER_OF_TASKS = 25;
+    private static final int MAXIMUM_NUMBER_OF_TASKS = 200;
 
     /**
      *
@@ -56,19 +56,13 @@ public class HumanTaskClient {
 
         long startTime = System.currentTimeMillis();
         noOfRecords =
-                (noOfRecords == -1 ? MAXIMUM_NUMBER_OF_TASKS : noOfRecords);
+                (noOfRecords == 0 ? MAXIMUM_NUMBER_OF_TASKS : noOfRecords);
 
+        logger.info("[START] getHumanTasks()");
 
-        logger.debug("[START] getHumanTasks()");
-
-        logger.debug("\t" + "User: " + user);
-        logger.debug("\t" + "Number of records: " + noOfRecords);
-
-        System.out.println("[START] getHumanTasks()");
-
-        System.out.println("\t" + "User: " + user);
-        System.out.println("\t" + "Number of records: " + noOfRecords);
-
+        logger.info("\t" + "User: " + user);
+        logger.info("\t" + "Number of records: " + noOfRecords);
+        System.out.println("Number of records: " + noOfRecords);
 
         validateUser(user, false);
 

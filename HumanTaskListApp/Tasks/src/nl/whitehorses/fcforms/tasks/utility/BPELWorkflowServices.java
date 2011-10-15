@@ -1,10 +1,14 @@
 package nl.whitehorses.fcforms.tasks.utility;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import nl.whitehorses.fcforms.tasks.exceptions.InvalidTaskStateException;
@@ -21,6 +25,7 @@ import oracle.bpel.services.workflow.client.config.RemoteClientType;
 import oracle.bpel.services.workflow.client.config.ServerType;
 import oracle.bpel.services.workflow.client.config.WorkflowServicesClientConfigurationType;
 import oracle.bpel.services.workflow.query.ITaskQueryService;
+import oracle.bpel.services.workflow.repos.Predicate;
 import oracle.bpel.services.workflow.repos.Ordering;
 import oracle.bpel.services.workflow.repos.TableConstants;
 import oracle.bpel.services.workflow.task.ITaskAssignee;
@@ -54,14 +59,14 @@ public class BPELWorkflowServices {
         Logger.getLogger(BPELWorkflowServices.class.getName());
 
     private String wlsserver = "HumanWorkFlow";
-    private String soaserver = System.getProperty("humantask.url");
-    private String wsurl = "http://" + soaserver;
-    private String t3url = "t3://" + soaserver;
+    private String soaserver = null;
+    private String wsurl = null;
+    private String t3url = null;
     private String contextFactory = "weblogic.jndi.WLInitialContextFactory";
 
     private String identityDomain = "jazn.com";
-    private String identityUsername = System.getProperty("humantask.user");
-    private String identityPassword = System.getProperty("humantask.password");
+    private String identityUsername = null;
+    private String identityPassword = null;
     private IWorkflowContext context = null;
 
     /**
@@ -76,8 +81,43 @@ public class BPELWorkflowServices {
     public BPELWorkflowServices() {
 
         // Retrieve Workflow service client
-        logger.debug("[START] BPELWorkflowServices");
+        logger.info("[START] BPELWorkflowServices");
 
+        Properties defaultProps = new Properties();
+        InputStream in;
+        try {
+            logger.info("load soa.properties");
+            in = this.getClass().getResourceAsStream ("/soa.properties");
+            defaultProps.load(in);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if ( defaultProps.containsKey("soaserver") ){
+          logger.info("found soaserver: " + defaultProps.getProperty("soaserver"));
+          soaserver = defaultProps.getProperty("soaserver");              
+        } else {
+          logger.info("try to find -Dhumantask.url");
+          soaserver = System.getProperty("humantask.url");
+        }
+
+        wsurl = "http://" + soaserver;
+        t3url = "t3://" + soaserver;
+
+        if ( defaultProps.containsKey("humantask.user") ){
+          logger.info("found user: " + defaultProps.getProperty("humantask.user"));
+          identityUsername = defaultProps.getProperty("humantask.user");              
+        } else {
+          identityUsername = System.getProperty("humantask.user");
+        }
+
+        if ( defaultProps.containsKey("humantask.password") ){
+          logger.info("found password: " + defaultProps.getProperty("humantask.password"));
+          identityPassword = defaultProps.getProperty("humantask.password");              
+        } else {
+          identityPassword = System.getProperty("humantask.password");
+        }
 
         try {
             WorkflowServicesClientConfigurationType wscct =
@@ -242,23 +282,39 @@ public class BPELWorkflowServices {
         correctStates.add(IWorkflowConstants.TASK_STATE_ASSIGNED);
         correctStates.add(IWorkflowConstants.TASK_STATE_INFO_REQUESTED);
         correctStates.add(IWorkflowConstants.TASK_STATE_OUTCOME_UPDATED);
-    //   correctStates.add(IWorkflowConstants.TASK_STATE_SUSPENDED);
 
+       Predicate predicate =
+           new Predicate(TableConstants.WFTASK_STATE_COLUMN, 
+                         Predicate.OP_IN,
+                         correctStates);
+
+        predicate.addClause(Predicate.AND,
+                            TableConstants.WFTASK_STATE_COLUMN,
+                            Predicate.OP_NEQ,
+                            IWorkflowConstants.TASK_STATE_STALE);
 
         // Ordering
-        Ordering ordering =
-            new Ordering( TableConstants.WFTASK_STATE_COLUMN,
-                           true,
-                           false);
+        Ordering taskOrdering = null;
+        logger.info("set the default Priority / EscalationDate Ordering");
+        // default PRIORITY + taskNummer
+        taskOrdering = new Ordering(TableConstants.WFTASK_PRIORITY_COLUMN, true,false); 
+        taskOrdering.addClause(TableConstants.WFTASK_TASKNUMBER_COLUMN, true,false);
 
-        ordering.addClause(TableConstants.WFTASK_TASKNUMBER_COLUMN,
-                           false,
-                           true);
+//       if (TASK_ORDERING.ESCALATION_DATE.equals(ordering) ) { 
+//           taskOrdering = new Ordering(TableConstants.WFTASK_TASKNUMBER_COLUMN, false,true);
+//       } else if (TASK_ORDERING.ID_DESC.equals(ordering) ) {
+//           taskOrdering = new Ordering(TableConstants.WFTASK_EXPIRATIONDATE_COLUMN, false, false);
+//       }  else if (TASK_ORDERING.ID_ASC.equals(ordering) ) {
+//           taskOrdering = new Ordering(TableConstants.WFTASK_EXPIRATIONDATE_COLUMN, true, false);
+//       } 
+
+   
 
         List<ITaskQueryService.OptionalInfo> optionalInfo = new ArrayList<ITaskQueryService.OptionalInfo>();
         optionalInfo.add(ITaskQueryService.OptionalInfo.CUSTOM_ACTIONS);
         optionalInfo.add(ITaskQueryService.OptionalInfo.COMMENTS);
         optionalInfo.add(ITaskQueryService.OptionalInfo.PAYLOAD);
+        optionalInfo.add(ITaskQueryService.OptionalInfo.DISPLAY_INFO);
 
         List<Task> tasks =
             getTaskQueryService().queryTasks(context, 
@@ -266,10 +322,10 @@ public class BPELWorkflowServices {
                                              optionalInfo,
                                              ITaskQueryService.AssignmentFilter.MY_AND_GROUP,
                                              null, 
-                                             null, 
-                                             ordering,
+                                             predicate, 
+                                             taskOrdering,
                                              0,
-                                             0);
+                                             noOfRecords);
 
         logger.debug("[EINDE] queryTasks()");
 
