@@ -230,6 +230,9 @@ public class BPELWorkflowServices {
         queryColumns.add(TableConstants.WFTASK_TEXTATTRIBUTE1_COLUMN.getName());
         queryColumns.add(TableConstants.WFTASK_TEXTATTRIBUTE2_COLUMN.getName());
         queryColumns.add(TableConstants.WFTASK_TEXTATTRIBUTE3_COLUMN.getName());
+        queryColumns.add(TableConstants.WFTASK_TEXTATTRIBUTE4_COLUMN.getName());
+        queryColumns.add(TableConstants.WFTASK_URLATTRIBUTE1_COLUMN.getName());
+        queryColumns.add(TableConstants.WFTASK_URLATTRIBUTE2_COLUMN.getName());
 
 
         // Correcte status teruggeven

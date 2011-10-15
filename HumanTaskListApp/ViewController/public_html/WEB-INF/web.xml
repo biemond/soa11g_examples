@@ -17,6 +17,14 @@
     <param-value>false</param-value>
   </context-param>
   <filter>
+    <filter-name>JpsFilter</filter-name>
+    <filter-class>oracle.security.jps.ee.http.JpsFilter</filter-class>
+    <init-param>
+      <param-name>enable.anonymous</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter>
     <filter-name>trinidad</filter-name>
     <filter-class>org.apache.myfaces.trinidad.webapp.TrinidadFilter</filter-class>
   </filter>
@@ -28,6 +36,13 @@
     <filter-name>ADFLibraryFilter</filter-name>
     <filter-class>oracle.adf.library.webapp.LibraryFilter</filter-class>
   </filter>
+  <filter-mapping>
+    <filter-name>JpsFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+  </filter-mapping>
   <filter-mapping>
     <filter-name>trinidad</filter-name>
     <servlet-name>Faces Servlet</servlet-name>

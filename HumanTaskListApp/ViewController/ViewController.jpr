@@ -261,7 +261,7 @@
       <hash n="runConfigurationDefinitions">
          <hash n="Default">
             <value n="custom" v="false"/>
-            <value n="javaOptions" v="-Dhumantask.url=xp-vm:8001 -Dhumantask.user=weblogic -Dhumantask.password=weblogic1"/>
+            <value n="javaOptions" v="-Dhumantask.url=soaps3.alfa.local:8001 -Dhumantask.user=weblogic -Dhumantask.password=weblogic1"/>
             <value n="name" v="Default"/>
          </hash>
       </hash>
@@ -375,6 +375,10 @@
             <value n="id" v="ADF DVT Faces Databinding MDS Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="JPS Designtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <list n="libraryReferences">
          <hash>
@@ -479,6 +483,10 @@
          </hash>
          <hash>
             <value n="id" v="ADF DVT Faces Databinding MDS Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="JPS Designtime"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>

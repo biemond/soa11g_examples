@@ -73,5 +73,20 @@
       <NamedData NDName="user" NDValue="#{pageFlowScope.inputUser}" NDType="java.lang.String"/>
       <NamedData NDName="comment" NDValue="OK" NDType="java.lang.String"/>
     </methodAction>
+    <methodAction id="fireTaskEvent" InstanceName="ContextEvents.dataProvider"
+                  DataControl="ContextEvents" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="fireTaskEvent"
+                  IsViewObjectMethod="false"
+                  ReturnName="data.ContextEvents.methodResults.fireTaskEvent_ContextEvents_dataProvider_fireTaskEvent_result">
+      <NamedData NDName="taskId" NDValue="" NDType="java.lang.String"/>
+      <NamedData NDName="task"
+                 NDType="nl.whitehorses.fcforms.tasks.entities.FcTask"/>
+      <events xmlns="http://xmlns.oracle.com/adfm/contextualEvent">
+        <event name="taskEvent"/>
+      </events>
+    </methodAction>
   </bindings>
+  <events xmlns="http://xmlns.oracle.com/adfm/contextualEvent">
+    <event name="taskEvent"/>
+  </events>
 </pageDefinition>

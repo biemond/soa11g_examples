@@ -6,11 +6,16 @@ import javax.faces.event.ActionEvent;
 
 import nl.whitehorses.fcforms.tasks.entities.FcTask;
 
+import oracle.adf.controller.ControllerContext;
+import oracle.adf.controller.internal.binding.DCTaskFlowBinding;
 import oracle.adf.model.BindingContext;
 import oracle.adf.model.bean.DCDataRow;
 
+import oracle.adf.model.binding.DCBindingContainer;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
+import oracle.adfinternal.controller.state.ChildViewPortContextImpl;
+import oracle.adfinternal.controller.state.RootViewPortContextImpl;
 import oracle.adfinternal.view.faces.model.binding.FacesCtrlHierNodeBinding;
 
 import oracle.binding.BindingContainer;
@@ -68,8 +73,14 @@ public class TaskBean {
         Row row = rowData.getRow();  
         FcTask task = (FcTask)((DCDataRow)row).getDataProvider() ;  
         
+        // get the binding container  
+        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding method = bindings.getOperationBinding("fireTaskEvent");  
+        Map paramsMap = method.getParamsMap();  
+        paramsMap.put("taskId",taskId)  ;        
+        paramsMap.put("task"  ,task)  ;        
+        method.execute();  
         
     }
 
-    
 }

@@ -25,6 +25,7 @@ public class TaskConvertor {
         new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
     public FcTask convertTask(Task task) {
+
         FcTask fcTask = new FcTask();
         SystemAttributesType systemAttributes = task.getSystemAttributes();
         fcTask.setTaskId(task.getSystemAttributes().getTaskId());
@@ -37,12 +38,13 @@ public class TaskConvertor {
         fcTask.setProcessName(task.getProcessInfo().getProcessName());
         fcTask.setProcessVersion(task.getProcessInfo().getProcessVersion());
         fcTask.setTitle(task.getTitle());
+
         fcTask.setCreated(systemAttributes.getCreatedDate());
         fcTask.setState(task.getSystemAttributes().getState());
         fcTask.setOutcome( task.getSystemAttributes().getOutcome());
-        fcTask.setUrl(task.getSystemMessageAttributes().getUrlAttribute1());
 
-        fcTask.setText1(task.getSystemMessageAttributes().getTextAttribute1());//task.getSystemMessageAttributes().getTextAttribute1());
+        fcTask.setUrl(task.getSystemMessageAttributes().getUrlAttribute1());
+        fcTask.setText1(task.getSystemMessageAttributes().getTextAttribute1());
         fcTask.setText2(task.getSystemMessageAttributes().getTextAttribute2());
         fcTask.setText3(task.getSystemMessageAttributes().getTextAttribute3());
 

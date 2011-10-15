@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataControlConfigs xmlns="http://xmlns.oracle.com/adfm/configuration"
+                    version="11.1.1.59.23" id="DataControls"
+                    Package="nl.whitehorses.fcforms.shell.view">
+  <AdapterDataControl id="ContextEvents"
+                      FactoryClass="oracle.adf.model.adapter.DataControlFactoryImpl"
+                      ImplDef="oracle.adf.model.adapter.bean.BeanDefinition"
+                      SupportsTransactions="false" SupportsSortCollection="true"
+                      SupportsResetState="false" SupportsRangesize="false"
+                      SupportsFindMode="false" SupportsUpdates="true"
+                      Definition="nl.whitehorses.fcforms.shell.datacontrols.ContextEvents"
+                      BeanClass="nl.whitehorses.fcforms.shell.datacontrols.ContextEvents"
+                      xmlns="http://xmlns.oracle.com/adfm/datacontrol">
+    <CreatableTypes>
+      <TypeInfo FullName="nl.whitehorses.fcforms.tasks.entities.FcTask"/>
+      <TypeInfo FullName="nl.whitehorses.fcforms.shell.datacontrols.ContextEvents"/>
+    </CreatableTypes>
+    <Source>
+      <bean-definition BeanClass="nl.whitehorses.fcforms.shell.datacontrols.ContextEvents"
+                       xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
+    </Source>
+  </AdapterDataControl>
+</DataControlConfigs>

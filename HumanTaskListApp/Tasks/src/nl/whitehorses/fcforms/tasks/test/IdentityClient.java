@@ -37,7 +37,7 @@ public class IdentityClient {
 
     private static Logger logger2 = Logger.getLogger(IdentityClient.class.getName());
 
-    private String soaserver      = "xp-vm";
+    private String soaserver      = "soaps3.alfa.local";
     private String soaserver_port = "8001";
     private String wsurl          = "http://"+soaserver+":"+soaserver_port;
 

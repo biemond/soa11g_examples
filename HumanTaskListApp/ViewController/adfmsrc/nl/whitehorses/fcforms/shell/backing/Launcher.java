@@ -3,8 +3,6 @@ package nl.whitehorses.fcforms.shell.backing;
 import java.util.HashMap;
 import java.util.Map;
 
-import java.util.Random;
-
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
@@ -25,7 +23,7 @@ public class Launcher
 
 // change me with real values
         if ( task.getUrl() == null) {
-          parameterMap.put("inputIframeUrl","http://www.whitehorses.nl");
+          parameterMap.put("inputIframeUrl","http://www.amis.nl");
         } else {
             parameterMap.put("inputIframeUrl",task.getUrl());   
         }

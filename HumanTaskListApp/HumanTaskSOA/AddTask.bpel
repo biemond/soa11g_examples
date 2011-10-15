@@ -1,0 +1,209 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Fri Oct 14 21:11:03 CEST 2011
+  Author:  admin
+  Type: BPEL 2.0 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="AddTask"
+               targetNamespace="http://xmlns.oracle.com/FCFormsShell/HumanTaskSOA/AddTask"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/FCFormsShell/HumanTaskSOA/AddTask"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:ns1="http://www.amis.nl/humantask"
+         xmlns:task="http://xmlns.oracle.com/bpel/workflow/task"
+         xmlns:taskservice="http://xmlns.oracle.com/bpel/workflow/taskService"
+         xmlns:wfcommon="http://xmlns.oracle.com/bpel/workflow/common"
+         xmlns:ns2="http://xmlns.oracle.com/bpel/workflow/TaskEvidenceService"
+         xmlns:wf="http://schemas.oracle.com/bpel/extensions/workflow"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns3="http://xmlns.oracle.com/bpel/workflow/routingSlip">
+
+  <import namespace="http://xmlns.oracle.com/FCFormsShell/HumanTaskSOA/AddTask" location="AddTask.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="addtask_client" partnerLinkType="client:AddTask" myRole="AddTaskProvider"/>
+    <partnerLink name="Humantask.TaskService_1"
+                 partnerLinkType="taskservice:TaskService"
+                 partnerRole="TaskService"
+                 myRole="TaskServiceCallbackListener"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:AddTaskRequestMessage"/>
+    <variable name="Humantask1_globalVariable"
+              messageType="taskservice:taskMessage"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in AddTask.wsdl) -->
+    <receive name="receiveInput" partnerLink="addtask_client" portType="client:AddTask" operation="process" variable="inputVariable" createInstance="yes"/>
+    <scope name="Humantask1"
+           xmlns:wf="http://schemas.oracle.com/bpel/extensions/workflow"
+           wf:key="Humantask1_globalVariable">
+      <bpelx:annotation>
+        <bpelx:pattern patternName="bpelx:workflow"/>
+      </bpelx:annotation>
+      <variables>
+        <variable name="initiateTaskInput"
+                  messageType="taskservice:initiateTaskMessage"/>
+        <variable name="initiateTaskResponseMessage"
+                  messageType="taskservice:initiateTaskResponseMessage"/>
+      </variables>
+      <sequence>
+        <assign name="Humantask1_AssignTaskAttributes">
+          <copy>
+            <from>string('TaskDemo')</from>
+            <to>$initiateTaskInput.payload/task:task/task:title</to>
+          </copy>
+          <copy>
+            <from>number(3)</from>
+            <to>$initiateTaskInput.payload/task:task/task:priority</to>
+          </copy>
+          <copy>
+            <from>string('weblogic')</from>
+            <to>$initiateTaskInput.payload/task:task/task:ownerUser</to>
+          </copy>
+          <copy>
+            <from>string('TaskDemo')</from>
+            <to>$initiateTaskInput.payload/task:task/task:title</to>
+          </copy>
+          <copy>
+            <from>number(3)</from>
+            <to>$initiateTaskInput.payload/task:task/task:priority</to>
+          </copy>
+          <copy>
+            <from>string('weblogic')</from>
+            <to>$initiateTaskInput.payload/task:task/task:ownerUser</to>
+          </copy>
+          <copy>
+            <from><literal><payload xmlns="http://xmlns.oracle.com/bpel/workflow/task">
+	<Task xmlns="http://www.amis.nl/humantask"/> 
+</payload></literal></from>
+            <to>$initiateTaskInput.payload/task:task/task:payload</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload</from>
+            <to>$initiateTaskInput.payload/task:task/task:payload/ns1:Task</to>
+          </copy>
+        </assign>
+        <assign name="AssignCustom">
+          <copy>
+            <from>$inputVariable.payload/ns1:Text1</from>
+            <to>$initiateTaskInput.payload/task:task/task:systemMessageAttributes/task:textAttribute1</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns1:Text2</from>
+            <to>$initiateTaskInput.payload/task:task/task:systemMessageAttributes/task:textAttribute2</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns1:Text3</from>
+            <to>$initiateTaskInput.payload/task:task/task:systemMessageAttributes/task:textAttribute3</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns1:OpenUrl</from>
+            <to>$initiateTaskInput.payload/task:task/task:systemMessageAttributes/task:urlAttribute1</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns1:OpenUrl</from>
+            <to>$initiateTaskInput.payload/task:task/task:systemMessageAttributes/task:urlAttribute2</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns1:OpenUrl</from>
+            <to>$initiateTaskInput.payload/task:task/task:systemMessageAttributes/task:textAttribute4</to>
+          </copy>
+        </assign>
+        <invoke name="initiateTask_Humantask1"
+                partnerLink="Humantask.TaskService_1" operation="initiateTask"
+                portType="taskservice:TaskService"
+                inputVariable="initiateTaskInput"
+                outputVariable="initiateTaskResponseMessage"/>
+        <receive name="receiveCompletedTask_Humantask1"
+                 partnerLink="Humantask.TaskService_1"
+                 portType="taskservice:TaskServiceCallback"
+                 operation="onTaskCompleted"
+                 variable="Humantask1_globalVariable" createInstance="no"/>
+      </sequence>
+    </scope>
+    <if name="taskIf">
+      <documentation>Task outcome is APPROVE</documentation>
+      <bpelx:annotation>
+        <bpelx:pattern patternName="Task outcome is APPROVE"/>
+      </bpelx:annotation>
+      <condition>$Humantask1_globalVariable.payload/task:systemAttributes/task:outcome = 'APPROVE'</condition>
+      <sequence>
+        <assign name="CopyPayloadFromTask">
+          <copy>
+            <from variable="Humantask1_globalVariable" part="payload"><query>task:payload/ns1:Task</query></from>
+            <to variable="inputVariable" part="payload"/>
+          </copy>
+        </assign>
+      </sequence>
+      <elseif>
+        <documentation>Task outcome is REJECT</documentation>
+        <bpelx:annotation>
+          <bpelx:pattern patternName="Task outcome is REJECT"/>
+        </bpelx:annotation>
+        <condition>$Humantask1_globalVariable.payload/task:systemAttributes/task:outcome = 'REJECT'</condition>
+        <sequence>
+          <assign name="CopyPayloadFromTask">
+            <copy>
+              <from variable="Humantask1_globalVariable" part="payload"><query>task:payload/ns1:Task</query></from>
+              <to variable="inputVariable" part="payload"/>
+            </copy>
+          </assign>
+        </sequence>
+      </elseif>
+      <else>
+        <sequence>
+          <assign name="CopyPayloadFromTask">
+            <copy>
+              <from variable="Humantask1_globalVariable" part="payload"><query>task:payload/ns1:Task</query></from>
+              <to variable="inputVariable" part="payload"/>
+            </copy>
+          </assign>
+        </sequence>
+      </else>
+    </if>
+  </sequence>
+</process>

@@ -24,6 +24,8 @@
           path="fragments.iframePageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
+    <dc id="ContextEvents"
+        path="nl.whitehorses.fcforms.shell.view.ContextEvents"/>
     <dc id="HumanTaskClient" path="nl.whitehorses.fcforms.HumanTaskClient"/>
   </dataControlUsages>
 </Application>

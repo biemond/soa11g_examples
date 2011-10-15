@@ -18,6 +18,7 @@
       <value n="oracle.webcenter.internal.dt.migration.WebCenterWorkspaceMigrator" v="11.1.1.2.0.100311.1200"/>
    </hash>
    <list n="listOfChildren">
+      <hash><url n="URL" path="HumanTaskSOA/HumanTaskSOA.jpr"/></hash>
       <hash><url n="URL" path="Tasks/Tasks.jpr"/></hash>
       <hash><url n="URL" path="ViewController/ViewController.jpr"/></hash>
    </list>

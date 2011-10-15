@@ -6,10 +6,16 @@
       <name id="__7">inputUser</name>
       <class>java.lang.String</class>
     </input-parameter-definition>
+
     <managed-bean id="__2">
       <managed-bean-name id="__3">TaskBean</managed-bean-name>
       <managed-bean-class id="__4">nl.whitehorses.fcforms.shell.backing.TaskBean</managed-bean-class>
       <managed-bean-scope id="__5">request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__26">
+     <managed-bean-name id="__27">launcher</managed-bean-name>
+     <managed-bean-class id="__28">nl.whitehorses.fcforms.shell.backing.Launcher</managed-bean-class>
+     <managed-bean-scope id="__25">pageFlow</managed-bean-scope>
     </managed-bean>
     <view id="tasksView">
       <page>/fragments/tasksView.jsff</page>

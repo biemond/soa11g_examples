@@ -28,9 +28,7 @@ public class Query {
     public void testQuery() throws WorkflowException {
         HumanTaskClient client = new HumanTaskClient();
 
-        List<FcTask> tasks = client.getHumanTasks("lauren.prezby@xp-vm"            
-                                                , 100
-                                                );         
+        List<FcTask> tasks = client.getHumanTasks("weblogic",100 );         
 
         for (int i = 0; i < tasks.size(); i++) {
                    FcTask task = tasks.get(i);
@@ -42,7 +40,9 @@ public class Query {
                                       " created " + task.getCreated().getTime().toString() + 
                                       " assignee "+task.getAssignedToStr() +
                                       " state "+task.getState() +
-                                      " outcome " + task.getOutcome() );
+                                      " outcome " + task.getOutcome() +
+                                      " text3 " + task.getText3() +
+                                      " url " +task.getUrl());
                }
     }
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.amis.nl/humantask"
+            targetNamespace="http://www.amis.nl/humantask"
+            elementFormDefault="qualified">
+  <xsd:element name="Task">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="AssignToGroup" type="xsd:string"
+                     default="Administrators"/>
+        <xsd:element name="OpenUrl" type="xsd:string"
+                     default="soaps3.alfa.local:7001/console"/>
+        <xsd:element name="Text1" type="xsd:string" default="test1"/>
+        <xsd:element name="Text2" type="xsd:string" default="test2"/>
+        <xsd:element name="Text3" type="xsd:string" default="test3"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

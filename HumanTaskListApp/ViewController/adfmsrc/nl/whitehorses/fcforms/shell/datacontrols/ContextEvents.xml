@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.59.23"
+          id="ContextEvents" Package="nl.whitehorses.fcforms.shell.datacontrols"
+          BeanClass="nl.whitehorses.fcforms.shell.datacontrols.ContextEvents"
+          isJavaBased="true">
+  <MethodAccessor IsCollection="true" Type="java.util.Map" id="fireTaskEvent"
+                  ReturnNodeName="Object"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="taskId" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="task" Type="nl.whitehorses.fcforms.tasks.entities.FcTask"
+                   isStructured="true"/>
+    <Attribute Name="element" Type="java.lang.String, java.lang.Object"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="captureTaskEvent"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="parameter" Type="java.lang.Object" isStructured="false"/>
+  </MethodAccessor>
+  <ConstructorMethod IsCollection="true"
+                     Type="nl.whitehorses.fcforms.shell.datacontrols.ContextEvents"
+                     BeanClass="nl.whitehorses.fcforms.shell.datacontrols.ContextEvents"
+                     id="ContextEvents"/>
+</JavaBean>

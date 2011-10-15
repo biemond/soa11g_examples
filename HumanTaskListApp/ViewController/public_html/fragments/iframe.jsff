@@ -45,6 +45,9 @@
                           value="#{pageFlowScope.task.title}" columns="60"
                           readOnly="true"/>
           </af:panelGroupLayout>
+          <af:inlineFrame id="if1" source="#{pageFlowScope.inputIframeUrl}"
+                          shortDesc="Frame"
+                          inlineStyle="height:432px; width:781px;"/>
         </af:panelHeader>
       </af:panelGroupLayout>
       <!-- id="af_one_column_stretched"   -->

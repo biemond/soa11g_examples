@@ -7,7 +7,7 @@
       <af:commandButton actionListener="#{TaskBean.acquire}"
                         text="Acquire" id="cbAcquire"/>
       <af:commandButton actionListener="#{TaskBean.approve}"
-                        text="Aprrove" id="cbComplete"/>
+                        text="Approve" id="cbComplete"/>
       <af:commandButton actionListener="#{TaskBean.reject}"
                         text="Reject" id="cbReject"/>
       <af:commandButton text="Refresh" id="cbRefresh"
@@ -27,9 +27,6 @@
             <af:column sortProperty="taskNumber" sortable="true"
                        headerText="#{bindings.FcTask.hints.taskNumber.label}"
                        id="c10">
-                       <af:goLink text="#{row.text1}" targetFrame="_blank"
-                                  destination="#{row.text2}"/>
-    <!--
               <af:commandLink text="#{row.taskNumber}"
                               id="cl1" actionListener="#{TaskBean.showTask}">
                 <af:setPropertyListener from="#{row.taskId}"
@@ -38,7 +35,6 @@
                 <af:setPropertyListener from="#{row}" to="#{pageFlowScope.task}"
                                         type="action"/>
               </af:commandLink>
-     -->
             </af:column>
             <af:column sortProperty="title" sortable="true"
                        headerText="#{bindings.FcTask.hints.title.label}"
