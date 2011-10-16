@@ -28,7 +28,7 @@ public class Query {
     public void testQuery() throws WorkflowException {
         HumanTaskClient client = new HumanTaskClient();
 
-        List<FcTask> tasks = client.getHumanTasks("weblogic",100 );         
+        List<FcTask> tasks = client.getHumanTasks("weblogic",100 , "CRE_DESC" );         
 
         for (int i = 0; i < tasks.size(); i++) {
                    FcTask task = tasks.get(i);

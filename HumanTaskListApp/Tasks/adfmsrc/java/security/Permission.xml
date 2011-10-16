@@ -6,16 +6,15 @@
   <Attribute Name="actions" IsUpdateable="0" Type="java.lang.String"/>
   <MethodAccessor IsCollection="false" Type="void" id="checkGuard"
                   ReturnNodeName="Return">
-    <ParameterInfo id="object" Type="java.lang.Object" isStructured="false"/>
+    <ParameterInfo id="p0" Type="java.lang.Object" isStructured="false"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="boolean" id="implies"
                   ReturnNodeName="Return">
-    <ParameterInfo id="permission" Type="java.security.Permission"
-                   isStructured="true"/>
+    <ParameterInfo id="p0" Type="java.security.Permission" isStructured="true"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="boolean" id="equals"
                   ReturnNodeName="Return">
-    <ParameterInfo id="obj" Type="java.lang.Object" isStructured="false"/>
+    <ParameterInfo id="p0" Type="java.lang.Object" isStructured="false"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="int" id="hashCode"
                   ReturnNodeName="Return"/>
@@ -27,6 +26,6 @@
                   ReturnNodeName="Return"/>
   <ConstructorMethod IsCollection="true" Type="java.security.Permission"
                      BeanClass="java.security.Permission" id="Permission">
-    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p0" Type="java.lang.String" isStructured="false"/>
   </ConstructorMethod>
 </JavaBean>

@@ -32,7 +32,8 @@ public class TaskBean {
     }
 
     private String  username = "weblogic";
-    private Long    maxRows = 50L;
+    private Long    maxRows  = 50L;
+    private String  orderBy  = "PRIO";
 
 
     public void acquire(ActionEvent actionEvent) {
@@ -115,5 +116,13 @@ public class TaskBean {
 
     public Long getMaxRows() {
         return maxRows;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
+    }
+
+    public String getOrderBy() {
+        return orderBy;
     }
 }

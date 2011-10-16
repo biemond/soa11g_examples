@@ -4,30 +4,26 @@
           BeanClass="org.w3c.dom.DOMImplementation" isJavaBased="true">
   <MethodAccessor IsCollection="false" Type="boolean" id="hasFeature"
                   ReturnNodeName="Return">
-    <ParameterInfo id="feature" Type="java.lang.String" isStructured="false"/>
-    <ParameterInfo id="version" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p0" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p1" Type="java.lang.String" isStructured="false"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="org.w3c.dom.DocumentType"
                   BeanClass="org.w3c.dom.DocumentType" id="createDocumentType"
                   ReturnNodeName="DocumentType">
-    <ParameterInfo id="qualifiedName" Type="java.lang.String"
-                   isStructured="false"/>
-    <ParameterInfo id="publicId" Type="java.lang.String" isStructured="false"/>
-    <ParameterInfo id="systemId" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p0" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p1" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p2" Type="java.lang.String" isStructured="false"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="org.w3c.dom.Document"
                   BeanClass="org.w3c.dom.Document" id="createDocument"
                   ReturnNodeName="Document">
-    <ParameterInfo id="namespaceURI" Type="java.lang.String"
-                   isStructured="false"/>
-    <ParameterInfo id="qualifiedName" Type="java.lang.String"
-                   isStructured="false"/>
-    <ParameterInfo id="doctype" Type="org.w3c.dom.DocumentType"
-                   isStructured="true"/>
+    <ParameterInfo id="p0" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p1" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p2" Type="org.w3c.dom.DocumentType" isStructured="true"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="java.lang.Object" id="getFeature"
                   ReturnNodeName="Return">
-    <ParameterInfo id="feature" Type="java.lang.String" isStructured="false"/>
-    <ParameterInfo id="version" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p0" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p1" Type="java.lang.String" isStructured="false"/>
   </MethodAccessor>
 </JavaBean>

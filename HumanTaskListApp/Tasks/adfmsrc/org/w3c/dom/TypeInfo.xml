@@ -6,10 +6,8 @@
   <Attribute Name="typeNamespace" IsUpdateable="0" Type="java.lang.String"/>
   <MethodAccessor IsCollection="false" Type="boolean" id="isDerivedFrom"
                   ReturnNodeName="Return">
-    <ParameterInfo id="typeNamespaceArg" Type="java.lang.String"
-                   isStructured="false"/>
-    <ParameterInfo id="typeNameArg" Type="java.lang.String"
-                   isStructured="false"/>
-    <ParameterInfo id="derivationMethod" Type="int" isStructured="false"/>
+    <ParameterInfo id="p0" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p1" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p2" Type="int" isStructured="false"/>
   </MethodAccessor>
 </JavaBean>

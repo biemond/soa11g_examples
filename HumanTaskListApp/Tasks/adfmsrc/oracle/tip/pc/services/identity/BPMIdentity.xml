@@ -92,7 +92,7 @@
                   ReturnNodeName="Node"/>
   <MethodAccessor IsCollection="false" Type="boolean" id="equals"
                   ReturnNodeName="Return">
-    <ParameterInfo id="another" Type="java.lang.Object" isStructured="false"/>
+    <ParameterInfo id="p0" Type="java.lang.Object" isStructured="false"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="java.lang.String" id="toString"
                   ReturnNodeName="Return"/>

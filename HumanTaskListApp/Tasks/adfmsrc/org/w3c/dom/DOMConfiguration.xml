@@ -7,16 +7,16 @@
                      CollectionBeanClass="UpdateableSingleValue"/>
   <MethodAccessor IsCollection="false" Type="void" id="setParameter"
                   ReturnNodeName="Return">
-    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
-    <ParameterInfo id="value" Type="java.lang.Object" isStructured="false"/>
+    <ParameterInfo id="p0" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p1" Type="java.lang.Object" isStructured="false"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="java.lang.Object" id="getParameter"
                   ReturnNodeName="Return">
-    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p0" Type="java.lang.String" isStructured="false"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="boolean" id="canSetParameter"
                   ReturnNodeName="Return">
-    <ParameterInfo id="name" Type="java.lang.String" isStructured="false"/>
-    <ParameterInfo id="value" Type="java.lang.Object" isStructured="false"/>
+    <ParameterInfo id="p0" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p1" Type="java.lang.Object" isStructured="false"/>
   </MethodAccessor>
 </JavaBean>

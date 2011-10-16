@@ -5,10 +5,10 @@
   <Attribute Name="length" IsUpdateable="0" Type="int"/>
   <MethodAccessor IsCollection="false" Type="java.lang.String" id="item"
                   ReturnNodeName="Return">
-    <ParameterInfo id="index" Type="int" isStructured="false"/>
+    <ParameterInfo id="p0" Type="int" isStructured="false"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="boolean" id="contains"
                   ReturnNodeName="Return">
-    <ParameterInfo id="str" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="p0" Type="java.lang.String" isStructured="false"/>
   </MethodAccessor>
 </JavaBean>

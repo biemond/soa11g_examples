@@ -5,6 +5,6 @@
   <Attribute Name="length" IsUpdateable="0" Type="int"/>
   <MethodAccessor IsCollection="false" Type="org.w3c.dom.Node"
                   BeanClass="org.w3c.dom.Node" id="item" ReturnNodeName="Node">
-    <ParameterInfo id="index" Type="int" isStructured="false"/>
+    <ParameterInfo id="p0" Type="int" isStructured="false"/>
   </MethodAccessor>
 </JavaBean>

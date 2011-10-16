@@ -4,13 +4,11 @@
           BeanClass="java.security.PermissionCollection" isJavaBased="true">
   <MethodAccessor IsCollection="false" Type="void" id="add"
                   ReturnNodeName="Return">
-    <ParameterInfo id="permission" Type="java.security.Permission"
-                   isStructured="true"/>
+    <ParameterInfo id="p0" Type="java.security.Permission" isStructured="true"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="boolean" id="implies"
                   ReturnNodeName="Return">
-    <ParameterInfo id="permission" Type="java.security.Permission"
-                   isStructured="true"/>
+    <ParameterInfo id="p0" Type="java.security.Permission" isStructured="true"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false"
                   Type="java.util.Enumeration&lt;java.security.Permission>"

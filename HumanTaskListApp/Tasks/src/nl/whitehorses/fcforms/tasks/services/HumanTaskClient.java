@@ -52,11 +52,16 @@ public class HumanTaskClient {
 
 
 
-    public List<FcTask> getHumanTasks(String user, int noOfRecords) {
+    public List<FcTask> getHumanTasks(String user, int noOfRecords, String orderBy) {
 
         long startTime = System.currentTimeMillis();
         noOfRecords =
                 (noOfRecords == 0 ? MAXIMUM_NUMBER_OF_TASKS : noOfRecords);
+
+        if (  orderBy == null ) {
+          orderBy = "PRIO";
+        }
+ 
 
         logger.info("[START] getHumanTasks()");
 
@@ -72,7 +77,9 @@ public class HumanTaskClient {
 
             IWorkflowContext context = workflowServices.authenticate(user);
 
-            List<Task> tasks = workflowServices.queryTasks(context, noOfRecords);
+            List<Task> tasks = workflowServices.queryTasks(context, 
+                                                           noOfRecords,
+                                                           orderBy);
             resultSet = new ArrayList<FcTask>(tasks.size());
                         
                         

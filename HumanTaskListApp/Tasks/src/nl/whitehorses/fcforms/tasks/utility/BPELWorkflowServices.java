@@ -243,7 +243,8 @@ public class BPELWorkflowServices {
 
 
     public List<Task> queryTasks(IWorkflowContext context,
-                                 int noOfRecords) throws WorkflowException {
+                                 int noOfRecords,
+                                 String orderBy ) throws WorkflowException {
 
         logger.debug("[START] queryTasks()");
 
@@ -296,17 +297,20 @@ public class BPELWorkflowServices {
         // Ordering
         Ordering taskOrdering = null;
         logger.info("set the default Priority / EscalationDate Ordering");
-        // default PRIORITY + taskNummer
-        taskOrdering = new Ordering(TableConstants.WFTASK_PRIORITY_COLUMN, true,false); 
-        taskOrdering.addClause(TableConstants.WFTASK_TASKNUMBER_COLUMN, true,false);
-
-//       if (TASK_ORDERING.ESCALATION_DATE.equals(ordering) ) { 
-//           taskOrdering = new Ordering(TableConstants.WFTASK_TASKNUMBER_COLUMN, false,true);
-//       } else if (TASK_ORDERING.ID_DESC.equals(ordering) ) {
-//           taskOrdering = new Ordering(TableConstants.WFTASK_EXPIRATIONDATE_COLUMN, false, false);
-//       }  else if (TASK_ORDERING.ID_ASC.equals(ordering) ) {
-//           taskOrdering = new Ordering(TableConstants.WFTASK_EXPIRATIONDATE_COLUMN, true, false);
-//       } 
+        if ( "PRIO".equalsIgnoreCase(orderBy) ) {
+           taskOrdering = new Ordering(TableConstants.WFTASK_PRIORITY_COLUMN, true,false); 
+           taskOrdering.addClause(TableConstants.WFTASK_TASKNUMBER_COLUMN, true,false);
+        } else if  ("ID".equalsIgnoreCase(orderBy) ) { 
+           taskOrdering = new Ordering(TableConstants.WFTASK_TASKNUMBER_COLUMN, false,true);
+        } else if ("ESC_DESC".equalsIgnoreCase(orderBy)  ) {
+            taskOrdering = new Ordering(TableConstants.WFTASK_EXPIRATIONDATE_COLUMN, false, false);
+        }  else if ("ESC_ASC".equalsIgnoreCase(orderBy) ) {
+            taskOrdering = new Ordering(TableConstants.WFTASK_EXPIRATIONDATE_COLUMN, true, false);
+        } else if ("CRE_DESC".equalsIgnoreCase(orderBy)  ) {
+              taskOrdering = new Ordering(TableConstants.WFTASK_CREATEDDATE_COLUMN, false, false);
+        }  else if ("CRE_ASC".equalsIgnoreCase(orderBy) ) {
+              taskOrdering = new Ordering(TableConstants.WFTASK_CREATEDDATE_COLUMN, true, false);
+        } 
 
    
 

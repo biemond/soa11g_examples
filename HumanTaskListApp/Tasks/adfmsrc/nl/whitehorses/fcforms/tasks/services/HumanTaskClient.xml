@@ -9,14 +9,6 @@
   <AccessorAttribute id="allBPELGroups" IsCollection="true"
                      BeanClass="oracle.tip.pc.services.identity.BPMGroup"
                      CollectionBeanClass="UpdateableCollection"/>
-  <MethodAccessor IsCollection="true"
-                  Type="nl.whitehorses.fcforms.tasks.entities.FcTask"
-                  BeanClass="nl.whitehorses.fcforms.tasks.entities.FcTask"
-                  id="getHumanTasks" ReturnNodeName="FcTask"
-                  CollectionBeanClass="UpdateableCollection">
-    <ParameterInfo id="user" Type="java.lang.String" isStructured="false"/>
-    <ParameterInfo id="noOfRecords" Type="int" isStructured="false"/>
-  </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="void" id="assignTask"
                   ReturnNodeName="Return">
     <ParameterInfo id="taskId" Type="java.lang.String" isStructured="false"/>
@@ -64,6 +56,15 @@
                   id="getAllBPELUsers" ReturnNodeName="BPMUser"
                   CollectionBeanClass="UpdateableCollection">
     <ParameterInfo id="groupName" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="true"
+                  Type="nl.whitehorses.fcforms.tasks.entities.FcTask"
+                  BeanClass="nl.whitehorses.fcforms.tasks.entities.FcTask"
+                  id="getHumanTasks" ReturnNodeName="FcTask"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="user" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="noOfRecords" Type="int" isStructured="false"/>
+    <ParameterInfo id="orderBy" Type="java.lang.String" isStructured="false"/>
   </MethodAccessor>
   <ConstructorMethod IsCollection="true"
                      Type="nl.whitehorses.fcforms.tasks.services.HumanTaskClient"
