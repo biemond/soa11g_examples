@@ -1,21 +1,22 @@
 package nl.whitehorses.fcforms.tasks.utility;
 
 
-import java.util.Calendar;
+import java.io.IOException;
+import java.io.StringWriter;
 
-import java.util.Date;
-
-import nl.whitehorses.fcforms.tasks.entities.FcTask;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.whitehorses.fcforms.tasks.entities.FcTask;
+
 import oracle.bpel.services.workflow.task.model.IdentityType;
 import oracle.bpel.services.workflow.task.model.SystemAttributesType;
 import oracle.bpel.services.workflow.task.model.Task;
+
+import oracle.xml.parser.v2.XMLElement;
+
 
 public class TaskConvertor {
     public TaskConvertor() {
@@ -48,6 +49,17 @@ public class TaskConvertor {
         fcTask.setText2(task.getSystemMessageAttributes().getTextAttribute2());
         fcTask.setText3(task.getSystemMessageAttributes().getTextAttribute3());
 
+        // payload
+        XMLElement payload = (XMLElement)task.getPayloadAsElement();
+        StringWriter writer = new StringWriter();
+        try {
+            payload.print(writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        fcTask.setPayloadAsString(writer.toString());
+ 
         try {
             fcTask.setAssignedToStr(getAssigneeString(task));
         } catch (Exception e) {
@@ -119,5 +131,7 @@ public class TaskConvertor {
         
         return targetList;
     }
+  
+
 
 }

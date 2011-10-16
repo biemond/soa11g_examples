@@ -12,25 +12,26 @@
             <af:panelGroupLayout id="pgl2" layout="horizontal">
               <af:commandButton text="Acquire" id="cbAquire"
                                 actionListener="#{bindings.acquireTask.execute}"
-                                disabled="#{pageFlowScope.task.acquiredBy != null || pageFlowScope.task.state =='COMPLETED'}">
+                                disabled="#{ (pageFlowScope.task.acquiredBy != null and pageFlowScope.task.acquiredBy ne '' ) || pageFlowScope.task.state =='COMPLETED'}"
+                                partialTriggers="cbRelease">
                   <af:setPropertyListener from="#{pageFlowScope.user}" to="#{pageFlowScope.task.acquiredBy}"
                                           type="action" />              
               </af:commandButton>                  
               <af:commandButton text="Release" id="cbRelease" 
-                                actionListener="#{bindings.releaseTask.execute}"
-                                disabled="#{pageFlowScope.task.acquiredBy == null || pageFlowScope.task.state =='COMPLETED'}">
+                                actionListener="#{bindings.releaseTask.execute}" partialTriggers="cbAquire"
+                                disabled="#{ pageFlowScope.task.acquiredBy == null || pageFlowScope.task.acquiredBy eq ''  || pageFlowScope.task.state =='COMPLETED'}">
                   <af:setPropertyListener from="#{''}" to="#{pageFlowScope.task.acquiredBy}"
                                           type="action" />              
               </af:commandButton>                  
               <af:commandButton text="Approve" id="cbApprove" 
-                                actionListener="#{bindings.completeTask.execute}"
-                                disabled="#{pageFlowScope.task.acquiredBy == null || pageFlowScope.task.state =='COMPLETED'}">
+                                actionListener="#{bindings.completeTask.execute}" partialTriggers="cbAquire cbRelease"
+                                disabled="#{pageFlowScope.task.acquiredBy == null || pageFlowScope.task.acquiredBy eq ''|| pageFlowScope.task.state =='COMPLETED'}">
                   <af:setPropertyListener from="#{'COMPLETED'}" to="#{pageFlowScope.task.state}"
                                           type="action" />              
               </af:commandButton>                  
               <af:commandButton text="Reject" id="cbRject"
-                                actionListener="#{bindings.rejectedTask.execute}"
-                               disabled="#{pageFlowScope.task.acquiredBy == null || pageFlowScope.task.state =='COMPLETED'}">
+                                actionListener="#{bindings.rejectedTask.execute}" partialTriggers="cbAquire cbRelease"
+                               disabled="#{pageFlowScope.task.acquiredBy == null || pageFlowScope.task.acquiredBy eq '' || pageFlowScope.task.state =='COMPLETED'}">
                  <af:setPropertyListener from="#{'COMPLETED'}" to="#{pageFlowScope.task.state}"
                                           type="action" />              
               
@@ -41,13 +42,23 @@
             </af:panelGroupLayout>
           </f:facet>
           <af:panelGroupLayout id="pgl3">
+            <af:panelFormLayout id="pfl1">
             <af:inputText label="Titel" id="it2"
                           value="#{pageFlowScope.task.title}" columns="60"
                           readOnly="true"/>
-          </af:panelGroupLayout>
-          <af:inlineFrame id="if1" source="#{pageFlowScope.inputIframeUrl}"
+            <af:inputText label="Acquired by" id="it3"
+                          value="#{pageFlowScope.task.acquiredBy}" columns="60"
+                          readOnly="true" partialTriggers="cbAquire cbRelease"/>
+            <af:inputText label="Payload" id="it4"
+                          value="#{pageFlowScope.task.payloadAsString}" columns="100"
+                          readOnly="true" rows="20"/>
+            <af:spacer id="s1" height="5" width="5"/>
+            <af:inlineFrame id="if1" source="#{pageFlowScope.inputIframeUrl}"
                           shortDesc="Frame"
-                          inlineStyle="height:432px; width:781px;"/>
+                          inlineStyle="height:300px; width:500px;"/>
+            </af:panelFormLayout>
+
+          </af:panelGroupLayout>
         </af:panelHeader>
       </af:panelGroupLayout>
       <!-- id="af_one_column_stretched"   -->

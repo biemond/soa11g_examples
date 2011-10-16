@@ -8,6 +8,10 @@
                         value="#{pageFlowScope.TaskBean.username}"
                         id="it1" autoSubmit="true"
                         valueChangeListener="#{pageFlowScope.TaskBean.humanTaskChanged}"/>
+    <af:inputText label="Search"
+                        value="#{pageFlowScope.TaskBean.searchString}"
+                        id="it10" autoSubmit="true"
+                        valueChangeListener="#{pageFlowScope.TaskBean.humanTaskChanged}"/>
     <af:selectOneChoice label="Maximum Rows"
                         value="#{pageFlowScope.TaskBean.maxRows}"
                         valueChangeListener="#{pageFlowScope.TaskBean.humanTaskChanged}"

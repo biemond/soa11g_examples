@@ -34,6 +34,7 @@ public class TaskBean {
     private String  username = "weblogic";
     private Long    maxRows  = 50L;
     private String  orderBy  = "PRIO";
+    private String  searchString  = null;
 
 
     public void acquire(ActionEvent actionEvent) {
@@ -124,5 +125,13 @@ public class TaskBean {
 
     public String getOrderBy() {
         return orderBy;
+    }
+
+    public void setSearchString(String searchString) {
+        this.searchString = searchString;
+    }
+
+    public String getSearchString() {
+        return searchString;
     }
 }

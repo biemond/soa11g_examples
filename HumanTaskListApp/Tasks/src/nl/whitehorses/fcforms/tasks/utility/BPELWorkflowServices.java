@@ -189,7 +189,8 @@ public class BPELWorkflowServices {
                 System.out.println("HumanWorkflow " + identityUsername +
                                    " context created");
                 context =
-                        taskQueryService.authenticate(identityUsername, identityPassword.toCharArray(),
+                        taskQueryService.authenticate(identityUsername, 
+                                                      identityPassword.toCharArray(),
                                                       identityDomain);
             }
             contextBehalf =
@@ -244,7 +245,8 @@ public class BPELWorkflowServices {
 
     public List<Task> queryTasks(IWorkflowContext context,
                                  int noOfRecords,
-                                 String orderBy ) throws WorkflowException {
+                                 String orderBy,
+                                 String searchString) throws WorkflowException {
 
         logger.debug("[START] queryTasks()");
 
@@ -276,7 +278,7 @@ public class BPELWorkflowServices {
         queryColumns.add(TableConstants.WFTASK_URLATTRIBUTE2_COLUMN.getName());
 
 
-        // Correcte status teruggeven
+        // Correct state
         List<String> correctStates = new ArrayList<String>();
 
         correctStates.add(IWorkflowConstants.TASK_STATE_ALERTED);
@@ -284,16 +286,50 @@ public class BPELWorkflowServices {
         correctStates.add(IWorkflowConstants.TASK_STATE_INFO_REQUESTED);
         correctStates.add(IWorkflowConstants.TASK_STATE_OUTCOME_UPDATED);
 
-       Predicate predicate =
+        
+
+        // only these states 
+        Predicate predicateBasic =
            new Predicate(TableConstants.WFTASK_STATE_COLUMN, 
                          Predicate.OP_IN,
                          correctStates);
-
-        predicate.addClause(Predicate.AND,
+        // not stale tasks
+        predicateBasic.addClause(Predicate.AND,
                             TableConstants.WFTASK_STATE_COLUMN,
                             Predicate.OP_NEQ,
                             IWorkflowConstants.TASK_STATE_STALE);
-
+       
+        Predicate predicateSearch = null;
+        if ( searchString != null && !"".equals(searchString) ) {
+            
+            
+           predicateSearch = new Predicate(TableConstants.WFTASK_TEXTATTRIBUTE1_COLUMN,
+                                           Predicate.OP_CONTAINS,
+                                           searchString);
+           predicateSearch.addClause(Predicate.OR,
+                               TableConstants.WFTASK_TEXTATTRIBUTE2_COLUMN,
+                               Predicate.OP_CONTAINS,
+                               searchString);
+           predicateSearch.addClause(Predicate.OR,
+                               TableConstants.WFTASK_TEXTATTRIBUTE3_COLUMN,
+                               Predicate.OP_CONTAINS,
+                               searchString);
+           if ( isParsableToInt(searchString) ){  
+              predicateSearch.addClause(Predicate.OR,
+                                        TableConstants.WFTASK_TASKNUMBER_COLUMN,
+                                        Predicate.OP_EQ,
+                                        searchString);
+           }
+         }
+        
+        Predicate predicate = null;
+        if ( predicateSearch == null ) {
+          predicate = predicateBasic; 
+        } else {
+          predicate = new Predicate (predicateBasic,Predicate.AND,predicateSearch);
+        }
+          
+        
         // Ordering
         Ordering taskOrdering = null;
         logger.info("set the default Priority / EscalationDate Ordering");
@@ -553,4 +589,14 @@ public class BPELWorkflowServices {
 
         return groups;
     }
+    
+    public boolean isParsableToInt(String i) {
+     try {
+        Integer.parseInt(i);
+        return true;
+     } catch(NumberFormatException nfe)  {
+        return false;
+     }
+    }
+
 }

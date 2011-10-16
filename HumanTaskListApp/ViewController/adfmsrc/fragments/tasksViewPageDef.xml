@@ -22,6 +22,8 @@
                  NDValue="#{pageFlowScope.TaskBean.maxRows}" NDType="int"/>
       <NamedData NDName="orderBy" NDValue="#{pageFlowScope.TaskBean.orderBy}" 
                  NDType="java.lang.String"/>
+      <NamedData NDName="searchString" NDValue="#{pageFlowScope.TaskBean.searchString}" 
+                 NDType="java.lang.String"/>
     </methodAction>
     <tree IterBinding="getHumanTasksIterator" id="FcTask">
       <nodeDefinition DefName="nl.whitehorses.fcforms.tasks.entities.FcTask"

@@ -5,10 +5,8 @@ import java.util.List;
 
 import nl.whitehorses.fcforms.tasks.entities.FcTask;
 import nl.whitehorses.fcforms.tasks.utility.BPELWorkflowServices;
-
 import nl.whitehorses.fcforms.tasks.utility.TaskConvertor;
 
-import oracle.bpel.services.workflow.task.model.IdentityType;
 import oracle.bpel.services.workflow.task.model.Task;
 import oracle.bpel.services.workflow.verification.IWorkflowContext;
 
@@ -52,7 +50,10 @@ public class HumanTaskClient {
 
 
 
-    public List<FcTask> getHumanTasks(String user, int noOfRecords, String orderBy) {
+    public List<FcTask> getHumanTasks(String user, 
+                                      int noOfRecords, 
+                                      String orderBy,
+                                      String searchString) {
 
         long startTime = System.currentTimeMillis();
         noOfRecords =
@@ -79,7 +80,8 @@ public class HumanTaskClient {
 
             List<Task> tasks = workflowServices.queryTasks(context, 
                                                            noOfRecords,
-                                                           orderBy);
+                                                           orderBy,
+                                                           searchString);
             resultSet = new ArrayList<FcTask>(tasks.size());
                         
                         

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.55.36"
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.59.23"
           id="BPMGroup" Package="oracle.tip.pc.services.identity"
           BeanClass="oracle.tip.pc.services.identity.BPMGroup"
           isJavaBased="true">
+  <Attribute Name="tenantID" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="tenantName" IsUpdateable="0" Type="java.lang.String"/>
   <Attribute Name="email" IsUpdateable="0" Type="java.lang.String"/>
   <Attribute Name="realmName" IsUpdateable="0" Type="java.lang.String"/>
   <Attribute Name="displayName" IsUpdateable="0" Type="java.lang.String"/>
   <Attribute Name="description" IsUpdateable="0" Type="java.lang.String"/>
   <Attribute Name="fullName" IsUpdateable="0" Type="java.lang.String"/>
   <Attribute Name="uniqueName" IsUpdateable="0" Type="java.lang.String"/>
-  <Attribute Name="guid" IsUpdateable="0" Type="java.lang.String"
-             PrimaryKey="true" PrecisionRule="false" Precision="0" Scale="0"/>
-  <Attribute Name="tenantID" IsUpdateable="0" Type="java.lang.String"/>
-  <Attribute Name="tenantName" IsUpdateable="0" Type="java.lang.String"/>
+  <Attribute Name="guid" IsUpdateable="0" Type="java.lang.String"/>
   <Attribute Name="name" IsUpdateable="0" Type="java.lang.String"/>
   <AccessorAttribute id="identityType" IsCollection="false"
                      BeanClass="oracle.tip.pc.services.identity.BPMIdentityType"

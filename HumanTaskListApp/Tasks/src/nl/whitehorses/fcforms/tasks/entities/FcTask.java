@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
+
 public class FcTask implements Serializable {
     public FcTask() {
         super();
@@ -89,6 +90,8 @@ public class FcTask implements Serializable {
     private String text2;
     private String text3;
 
+    private String payloadAsString;
+        
 
     public void setAssignedTo(List<String> assignedTo) {
         this.assignedTo = assignedTo;
@@ -260,5 +263,14 @@ public class FcTask implements Serializable {
 
     public String getText3() {
         return text3;
+    }
+
+
+    public void setPayloadAsString(String payloadAsString) {
+        this.payloadAsString = payloadAsString;
+    }
+
+    public String getPayloadAsString() {
+        return payloadAsString;
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.55.36"
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.59.23"
           id="BPMRole" Package="oracle.tip.pc.services.identity"
           BeanClass="oracle.tip.pc.services.identity.BPMRole"
           isJavaBased="true">

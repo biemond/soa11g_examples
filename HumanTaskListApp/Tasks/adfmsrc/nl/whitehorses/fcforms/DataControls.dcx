@@ -12,12 +12,12 @@
                       BeanClass="nl.whitehorses.fcforms.tasks.services.HumanTaskClient"
                       xmlns="http://xmlns.oracle.com/adfm/datacontrol">
     <CreatableTypes>
+      <TypeInfo FullName="java.security.Permission"/>
+      <TypeInfo FullName="java.security.PermissionCollection"/>
       <TypeInfo FullName="oracle.tip.pc.services.identity.BPMIdentityType"/>
       <TypeInfo FullName="oracle.tip.pc.services.identity.RoleClassifier"/>
       <TypeInfo FullName="nl.whitehorses.fcforms.tasks.entities.FcTask"/>
       <TypeInfo FullName="nl.whitehorses.fcforms.tasks.services.HumanTaskClient"/>
-      <TypeInfo FullName="java.security.Permission"/>
-      <TypeInfo FullName="java.security.PermissionCollection"/>
     </CreatableTypes>
     <Source>
       <bean-definition BeanClass="nl.whitehorses.fcforms.tasks.services.HumanTaskClient"

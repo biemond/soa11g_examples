@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.55.36"
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.59.23"
           id="FcTask" Package="nl.whitehorses.fcforms.tasks.entities"
           BeanClass="nl.whitehorses.fcforms.tasks.entities.FcTask"
           isJavaBased="true">
   <Attribute Name="expirationDate" Type="java.util.Calendar"/>
   <Attribute Name="priority" Type="int"/>
-  <Attribute Name="taskId" Type="java.lang.String" PrimaryKey="true"
-             PrecisionRule="false" Precision="0" Scale="0"/>
+  <Attribute Name="taskId" Type="java.lang.String"/>
   <Attribute Name="acquiredBy" Type="java.lang.String"/>
   <Attribute Name="taskNumber" Type="int"/>
   <Attribute Name="processName" Type="java.lang.String"/>
@@ -23,6 +22,7 @@
   <Attribute Name="text1" Type="java.lang.String"/>
   <Attribute Name="text2" Type="java.lang.String"/>
   <Attribute Name="text3" Type="java.lang.String"/>
+  <Attribute Name="payloadAsString" Type="java.lang.String"/>
   <AccessorAttribute id="assignedTo" IsCollection="true" Type="java.util.List"
                      CollectionBeanClass="UpdateableCollection">
     <Attribute Name="element" Type="java.lang.String"/>
