@@ -1,0 +1,17 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="HrModelSessionEJB"
+     targetNamespace="http://services.hr.model.soa.whitehorses.nl/"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://services.hr.model.soa.whitehorses.nl/"
+     xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    >
+    <plnk:partnerLinkType name="EJBService">
+        <plnk:role name="HrModelSessionEJB">
+            <plnk:portType name="tns:HrModelSessionEJB"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://services.hr.model.soa.whitehorses.nl/" location="HrModelSessionEJB.wsdl"/>
+</wsdl:definitions>
