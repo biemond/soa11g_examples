@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.amis.nl/front/ebo"
+            targetNamespace="http://www.amis.nl/front/ebo"
+            elementFormDefault="qualified">
+
+   <xsd:element name="InputParameters" type="InputParametersType"/>
+   <xsd:complexType name="InputParametersType">
+      <xsd:sequence/>
+   </xsd:complexType>
+
+   <xsd:element name="InputDepartment" type="InputDepartmentType"/>
+   <xsd:complexType name="InputDepartmentType">
+      <xsd:sequence>
+           <xsd:element name="departmentId" type="xsd:int"/>
+      </xsd:sequence>
+   </xsd:complexType>
+
+
+   <xsd:element name="Department" type="Departments"/>
+   <xsd:element name="DepartmentsCollection" type="DepartmentsCollection"/>
+   <xsd:complexType name="DepartmentsCollection">
+      <xsd:sequence>
+         <xsd:element name="Departments" type="Departments" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="Departments">
+      <xsd:sequence>
+         <xsd:element name="departmentId" type="xsd:int"/>
+         <xsd:element name="departmentName" minOccurs="0">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="30"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="managerId" type="xsd:int" minOccurs="0" nillable="true"/>
+         <xsd:element name="locationId" type="xsd:int" minOccurs="0" nillable="true"/>
+      </xsd:sequence>
+   </xsd:complexType>
+
+   <xsd:element name="EmployeesCollection" type="EmployeesCollection"/>
+   <xsd:complexType name="EmployeesCollection">
+      <xsd:sequence>
+         <xsd:element name="Employees" type="Employees" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="Employees">
+      <xsd:sequence>
+         <xsd:element name="employeeId" type="xsd:int"/>
+         <xsd:element name="firstName" minOccurs="0" nillable="true">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="20"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="lastName" minOccurs="0">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="25"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="email" minOccurs="0">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="25"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="phoneNumber" minOccurs="0" nillable="true">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="20"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="hireDate" type="xsd:dateTime" minOccurs="0"/>
+         <xsd:element name="jobId" minOccurs="0">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="10"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="salary" type="xsd:decimal" minOccurs="0" nillable="true"/>
+         <xsd:element name="commissionPct" type="xsd:decimal" minOccurs="0" nillable="true"/>
+         <xsd:element name="managerId" type="xsd:int" minOccurs="0" nillable="true"/>
+         <xsd:element name="departmentId" type="xsd:int" minOccurs="0" nillable="true"/>
+      </xsd:sequence>
+   </xsd:complexType>
+
+
+</xsd:schema>

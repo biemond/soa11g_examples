@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.1.2.v20101206-r8635">
+   <name>HrDepartment-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>HrDepartment.Departments</class>
+         <alias>DEPARTMENTS</alias>
+         <primary-key>
+            <field table="DEPARTMENTS" name="DEPARTMENT_ID" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="HrDepartmentSelect" xsi:type="read-all-query">
+                  <criteria operator="equal" xsi:type="relation-expression">
+                     <left name="departmentId" xsi:type="query-key-expression">
+                        <base xsi:type="base-expression"/>
+                     </left>
+                     <right xsi:type="parameter-expression">
+                        <parameter name="departmentID" xsi:type="column"/>
+                     </right>
+                  </criteria>
+                  <arguments>
+                     <argument name="departmentID">
+                        <type>java.lang.String</type>
+                     </argument>
+                  </arguments>
+                  <reference-class>HrDepartment.Departments</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>departmentId</attribute-name>
+               <field table="DEPARTMENTS" name="DEPARTMENT_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.Integer</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>departmentName</attribute-name>
+               <field table="DEPARTMENTS" name="DEPARTMENT_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>managerId</attribute-name>
+               <field table="DEPARTMENTS" name="MANAGER_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.Integer</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>locationId</attribute-name>
+               <field table="DEPARTMENTS" name="LOCATION_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.Integer</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="DEPARTMENTS"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.oracle.Oracle9Platform</platform-class>
+      <user-name></user-name>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

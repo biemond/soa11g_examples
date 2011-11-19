@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://www.customfaults.org"
+            targetNamespace="http://www.customfaults.org"
+            elementFormDefault="qualified">
+  
+  
+  <xsd:complexType name="DepartmentNotFoundType">
+  
+    <xsd:sequence>
+      <xsd:element name="FaultCode" type="xsd:string"/>
+      <xsd:element name="FaultDesciption" type="xsd:string"/>
+    </xsd:sequence>
+  
+  </xsd:complexType>
+  
+  
+</xsd:schema>

@@ -1,0 +1,25 @@
+<?binding.jca HrDepartments_db.jca?>
+<wsdl:definitions name="HrDepartments" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOAdecouple/Source/HrDepartments" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SOAdecouple/Source/HrDepartments" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/HrDepartments">
+    <plt:partnerLinkType name="HrDepartments_plt">
+        <plt:role name="HrDepartments_role">
+            <plt:portType name="tns:HrDepartments_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/HrDepartments" schemaLocation="xsd/HrDepartments_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="HrDepartmentsSelect_inputParameters">
+        <wsdl:part name="HrDepartmentsSelect_inputParameters" element="top:HrDepartmentsSelectInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="DepartmentsCollection_msg">
+        <wsdl:part name="DepartmentsCollection" element="top:DepartmentsCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="HrDepartments_ptt">
+        <wsdl:operation name="HrDepartmentsSelect">
+            <wsdl:input message="tns:HrDepartmentsSelect_inputParameters"/>
+            <wsdl:output message="tns:DepartmentsCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

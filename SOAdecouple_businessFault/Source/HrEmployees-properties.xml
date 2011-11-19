@@ -1,0 +1,55 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="root_descriptor_alias">EMPLOYEES</entry>
+   <entry key="EMPLOYEES:db_column_10">DEPARTMENT_ID</entry>
+   <entry key="EMPLOYEES.EMAIL:db_column_size">25</entry>
+   <entry key="EMPLOYEES.FIRST_NAME:db_column_size">20</entry>
+   <entry key="EMPLOYEES.MANAGER_ID:db_column_type">NUMBER</entry>
+   <entry key="EMPLOYEES.HIRE_DATE:db_column_type">DATE</entry>
+   <entry key="EMPLOYEES.PHONE_NUMBER:db_column_size">20</entry>
+   <entry key="EMPLOYEES.SALARY:db_column_not_null">false</entry>
+   <entry key="EMPLOYEES.JOB_ID:db_column_type">VARCHAR2</entry>
+   <entry key="EMPLOYEES.SALARY:db_column_scale">2</entry>
+   <entry key="EMPLOYEES.COMMISSION_PCT:db_column_type">NUMBER</entry>
+   <entry key="EMPLOYEES:db_column_9">MANAGER_ID</entry>
+   <entry key="EMPLOYEES:db_column_8">COMMISSION_PCT</entry>
+   <entry key="EMPLOYEES:db_column_7">SALARY</entry>
+   <entry key="EMPLOYEES:db_table_type">TABLE</entry>
+   <entry key="EMPLOYEES:db_column_6">JOB_ID</entry>
+   <entry key="EMPLOYEES.MANAGER_ID:db_column_scale">0</entry>
+   <entry key="EMPLOYEES:db_column_5">HIRE_DATE</entry>
+   <entry key="EMPLOYEES:db_column_4">PHONE_NUMBER</entry>
+   <entry key="EMPLOYEES:db_column_3">EMAIL</entry>
+   <entry key="EMPLOYEES:db_column_2">LAST_NAME</entry>
+   <entry key="EMPLOYEES.SALARY:db_column_precision">8</entry>
+   <entry key="EMPLOYEES:db_column_1">FIRST_NAME</entry>
+   <entry key="EMPLOYEES.COMMISSION_PCT:db_column_precision">2</entry>
+   <entry key="EMPLOYEES.JOB_ID:db_column_size">10</entry>
+   <entry key="EMPLOYEES:db_column_0">EMPLOYEE_ID</entry>
+   <entry key="EMPLOYEES.EMPLOYEE_ID:db_column_precision">6</entry>
+   <entry key="EMPLOYEES.EMPLOYEE_ID:db_column_scale">0</entry>
+   <entry key="EMPLOYEES.JOB_ID:db_column_not_null">true</entry>
+   <entry key="EMPLOYEES.LAST_NAME:db_column_not_null">true</entry>
+   <entry key="EMPLOYEES.DEPARTMENT_ID:db_column_scale">0</entry>
+   <entry key="EMPLOYEES.DEPARTMENT_ID:db_column_not_null">false</entry>
+   <entry key="EMPLOYEES.LAST_NAME:db_column_type">VARCHAR2</entry>
+   <entry key="EMPLOYEES.EMAIL:db_column_not_null">true</entry>
+   <entry key="EMPLOYEES.SALARY:db_column_type">NUMBER</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="EMPLOYEES.MANAGER_ID:db_column_precision">6</entry>
+   <entry key="EMPLOYEES.DEPARTMENT_ID:db_column_type">NUMBER</entry>
+   <entry key="EMPLOYEES.LAST_NAME:db_column_size">25</entry>
+   <entry key="EMPLOYEES.EMPLOYEE_ID:db_column_not_null">true</entry>
+   <entry key="EMPLOYEES.PHONE_NUMBER:db_column_not_null">false</entry>
+   <entry key="EMPLOYEES.HIRE_DATE:db_column_not_null">true</entry>
+   <entry key="EMPLOYEES.EMAIL:db_column_type">VARCHAR2</entry>
+   <entry key="EMPLOYEES.FIRST_NAME:db_column_type">VARCHAR2</entry>
+   <entry key="EMPLOYEES.DEPARTMENT_ID:db_column_precision">4</entry>
+   <entry key="EMPLOYEES.COMMISSION_PCT:db_column_not_null">false</entry>
+   <entry key="EMPLOYEES.MANAGER_ID:db_column_not_null">false</entry>
+   <entry key="EMPLOYEES.COMMISSION_PCT:db_column_scale">2</entry>
+   <entry key="EMPLOYEES.FIRST_NAME:db_column_not_null">false</entry>
+   <entry key="EMPLOYEES.PHONE_NUMBER:db_column_type">VARCHAR2</entry>
+   <entry key="EMPLOYEES.EMPLOYEE_ID:db_column_type">NUMBER</entry>
+</properties>

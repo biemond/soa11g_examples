@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://www.amis.nl/frontReference"
+    xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+    xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ebo="http://www.amis.nl/front/ebo"
+    xmlns:tns="http://www.amis.nl/frontReference"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://www.amis.nl/front/ebo" schemaLocation="xsd/FrontEBO.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="GetAllDepartmentsRequest">
+        <wsdl:part name="Parameters" element="ebo:InputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetAllDepartmentsResponse">
+        <wsdl:part name="Departments" element="ebo:DepartmentsCollection"/>
+    </wsdl:message>
+    <wsdl:message name="GetAllEmployeesRequest">
+        <wsdl:part name="Parameters" element="ebo:InputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetAllEmployeesResponse">
+        <wsdl:part name="Employees" element="ebo:EmployeesCollection"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetDepartmentRequest">
+        <wsdl:part name="Parameters" element="ebo:InputDepartment"/>
+    </wsdl:message>
+    <wsdl:message name="GetDepartmentResponse">
+        <wsdl:part name="Department" element="ebo:Department"/>
+    </wsdl:message>    
+
+    <wsdl:portType name="front_ptt">
+        <wsdl:operation name="GetAllDepartments">
+            <wsdl:input message="tns:GetAllDepartmentsRequest"/>
+            <wsdl:output message="tns:GetAllDepartmentsResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetAllEmployees">
+            <wsdl:input message="tns:GetAllEmployeesRequest"/>
+            <wsdl:output message="tns:GetAllEmployeesResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetDepartment">
+            <wsdl:input message="tns:GetDepartmentRequest"/>
+            <wsdl:output message="tns:GetDepartmentResponse"/>
+        </wsdl:operation>        
+    </wsdl:portType>
+
+</wsdl:definitions>

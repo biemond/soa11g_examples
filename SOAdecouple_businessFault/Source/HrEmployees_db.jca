@@ -1,0 +1,14 @@
+<adapter-config name="HrEmployees" adapter="Database Adapter" wsdlLocation="HrEmployees.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/hr" UIConnectionName="xe" adapterRef=""/>
+  <endpoint-interaction portType="HrEmployees_ptt" operation="HrEmployeesSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="HrEmployees.Employees"/>
+      <property name="QueryName" value="HrEmployeesSelect"/>
+      <property name="MappingsMetaDataURL" value="HrEmployees-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

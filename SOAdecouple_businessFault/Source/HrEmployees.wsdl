@@ -1,0 +1,25 @@
+<?binding.jca HrEmployees_db.jca?>
+<wsdl:definitions name="HrEmployees" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOAdecouple/Source/HrEmployees" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SOAdecouple/Source/HrEmployees" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/HrEmployees">
+    <plt:partnerLinkType name="HrEmployees_plt">
+        <plt:role name="HrEmployees_role">
+            <plt:portType name="tns:HrEmployees_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/HrEmployees" schemaLocation="xsd/HrEmployees_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="HrEmployeesSelect_inputParameters">
+        <wsdl:part name="HrEmployeesSelect_inputParameters" element="top:HrEmployeesSelectInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="EmployeesCollection_msg">
+        <wsdl:part name="EmployeesCollection" element="top:EmployeesCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="HrEmployees_ptt">
+        <wsdl:operation name="HrEmployeesSelect">
+            <wsdl:input message="tns:HrEmployeesSelect_inputParameters"/>
+            <wsdl:output message="tns:EmployeesCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

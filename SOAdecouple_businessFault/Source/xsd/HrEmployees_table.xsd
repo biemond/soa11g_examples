@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/HrEmployees" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/HrEmployees" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="EmployeesCollection" type="EmployeesCollection"/>
+   <xs:complexType name="EmployeesCollection">
+      <xs:sequence>
+         <xs:element name="Employees" type="Employees" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Employees">
+      <xs:sequence>
+         <xs:element name="employeeId" type="xs:int"/>
+         <xs:element name="firstName" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="lastName" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="25"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="email" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="25"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="phoneNumber" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="hireDate" type="xs:dateTime" minOccurs="0"/>
+         <xs:element name="jobId" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="salary" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="commissionPct" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="managerId" type="xs:int" minOccurs="0" nillable="true"/>
+         <xs:element name="departmentId" type="xs:int" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="HrEmployeesSelectInputParameters" type="HrEmployeesSelect"/>
+   <xs:complexType name="HrEmployeesSelect">
+      <xs:sequence/>
+   </xs:complexType>
+</xs:schema>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ValidateDepartment"
+             targetNamespace="http://xmlns.oracle.com/SOAdecouple/Front/ValidateDepartment"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://xmlns.oracle.com/SOAdecouple/Front/ValidateDepartment"
+             xmlns:ns1="http://www.amis.nl/front/ebo"
+             xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+             xmlns:tns="http://www.customfaults.org">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.amis.nl/front/ebo" schemaLocation="xsd/FrontEBO.xsd" />
+      <import namespace="http://www.customfaults.org" schemaLocation="xsd/Faults.xsd"/> 
+		</schema>
+	</wsdl:types>
+
+  <wsdl:message name="businessFaultMessage">
+    <wsdl:part name="businessFault" type="tns:DepartmentNotFoundType"/>
+  </wsdl:message>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<wsdl:message name="ValidateDepartmentRequestMessage">
+		<wsdl:part name="payload" element="ns1:InputDepartment" />
+	</wsdl:message>
+	<wsdl:message name="ValidateDepartmentResponseMessage">
+		<wsdl:part name="payload" element="ns1:Department" />
+	</wsdl:message>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<!-- portType implemented by the ValidateDepartment BPEL process -->
+	<wsdl:portType name="ValidateDepartment">
+		<wsdl:operation name="process">
+			<wsdl:input  message="client:ValidateDepartmentRequestMessage" />
+			<wsdl:output message="client:ValidateDepartmentResponseMessage"/>
+      <wsdl:fault message="client:businessFaultMessage" name="BusinessFault"/> 
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> 
+	<plnk:partnerLinkType name="ValidateDepartment">
+		<plnk:role name="ValidateDepartmentProvider" portType="client:ValidateDepartment"/>
+	</plnk:partnerLinkType>
+</wsdl:definitions>
