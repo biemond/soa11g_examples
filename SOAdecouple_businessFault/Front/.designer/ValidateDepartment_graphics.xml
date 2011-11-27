@@ -7,7 +7,7 @@
       <partnerlink name="validatedepartment_client" x="1" y="330" side="left"/>
       <partnerlink name="SourceMediator.SourceMediator" x="862" y="278" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,0,992,434" show_swimlanes="true">
+   <graph_layout viewport="0,17,992,517" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch" type="catch"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>

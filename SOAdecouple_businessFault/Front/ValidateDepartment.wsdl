@@ -21,7 +21,7 @@
 	</wsdl:types>
 
   <wsdl:message name="businessFaultMessage">
-    <wsdl:part name="businessFault" type="tns:DepartmentNotFoundType"/>
+    <wsdl:part name="businessFault" type="tns:FaultType"/>
   </wsdl:message>
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	MESSAGE TYPE DEFINITION - Definition of the message types used as 

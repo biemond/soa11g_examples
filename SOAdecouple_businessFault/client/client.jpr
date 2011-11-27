@@ -56,48 +56,14 @@
       <string v="oracle.jdeveloper.model.J2eeSettings/webContentSet"/>
       <string v="oracle.mds.internal.dt.ide.MDSLibraryCustCSProvider/mdsContentSet"/>
       <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
-      <string v="oracle.adfdtinternal.model.ide.settings.ADFMSettings/adfmContentSet"/>
       <string v="oracle.tip.tools.ide.fabric.addin.SCAContentSetProvider/sca-content"/>
+      <string v="oracle.adfdtinternal.model.ide.settings.ADFMSettings/adfmContentSet"/>
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
       <string v="oracle.bpm.fusion.repository.BPMProjectSettings/bpmProjectsProcessesContentSet"/>
    </list>
    <value n="defaultPackage" v="nl.amis.soa.decouple"/>
-   <value n="Namespace" v="http://xmlns.oracle.com/SOAdecouple/Front/ValidateDepartment"/>
-   <hash n="oracle.ide.model.ResourcePaths">
-      <hash n="resourcesContentSet">
-         <list n="url-path"/>
-      </hash>
-   </hash>
-   <hash n="oracle.ide.model.TechnologyScopeConfiguration">
-      <list n="technologyScope">
-         <string v="SOA"/>
-         <string v="XML"/>
-      </list>
-   </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
-      <list n="copyRes">
-         <string v=".gif"/>
-         <string v=".jpg"/>
-         <string v=".jpeg"/>
-         <string v=".png"/>
-         <string v=".properties"/>
-         <string v=".xml"/>
-         <string v=".ejx"/>
-         <string v=".xcfg"/>
-         <string v=".cpx"/>
-         <string v=".dcx"/>
-         <string v=".sva"/>
-         <string v=".wsdl"/>
-         <string v=".ini"/>
-         <string v=".tld"/>
-         <string v=".tag"/>
-         <string v=".xlf"/>
-         <string v=".xsl"/>
-         <string v=".xsd"/>
-         <string v=".exm"/>
-         <string v=".xml"/>
-      </list>
-      <value n="internalEncoding" v="Cp1252"/>
+      <value n="internalEncoding" v="UTF-8"/>
       <list n="Javac.commandline.optionlist">
          <string v="-g"/>
          <string v="-Xlint:all"/>
@@ -108,68 +74,30 @@
          <string v="-Xlint:-serial"/>
          <string v="-Xlint:-unchecked"/>
       </list>
-      <value n="webIANAEncoding" v="windows-1252"/>
+      <value n="webIANAEncoding" v="UTF-8"/>
    </hash>
    <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
       <hash n="profileDefinitions">
-         <hash n="Front">
+         <hash n="FrontMediator_ep-Client">
             <hash n="archiveOptions">
-               <value n="hasManifest" v="false"/>
+               <value n="hasManifest" v="true"/>
             </hash>
             <hash n="fileGroups">
                <list n="groups">
                   <hash>
                      <list n="contributors">
                         <hash>
-                           <url n="location" path="."/>
-                           <value n="type" v="1"/>
+                           <value n="type" v="2"/>
+                        </hash>
+                        <hash>
+                           <value n="type" v="7"/>
                         </hash>
                      </list>
-                     <value n="displayName" v="SOA Files"/>
+                     <value n="displayName" v="Project Output"/>
                      <hash n="filters">
                         <list n="rules">
                            <hash>
-                              <value n="pattern" v="SCA-INF/bpel"/>
-                              <value n="type" v="1"/>
-                           </hash>
-                           <hash>
-                              <value n="pattern" v=".migrated/jaxb_classes"/>
-                              <value n="type" v="1"/>
-                           </hash>
-                           <hash>
-                              <value n="pattern" v=".rulesdesigner/jaxb_classes"/>
-                              <value n="type" v="1"/>
-                           </hash>
-                           <hash>
-                              <value n="pattern" v="merged"/>
-                              <value n="type" v="1"/>
-                           </hash>
-                           <hash>
-                              <value n="pattern" v="mdssys"/>
-                              <value n="type" v="1"/>
-                           </hash>
-                           <hash>
-                              <value n="pattern" v=".designer"/>
-                              <value n="type" v="1"/>
-                           </hash>
-                           <hash>
-                              <value n="pattern" v="SCA-INF/file-layer-registry.xml"/>
-                              <value n="type" v="1"/>
-                           </hash>
-                           <hash>
-                              <value n="pattern" v="SCA-INF/classes/scac.log"/>
-                              <value n="type" v="1"/>
-                           </hash>
-                           <hash>
-                              <value n="pattern" v="SCA-INF/classes/scac_out.xml"/>
-                              <value n="type" v="1"/>
-                           </hash>
-                           <hash>
-                              <value n="pattern" v="*.jpr"/>
-                              <value n="type" v="1"/>
-                           </hash>
-                           <hash>
-                              <value n="pattern" v="deploy/"/>
+                              <value n="pattern" v="/**.class"/>
                               <value n="type" v="1"/>
                            </hash>
                            <hash>
@@ -249,37 +177,26 @@
                            </hash>
                         </list>
                      </hash>
-                     <value n="internalName" v="sar-files"/>
+                     <value n="internalName" v="project-output"/>
                      <value n="type" v="1"/>
                   </hash>
                </list>
             </hash>
-            <url n="jarURL" path="deploy/sca_Front${composite.revision_id}.jar"/>
+            <url n="jarURL" path="deploy/FrontMediator_ep-Client.jar"/>
             <hash n="libraryDependencies">
                <value n="IncludeLibrariesFromOtherContainers" v="true"/>
             </hash>
-            <value n="profileClass" v="oracle.tip.tools.ide.fabric.deploy.sar.SarProfile"/>
-            <value n="profileName" v="Front"/>
+            <value n="profileClass" v="oracle.jdeveloper.deploy.jar.ArchiveProfile"/>
+            <value n="profileName" v="FrontMediator_ep-Client"/>
          </hash>
       </hash>
       <list n="profileList">
-         <string v="Front"/>
+         <string v="FrontMediator_ep-Client"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
-      <value n="j2eeWebAppName" v="SOAdecouple-Front-webapp"/>
-      <value n="j2eeWebContextRoot" v="SOAdecouple-Front-context-root"/>
-   </hash>
-   <hash n="oracle.jdeveloper.model.PathsConfiguration">
-      <hash n="javaContentSet">
-         <list n="pattern-filters">
-            <string v="+**"/>
-         </list>
-         <list n="url-path">
-            <url path="src/"/>
-            <url path="SCA-INF/src/"/>
-         </list>
-      </hash>
+      <value n="j2eeWebAppName" v="SOAdecouple-client-webapp"/>
+      <value n="j2eeWebContextRoot" v="SOAdecouple-client-context-root"/>
    </hash>
    <hash n="oracle.jdeveloper.runner.RunConfigurations">
       <hash n="runConfigurationDefinitions">
@@ -295,74 +212,34 @@
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">
          <hash>
-            <value n="id" v="SOA Designtime"/>
+            <value n="id" v="JAX-WS Client"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="SOA Runtime"/>
+            <value n="id" v="JAX-WS Web Services"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="BPEL Runtime"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Mediator Runtime"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="MDS Runtime"/>
+            <value n="id" v="TopLink"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
       <list n="libraryReferences">
          <hash>
-            <value n="id" v="SOA Designtime"/>
+            <value n="id" v="JAX-WS Client"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="SOA Runtime"/>
+            <value n="id" v="JAX-WS Web Services"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="BPEL Runtime"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Mediator Runtime"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="MDS Runtime"/>
+            <value n="id" v="TopLink"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
-      <url n="outputDirectory" path="SCA-INF\classes/"/>
+      <url n="outputDirectory" path="classes/"/>
    </hash>
-   <hash n="oracle.tip.tools.ide.fabric.addin.SCAContentSetProvider">
-      <hash n="sca-content">
-         <list n="url-path">
-            <url path="."/>
-         </list>
-      </hash>
-   </hash>
-   <hash n="oracle.toplink.workbench.addin">
-      <hash n="toplinkContentSet">
-         <list n="pattern-filters">
-            <string v="+**"/>
-         </list>
-         <list n="url-path">
-            <url path="toplink/"/>
-         </list>
-      </hash>
-   </hash>
-   <value n="ProcessName" v="ValidateDepartment"/>
-   <value n="Template" v="BPEL_SYNC_PROCESS"/>
-   <url n="ValidateDepartment_bpelFileURL" path="ValidateDepartment.bpel"/>
-   <value n="ValidateDepartment_Namespace" v="http://xmlns.oracle.com/SOAdecouple/Front/ValidateDepartment"/>
-   <value n="ValidateDepartment_ProcessName" v="ValidateDepartment"/>
-   <value n="ValidateDepartment_Template" v="BPEL_SYNC_PROCESS"/>
-   <value n="ValidateDepartment_wsdl" v="ValidateDepartment.wsdl"/>
 </jpr:project>

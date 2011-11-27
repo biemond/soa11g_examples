@@ -65,6 +65,13 @@
                      </transform>
                      <reply/>
                   </onReply>
+                  <onFault type="BusinessFault">
+                     <transform>
+                        <part name="$out.businessFault"
+                              function="xslt(xsl/FaultType_To_BusinessFault.xsl, $in.businessFault)"/>
+                     </transform>
+                     <fault type="BusinessFault"/>
+                  </onFault>
                </invoke>
             </action>
          </case>

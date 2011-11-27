@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle-webservice-clients xmlns:ns2="http://java.sun.com/xml/ns/javaee">
+   <webservice-client>
+      <service-qname localpart="FrontMediator_ep"
+                     namespaceURI="http://www.amis.nl/front"/>
+      <port-info>
+         <wsdl-port localpart="front_pt"
+                    namespaceURI="http://www.amis.nl/front"/>
+         <runtime/>
+         <operations>
+            <operation name="getAllDepartments"/>
+            <operation name="getAllEmployees"/>
+            <operation name="validateDepartment"/>
+         </operations>
+      </port-info>
+   </webservice-client>
+</oracle-webservice-clients>

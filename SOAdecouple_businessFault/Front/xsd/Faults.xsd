@@ -4,14 +4,13 @@
             targetNamespace="http://www.customfaults.org"
             elementFormDefault="qualified">
   
+  <xsd:element name="BusinessFault" type="tns:FaultType"/>
   
-  <xsd:complexType name="DepartmentNotFoundType">
-  
-    <xsd:sequence>
+  <xsd:complexType name="FaultType">
+      <xsd:sequence>
       <xsd:element name="FaultCode" type="xsd:string"/>
       <xsd:element name="FaultDesciption" type="xsd:string"/>
     </xsd:sequence>
-  
   </xsd:complexType>
   
   

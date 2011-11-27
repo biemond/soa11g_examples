@@ -1,0 +1,4 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <system systemId="http://SOAPS3.alfa.local:8001/soa-infra/services/default/Front/Front?WSDL"
+          uri="http://SOAPS3.alfa.local:8001/soa-infra/services/default/Front/Front?WSDL"/>
+</catalog>

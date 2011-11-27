@@ -114,11 +114,11 @@
         <sequence name="Sequence1">
           <assign name="AssignFault">
             <copy>
-              <from>'Department not found'</from>
+              <from>'MyFault-001'</from>
               <to>$DepartmentNotFound.businessFault/ns3:FaultCode</to>
             </copy>
             <copy>
-              <from>'Department id '</from>
+              <from>'Department not found'</from>
               <to>$DepartmentNotFound.businessFault/ns3:FaultDesciption</to>
             </copy>
           </assign>

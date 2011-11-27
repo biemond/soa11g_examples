@@ -9,11 +9,13 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:ebo="http://www.amis.nl/front/ebo"
     xmlns:tns="http://www.amis.nl/front"
+    xmlns:tns2="http://www.customfaults.org"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <wsdl:types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema">
             <import namespace="http://www.amis.nl/front/ebo" schemaLocation="xsd/FrontEBO.xsd"/>
+            <import namespace="http://www.customfaults.org" schemaLocation="xsd/Faults.xsd"/> 
         </schema>
     </wsdl:types>
     <wsdl:message name="GetAllDepartmentsRequest">
@@ -28,7 +30,9 @@
     <wsdl:message name="ValidateDepartmentResponse">
         <wsdl:part name="Department" element="ebo:Department"/>
     </wsdl:message>
-    
+    <wsdl:message name="businessFaultMessage">
+      <wsdl:part name="businessFault" element="tns2:BusinessFault"/>
+    </wsdl:message>    
 
     <wsdl:message name="GetAllEmployeesRequest">
         <wsdl:part name="Parameters" element="ebo:InputParameters"/>
@@ -50,6 +54,7 @@
         <wsdl:operation name="ValidateDepartment">
             <wsdl:input message="tns:ValidateDepartmentRequest"/>
             <wsdl:output message="tns:ValidateDepartmentResponse"/>
+            <wsdl:fault message="tns:businessFaultMessage" name="BusinessFault"/> 
         </wsdl:operation>
     </wsdl:portType>
 
