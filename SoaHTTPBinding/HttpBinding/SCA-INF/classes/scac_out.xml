@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='reference']</loc>
+      <line>50</line>
+      <col>64</col>
+      <file/>
+      <msg>
+         <![CDATA[Failed to Find Binding "reference":"{http://xmlns.oracle.com/pcbpel/adapter/http/SoaHTTPBinding/HttpBinding/reference}Request_Response_pt" in WSDL Manager]]>
+      </msg>
+   </Fault>
+</Faults>

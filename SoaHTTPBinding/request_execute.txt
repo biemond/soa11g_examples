@@ -1,0 +1,63 @@
+port execute, operation name Request-Response
+SOA HTTP adapter ( Verb get )
+
+Tool wfetch 
+
+Verb post
+url = /soa-infra/services/default/HttpBinding/execute?operationName=Request-Response
+
+with Request -> header and body
+Content-Type: text/xml;charset=UTF-8\r\n
+\r\n
+<request xmlns="http://www.example.org">\r\n
+ <name>edwin</name>\r\n
+ <message>hi</message>\r\n
+</request> \r\n
+
+with Request -> only body
+<request xmlns="http://www.example.org">\r\n
+ <name>edwin</name>\r\n
+ <message>hi</message>\r\n
+</request> \r\n
+
+Verb = get and Request = disabled body.
+/soa-infra/services/default/HttpBinding/execute?operationName=Request-Response&name=edwin&message=hi
+
+
+port execute2, operation name Request-Response
+SOA HTTP adapter ( post )
+
+Verb post
+url = /soa-infra/services/default/HttpBinding/execute2
+/soa-infra/services/default/HttpBinding/execute2?operationName=Request-Response
+
+with Request -> only body
+<request xmlns="http://www.example.org">\r\n
+ <name>edwin</name>\r\n
+ <message>hi</message>\r\n
+</request> \r\n
+
+#not working 
+/soa-infra/services/default/HttpBinding/execute2?operationName=Request-Response&name=edwin&message=hi
+
+
+
+
+post SOAP mediator
+
+url /soa-infra/services/default/HttpBinding/HelloMediator_ep
+
+Accept-Encoding: gzip,deflate
+Content-Type: text/xml;charset=UTF-8
+SOAPAction: "execute"
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:exam="http://www.example.org">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <exam:request>
+         <exam:name>Edwin</exam:name>
+         <exam:message>hi</exam:message>
+      </exam:request>
+   </soapenv:Body>
+</soapenv:Envelope>
+

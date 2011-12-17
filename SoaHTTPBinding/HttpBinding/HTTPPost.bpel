@@ -1,0 +1,73 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Sat Dec 17 16:11:16 CET 2011
+  Author:  admin
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="HTTPPost"
+               targetNamespace="http://xmlns.oracle.com/SoaHTTPBinding/HttpBinding/HTTPPost"
+               xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+               xmlns:client="http://xmlns.oracle.com/SoaHTTPBinding/HttpBinding/HTTPPost"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+               xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/http/SoaHTTPBinding/HttpBinding/execute2"
+               xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:ns2="http://www.example.org">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="httppost_client" partnerLinkType="ns1:Request_Response_plt" myRole="Request-Response_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="ns1:request_msg_in"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="ns1:response_msg_out"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in HTTPPost.wsdl) -->
+    <receive name="receiveInput" partnerLink="httppost_client" portType="ns1:Request_Response_ptt" operation="Request-Response" variable="inputVariable" createInstance="yes"/>
+
+    <!-- Generate reply to synchronous request -->
+    <assign name="Assign1">
+      <copy>
+        <from variable="inputVariable" part="request"
+              query="/ns2:request/ns2:message"/>
+        <to variable="outputVariable" part="response"
+            query="/ns2:response/ns2:message"/>
+      </copy>
+    </assign>
+    <reply name="replyOutput" partnerLink="httppost_client" portType="ns1:Request_Response_ptt" operation="Request-Response" variable="outputVariable"/>
+  </sequence>
+</process>

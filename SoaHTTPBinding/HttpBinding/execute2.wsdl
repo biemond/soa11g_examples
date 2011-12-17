@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+     name="execute2"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/http/SoaHTTPBinding/HttpBinding/execute2"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/http/SoaHTTPBinding/HttpBinding/execute2"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:msg_in_out="http://www.example.org"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+    >
+    <plt:partnerLinkType name="Request_Response_plt">
+        <plt:role name="Request-Response_role">
+            <plt:portType name="tns:Request_Response_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://www.example.org" schemaLocation="xsd/helloworld.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="request_msg_in">
+        <wsdl:part name="request" element="msg_in_out:request"/>
+    </wsdl:message>
+    <wsdl:message name="response_msg_out">
+        <wsdl:part name="response" element="msg_in_out:response"/>
+    </wsdl:message>
+    <wsdl:portType name="Request_Response_ptt">
+        <wsdl:operation name="Request-Response">
+            <wsdl:input message="tns:request_msg_in"/>
+            <wsdl:output message="tns:response_msg_out"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="BPELProcessHTTPGet" targetNamespace="http://xmlns.oracle.com/SoaHTTPBinding/HttpBinding/BPELProcessHTTPGet" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/SoaHTTPBinding/HttpBinding/BPELProcessHTTPGet" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://www.example.org" id="BpPrc0">
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="execute" partnerLinkType="client:BPELProcessHTTPGet" myRole="BPELProcessHTTPGetProvider"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:BPELProcessHTTPGetRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:BPELProcessHTTPGetResponseMessage"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main" id="BpSeq0">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in BPELProcessHTTPGet.wsdl) -->
+    <receive name="receiveInput" partnerLink="execute" portType="client:BPELProcessHTTPGet" operation="process" variable="inputVariable" createInstance="yes" id="BpRcv0"/>
+
+    <!-- Generate reply to synchronous request -->
+    <assign name="Assign1" id="BpAss0">
+      <copy>
+        <from variable="inputVariable" part="payload" query="/ns1:request/ns1:message"/>
+        <to variable="outputVariable" part="payload" query="/ns1:response"/>
+      </copy>
+    </assign>
+    <reply name="replyOutput" partnerLink="execute" portType="client:BPELProcessHTTPGet" operation="process" variable="outputVariable" id="BpRpl0"/>
+  </sequence>
+</process><!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Sat Dec 17 15:53:14 CET 2011
+  Author:  admin
+  Type: BPEL 1.1 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
