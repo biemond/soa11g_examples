@@ -4,10 +4,10 @@
    <annotationfile/>
    <iconize/>
    <partnerlink_locations>
-      <partnerlink name="EJBService" x="15" y="223" side="left"/>
-      <partnerlink name="HREjb" x="15" y="282" side="left"/>
+      <partnerlink name="EJBService" x="15" y="221" side="left"/>
+      <partnerlink name="HREjb" x="15" y="278" side="left"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,0,995,475" show_swimlanes="true">
+   <graph_layout viewport="0,0,1086,571" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
    </graph_layout>

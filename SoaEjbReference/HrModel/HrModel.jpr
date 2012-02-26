@@ -45,7 +45,7 @@
       <value n="oracle.tip.tools.ide.fabric.addin.SCAProjectMigrator" v="11.1.1.1.0.06"/>
       <value n="oracle.tip.tools.ide.pm.addin.migrator.PMProjectMigrator" v="11.1.1.1.0"/>
       <value n="oracle.tip.tools.ide.workflow.addin.TaskFormMigratorAddin" v="11.1.1.1.0"/>
-      <value n="oracle.tip.tools.ide.workflow.addin.WorkflowProjectMigrator" v="11.1.1.1.0.08;11.1.1.1.0.09"/>
+      <value n="oracle.tip.tools.ide.workflow.addin.WorkflowProjectMigrator" v="11.1.1.1.0.08;11.1.1.1.0.09;11.1.1.1.0.10"/>
       <value n="oracle.toplink.workbench.addin.migration.PersistenceProjectMigrator" v="11.1.1.1.1"/>
       <value n="oracle.toplink.workbench.addin.migration.TopLinkProjectMigrator" v="11.1.1.1.0"/>
       <value n="oracle.webcenter.internal.dt.migration.WebCenterProjectMigrator" v="11.1.1.4.0.101019.0800"/>

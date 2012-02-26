@@ -46,7 +46,7 @@
       <value n="oracle.tip.tools.ide.fabric.addin.SCAProjectMigrator" v="11.1.1.1.0.06"/>
       <value n="oracle.tip.tools.ide.pm.addin.migrator.PMProjectMigrator" v="11.1.1.1.0"/>
       <value n="oracle.tip.tools.ide.workflow.addin.TaskFormMigratorAddin" v="11.1.1.1.0"/>
-      <value n="oracle.tip.tools.ide.workflow.addin.WorkflowProjectMigrator" v="11.1.1.1.0.09"/>
+      <value n="oracle.tip.tools.ide.workflow.addin.WorkflowProjectMigrator" v="11.1.1.1.0.09;11.1.1.1.0.10"/>
       <value n="oracle.toplink.workbench.addin.migration.PersistenceProjectMigrator" v="11.1.1.1.1"/>
       <value n="oracle.toplink.workbench.addin.migration.TopLinkProjectMigrator" v="11.1.1.1.0"/>
       <value n="oracle.webcenter.internal.dt.migration.WebCenterProjectMigrator" v="11.1.1.1.0.090618.1120"/>
@@ -84,6 +84,15 @@
             <url path="model/"/>
          </list>
       </hash>
+   </hash>
+   <hash n="oracle.ide.model.DependencyConfiguration">
+      <list n="dependencyList">
+         <hash>
+            <value n="adapterClass" v="oracle.jdevimpl.deploy.common.DefaultProfileDependable"/>
+            <url n="ownerURL" path="../HrModel/HrModel.jpr"/>
+            <value n="profileName" v="HrModelServiceInterface"/>
+         </hash>
+      </list>
    </hash>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
@@ -184,10 +193,6 @@
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">
          <hash>
-            <value n="id" v="HrModelServiceInterface.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="SOA Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -197,23 +202,9 @@
          </hash>
       </list>
       <hash n="internalDefinitions">
-         <list n="libraryDefinitions">
-            <hash>
-               <list n="classPath">
-                  <url path="../../SoaSpringEnrichment/HrModel/deploy/HrModelServiceInterface.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="HrModelServiceInterface.jar"/>
-               <value n="id" v="HrModelServiceInterface.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-         </list>
+         <list n="libraryDefinitions"/>
       </hash>
       <list n="libraryReferences">
-         <hash>
-            <value n="id" v="HrModelServiceInterface.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
          <hash>
             <value n="id" v="SOA Runtime"/>
             <value n="isJDK" v="false"/>

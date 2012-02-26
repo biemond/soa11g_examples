@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="BPELEjb" targetNamespace="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/BPELEjb" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/BPELEjb" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://services.hr.model.soa.whitehorses.nl/" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns2="/nl/whitehorses/hr/ejb/services/" id="BpPrc0">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <partnerLinks>
+    <partnerLink name="EJBService" partnerLinkType="ns1:EJBService" myRole="HrModelSessionEJB"/>
+    <partnerLink name="HREjb" partnerLinkType="ns1:HREjb" partnerRole="HrModelSessionEJB"/>
+  </partnerLinks>
+  <variables>
+    <variable name="InputVariable" messageType="ns1:getEmployeesFindOneInput"/>
+    <variable name="OutputVariable" messageType="ns1:getEmployeesFindOneOutput"/>
+    <variable name="getEmployeesFindOne_InputVariable" messageType="ns1:getEmployeesFindOneInput"/>
+    <variable name="getEmployeesFindOne_OutputVariable" messageType="ns1:getEmployeesFindOneOutput"/>
+  </variables>
+  <sequence name="main" id="BpSeq0">
+    <receive name="Receive1" createInstance="yes" variable="InputVariable" partnerLink="EJBService" portType="ns1:HrModelSessionEJB" operation="getEmployeesFindOne" id="BpRcv0"/>
+    <assign name="Assign1" id="BpAss0">
+      <copy>
+        <from variable="InputVariable" part="parameters" query="/ns1:getEmployeesFindOne/empId"/>
+        <to variable="getEmployeesFindOne_InputVariable" part="parameters" query="/ns1:getEmployeesFindOne/empId"/>
+      </copy>
+    </assign>
+    <invoke name="Invoke1" inputVariable="getEmployeesFindOne_InputVariable" outputVariable="getEmployeesFindOne_OutputVariable" partnerLink="HREjb" portType="ns1:HrModelSessionEJB" operation="getEmployeesFindOne" bpelx:invokeAsDetail="no" id="BpInv0"/>
+    <assign name="Assign2" id="BpAss1">
+      <copy>
+        <from variable="getEmployeesFindOne_OutputVariable" part="parameters" query="/ns1:getEmployeesFindOneResponse"/>
+        <to variable="OutputVariable" part="parameters" query="/ns1:getEmployeesFindOneResponse"/>
+      </copy>
+    </assign>
+    <reply name="Reply1" variable="OutputVariable" partnerLink="EJBService" portType="ns1:HrModelSessionEJB" operation="getEmployeesFindOne" id="BpRpl0"/>
+  </sequence>
+</process><!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Aug 18 21:15:41 CEST 2011
+  Author:  Edwin_b
+  Type: BPEL 1.1 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->

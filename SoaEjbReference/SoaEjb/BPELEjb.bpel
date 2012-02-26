@@ -49,9 +49,9 @@
     <assign name="Assign1">
       <copy>
         <from variable="InputVariable" part="parameters"
-              query="/ns1:getEmployeesFindOne/arg0"/>
+              query="/ns1:getEmployeesFindOne/empId"/>
         <to variable="getEmployeesFindOne_InputVariable" part="parameters"
-            query="/ns1:getEmployeesFindOne/arg0"/>
+            query="/ns1:getEmployeesFindOne/empId"/>
       </copy>
     </assign>
     <invoke name="Invoke1"

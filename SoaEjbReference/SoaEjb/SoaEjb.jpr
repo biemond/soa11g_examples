@@ -5,10 +5,11 @@
    <value n="BPELEjb_ProcessName" v="BPELEjb"/>
    <value n="BPELEjb_Template" v="BPEL_EMPTY_PROCESS"/>
    <value n="BPELEjb_wsdl" v="BPELEjb.wsdl"/>
+   <url n="BPELProcess1_bpelFileURL" path="BPELProcess1.bpel"/>
    <value n="BPELProcess1_Namespace" v="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/BPELProcess1"/>
    <value n="BPELProcess1_ProcessName" v="BPELProcess1"/>
-   <value n="BPELProcess1_Template" v="BPEL_BASE_ON_WSDL"/>
-   <value n="BPELProcess1_wsdl" v="HrEmployeeEJBBeanWS_1.wsdl"/>
+   <value n="BPELProcess1_Template" v="BPEL_ASYNC_PROCESS"/>
+   <value n="BPELProcess1_wsdl" v="BPELProcess1.wsdl"/>
    <url n="BPELProcess2_bpelFileURL" path="BPELProcess2.bpel"/>
    <value n="BPELProcess2_Namespace" v="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/BPELProcess2"/>
    <value n="BPELProcess2_ProcessName" v="BPELProcess2"/>
@@ -60,7 +61,7 @@
       <value n="oracle.tip.tools.ide.fabric.addin.SCAProjectMigrator" v="11.1.1.1.0.06"/>
       <value n="oracle.tip.tools.ide.pm.addin.migrator.PMProjectMigrator" v="11.1.1.1.0"/>
       <value n="oracle.tip.tools.ide.workflow.addin.TaskFormMigratorAddin" v="11.1.1.1.0"/>
-      <value n="oracle.tip.tools.ide.workflow.addin.WorkflowProjectMigrator" v="11.1.1.1.0.09"/>
+      <value n="oracle.tip.tools.ide.workflow.addin.WorkflowProjectMigrator" v="11.1.1.1.0.09;11.1.1.1.0.10"/>
       <value n="oracle.toplink.workbench.addin.migration.PersistenceProjectMigrator" v="11.1.1.1.1"/>
       <value n="oracle.toplink.workbench.addin.migration.TopLinkProjectMigrator" v="11.1.1.1.0"/>
       <value n="oracle.webcenter.internal.dt.migration.WebCenterProjectMigrator" v="11.1.1.1.0.090618.1120"/>
@@ -83,7 +84,7 @@
    <value n="GetEmployeeNameProcess_ProcessName" v="GetEmployeeNameProcess"/>
    <value n="GetEmployeeNameProcess_Template" v="BPEL_SYNC_PROCESS"/>
    <value n="GetEmployeeNameProcess_wsdl" v="GetEmployeeNameProcess.wsdl"/>
-   <value n="Namespace" v="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/BPELEjb"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess"/>
    <hash n="oracle.adfdtinternal.model.ide.settings.ADFMSettings">
       <hash n="adfmContentSet">
          <list n="pattern-filters">
@@ -488,9 +489,9 @@
          </list>
       </hash>
    </hash>
-   <value n="ProcessName" v="BPELEjb"/>
+   <value n="ProcessName" v="GetEmployeeNameProcess"/>
    <hash n="ResourceBundleOptions">
       <list n="RegisteredResourceBundles"/>
    </hash>
-   <value n="Template" v="BPEL_EMPTY_PROCESS"/>
+   <value n="Template" v="BPEL_SYNC_PROCESS"/>
 </jpr:project>

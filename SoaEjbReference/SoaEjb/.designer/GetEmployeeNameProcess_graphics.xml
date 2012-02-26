@@ -4,10 +4,10 @@
    <annotationfile/>
    <iconize scope="no" catchall="no" dropzone="no" pick="no" catch="no" flow="no" javaembedding="no" onmessage="no" throw="no" onalarm="no" terminate="no" empty="no" sequence="no" compensate="no" optimize="no" transform="no" reply="no" validate="no" while="no" wait="no" compensationhandler="no" assign="no" receive="no" switch="no" invoke="no"/>
    <partnerlink_locations>
-      <partnerlink name="getemployeenameprocess_client" x="0" y="279" side="left"/>
-      <partnerlink name="HREjb" x="896" y="282" side="right"/>
+      <partnerlink name="getemployeenameprocess_client" x="0" y="275" side="left"/>
+      <partnerlink name="HREjb" x="970" y="278" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,0,1012,560" show_swimlanes="true">
+   <graph_layout viewport="0,0,1086,571" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
    </graph_layout>

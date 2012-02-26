@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="GetEmployeeNameProcess" targetNamespace="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/SoaEjbReference/SoaEjb/GetEmployeeNameProcess" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:xpath20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ui="http://xmlns.oracle.com/soa/designer/" xmlns:task="http://xmlns.oracle.com/bpel/workflow/task" xmlns:taskservice="http://xmlns.oracle.com/bpel/workflow/taskService" xmlns:wfcommon="http://xmlns.oracle.com/bpel/workflow/common" xmlns:wf="http://schemas.oracle.com/bpel/extension/workflow" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="/nl.whitehorses.hr.ejb.services/" xmlns:ns2="/nl/whitehorses/hr/ejb/services/" xmlns:ns3="http://services.hr.model.soa.whitehorses.nl/" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" id="BpPrc0">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="getemployeenameprocess_client" partnerLinkType="client:GetEmployeeNameProcess" myRole="GetEmployeeNameProcessProvider"/>
+    <partnerLink name="HREjb" partnerLinkType="ns3:HREjb" partnerRole="HrModelSessionEJB"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:GetEmployeeNameProcessRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:GetEmployeeNameProcessResponseMessage"/>
+    <variable name="getEmployeesFindOne_InputVariable" messageType="ns3:getEmployeesFindOneInput"/>
+    <variable name="getEmployeesFindOne_OutputVariable" messageType="ns3:getEmployeesFindOneOutput"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main" id="BpSeq0">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in GetEmployeeNameProcess.wsdl) -->
+    <receive name="receiveInput" partnerLink="getemployeenameprocess_client" portType="client:GetEmployeeNameProcess" operation="process" variable="inputVariable" createInstance="yes" id="BpRcv0"/>
+
+    <!-- Generate reply to synchronous request -->
+    <assign name="Assign_1" id="BpAss0">
+      <copy>
+        <from expression="number(bpws:getVariableData('inputVariable','payload','/client:process/client:input'))"/>
+        <to variable="getEmployeesFindOne_InputVariable" part="parameters" query="/ns3:getEmployeesFindOne/empId"/>
+      </copy>
+    </assign>
+    <invoke name="Invoke1" inputVariable="getEmployeesFindOne_InputVariable" outputVariable="getEmployeesFindOne_OutputVariable" partnerLink="HREjb" portType="ns3:HrModelSessionEJB" operation="getEmployeesFindOne" bpelx:invokeAsDetail="no" id="BpInv0"/>
+    <assign name="Assign_2" id="BpAss1">
+      <copy>
+        <from variable="getEmployeesFindOne_OutputVariable" part="parameters" query="/ns3:getEmployeesFindOneResponse/EmployeesResult/lastName"/>
+        <to variable="outputVariable" part="payload" query="/client:processResponse/client:result"/>
+      </copy>
+    </assign>
+    <reply name="replyOutput" partnerLink="getemployeenameprocess_client" portType="client:GetEmployeeNameProcess" operation="process" variable="outputVariable" id="BpRpl0"/>
+  </sequence>
+</process><!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Jul 16 16:05:21 CEST 2009
+  Author:  ebiemond
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->

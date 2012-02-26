@@ -56,7 +56,7 @@ public class HrModelSessionEJBClient {
         Hashtable env = new Hashtable();
         // WebLogic Server 10.x connection details
         env.put( Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory" );
-        env.put(Context.PROVIDER_URL, "t3://soaps3:8001");
+        env.put(Context.PROVIDER_URL, "t3://soaps5:8001");
         return new InitialContext( env );
     }
 }

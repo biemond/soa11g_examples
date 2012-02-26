@@ -16,6 +16,7 @@
                 <xsd:sequence>
                     <xsd:element name="departmentId" type="xsd:long" minOccurs="0"/>
                     <xsd:element name="departmentName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="employees" type="ns0:employees" minOccurs="0" maxOccurs="unbounded"/>
                     <xsd:element name="locationId" type="xsd:long" minOccurs="0"/>
                     <xsd:element name="managerId" type="xsd:long" minOccurs="0"/>
                 </xsd:sequence>
@@ -27,6 +28,7 @@
                     <xsd:element name="email" type="xsd:string" minOccurs="0"/>
                     <xsd:element name="employeeId" type="xsd:long" minOccurs="0"/>
                     <xsd:element name="firstName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="hireDate" type="xsd:dateTime" minOccurs="0"/>
                     <xsd:element name="jobId" type="xsd:string" minOccurs="0"/>
                     <xsd:element name="lastName" type="xsd:string" minOccurs="0"/>
                     <xsd:element name="phoneNumber" type="xsd:string" minOccurs="0"/>
@@ -37,6 +39,40 @@
         <xsd:schema targetNamespace="http://services.hr.model.soa.whitehorses.nl/" xmlns:tns="http://services.hr.model.soa.whitehorses.nl/"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://services.hr.model.soa.whitehorses.nl/types">
             <xsd:import namespace="http://services.hr.model.soa.whitehorses.nl/types"/>
+            <xsd:complexType name="getDepartmentsFindAll">
+                <xsd:sequence/>
+            </xsd:complexType>
+            <xsd:element name="getDepartmentsFindAll" type="tns:getDepartmentsFindAll"/>
+            <xsd:complexType name="getDepartmentsFindAllResponse">
+                <xsd:sequence>
+                    <xsd:element name="return" minOccurs="0" maxOccurs="unbounded" type="ns1:departments"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getDepartmentsFindAllResponse" type="tns:getDepartmentsFindAllResponse"/>
+            <xsd:complexType name="createEmployee">
+                <xsd:sequence>
+                    <xsd:element name="arg0" type="ns1:employees"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="createEmployee" type="tns:createEmployee"/>
+            <xsd:complexType name="createEmployeeResponse">
+                <xsd:sequence>
+                    <xsd:element name="return" type="ns1:employees"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="createEmployeeResponse" type="tns:createEmployeeResponse"/>
+            <xsd:complexType name="getEmployeesFindOne">
+                <xsd:sequence>
+                    <xsd:element name="empId" type="xsd:long"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getEmployeesFindOne" type="tns:getEmployeesFindOne"/>
+            <xsd:complexType name="getEmployeesFindOneResponse">
+                <xsd:sequence>
+                    <xsd:element name="EmployeesResult" type="ns1:employees"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getEmployeesFindOneResponse" type="tns:getEmployeesFindOneResponse"/>
             <xsd:complexType name="getDepartmentsFindOne">
                 <xsd:sequence>
                     <xsd:element name="arg0" type="xsd:long"/>
@@ -49,18 +85,6 @@
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:element name="getDepartmentsFindOneResponse" type="tns:getDepartmentsFindOneResponse"/>
-            <xsd:complexType name="getEmployeesFindOne">
-                <xsd:sequence>
-                    <xsd:element name="arg0" type="xsd:long"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:element name="getEmployeesFindOne" type="tns:getEmployeesFindOne"/>
-            <xsd:complexType name="getEmployeesFindOneResponse">
-                <xsd:sequence>
-                    <xsd:element name="return" type="ns1:employees"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:element name="getEmployeesFindOneResponse" type="tns:getEmployeesFindOneResponse"/>
             <xsd:complexType name="getEmployeesFindAll">
                 <xsd:sequence/>
             </xsd:complexType>
@@ -71,37 +95,19 @@
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:element name="getEmployeesFindAllResponse" type="tns:getEmployeesFindAllResponse"/>
-            <xsd:complexType name="getDepartmentsFindAll">
-                <xsd:sequence/>
-            </xsd:complexType>
-            <xsd:element name="getDepartmentsFindAll" type="tns:getDepartmentsFindAll"/>
-            <xsd:complexType name="getDepartmentsFindAllResponse">
-                <xsd:sequence>
-                    <xsd:element name="return" minOccurs="0" maxOccurs="unbounded" type="ns1:departments"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:element name="getDepartmentsFindAllResponse" type="tns:getDepartmentsFindAllResponse"/>
-            <xsd:complexType name="queryByRange">
-                <xsd:sequence>
-                    <xsd:element name="arg0" type="xsd:string"/>
-                    <xsd:element name="arg1" type="xsd:int"/>
-                    <xsd:element name="arg2" type="xsd:int"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:element name="queryByRange" type="tns:queryByRange"/>
-            <xsd:complexType name="queryByRangeResponse">
-                <xsd:sequence>
-                    <xsd:element name="return" type="xsd:anyType"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:element name="queryByRangeResponse" type="tns:queryByRangeResponse"/>
         </xsd:schema>
     </wsdl:types>
-    <wsdl:message name="getDepartmentsFindOneInput">
-        <wsdl:part name="parameters" element="tns:getDepartmentsFindOne"/>
+    <wsdl:message name="getDepartmentsFindAllInput">
+        <wsdl:part name="parameters" element="tns:getDepartmentsFindAll"/>
     </wsdl:message>
-    <wsdl:message name="getDepartmentsFindOneOutput">
-        <wsdl:part name="parameters" element="tns:getDepartmentsFindOneResponse"/>
+    <wsdl:message name="getDepartmentsFindAllOutput">
+        <wsdl:part name="parameters" element="tns:getDepartmentsFindAllResponse"/>
+    </wsdl:message>
+    <wsdl:message name="createEmployeeInput">
+        <wsdl:part name="parameters" element="tns:createEmployee"/>
+    </wsdl:message>
+    <wsdl:message name="createEmployeeOutput">
+        <wsdl:part name="parameters" element="tns:createEmployeeResponse"/>
     </wsdl:message>
     <wsdl:message name="getEmployeesFindOneInput">
         <wsdl:part name="parameters" element="tns:getEmployeesFindOne"/>
@@ -109,29 +115,29 @@
     <wsdl:message name="getEmployeesFindOneOutput">
         <wsdl:part name="parameters" element="tns:getEmployeesFindOneResponse"/>
     </wsdl:message>
+    <wsdl:message name="getDepartmentsFindOneInput">
+        <wsdl:part name="parameters" element="tns:getDepartmentsFindOne"/>
+    </wsdl:message>
+    <wsdl:message name="getDepartmentsFindOneOutput">
+        <wsdl:part name="parameters" element="tns:getDepartmentsFindOneResponse"/>
+    </wsdl:message>
     <wsdl:message name="getEmployeesFindAllInput">
         <wsdl:part name="parameters" element="tns:getEmployeesFindAll"/>
     </wsdl:message>
     <wsdl:message name="getEmployeesFindAllOutput">
         <wsdl:part name="parameters" element="tns:getEmployeesFindAllResponse"/>
     </wsdl:message>
-    <wsdl:message name="getDepartmentsFindAllInput">
-        <wsdl:part name="parameters" element="tns:getDepartmentsFindAll"/>
-    </wsdl:message>
-    <wsdl:message name="getDepartmentsFindAllOutput">
-        <wsdl:part name="parameters" element="tns:getDepartmentsFindAllResponse"/>
-    </wsdl:message>
-    <wsdl:message name="queryByRangeInput">
-        <wsdl:part name="parameters" element="tns:queryByRange"/>
-    </wsdl:message>
-    <wsdl:message name="queryByRangeOutput">
-        <wsdl:part name="parameters" element="tns:queryByRangeResponse"/>
-    </wsdl:message>
     <wsdl:portType name="HrModelSessionEJB">
-        <wsdl:operation name="getDepartmentsFindOne">
-            <wsdl:input message="tns:getDepartmentsFindOneInput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+        <wsdl:operation name="getDepartmentsFindAll">
+            <wsdl:input message="tns:getDepartmentsFindAllInput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
                  ns1:Action=""/>
-            <wsdl:output message="tns:getDepartmentsFindOneOutput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+            <wsdl:output message="tns:getDepartmentsFindAllOutput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action=""/>
+        </wsdl:operation>
+        <wsdl:operation name="createEmployee">
+            <wsdl:input message="tns:createEmployeeInput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action=""/>
+            <wsdl:output message="tns:createEmployeeOutput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
                  ns1:Action=""/>
         </wsdl:operation>
         <wsdl:operation name="getEmployeesFindOne">
@@ -140,22 +146,16 @@
             <wsdl:output message="tns:getEmployeesFindOneOutput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
                  ns1:Action=""/>
         </wsdl:operation>
+        <wsdl:operation name="getDepartmentsFindOne">
+            <wsdl:input message="tns:getDepartmentsFindOneInput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action=""/>
+            <wsdl:output message="tns:getDepartmentsFindOneOutput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action=""/>
+        </wsdl:operation>
         <wsdl:operation name="getEmployeesFindAll">
             <wsdl:input message="tns:getEmployeesFindAllInput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
                  ns1:Action=""/>
             <wsdl:output message="tns:getEmployeesFindAllOutput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
-                 ns1:Action=""/>
-        </wsdl:operation>
-        <wsdl:operation name="getDepartmentsFindAll">
-            <wsdl:input message="tns:getDepartmentsFindAllInput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
-                 ns1:Action=""/>
-            <wsdl:output message="tns:getDepartmentsFindAllOutput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
-                 ns1:Action=""/>
-        </wsdl:operation>
-        <wsdl:operation name="queryByRange">
-            <wsdl:input message="tns:queryByRangeInput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
-                 ns1:Action=""/>
-            <wsdl:output message="tns:queryByRangeOutput" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
                  ns1:Action=""/>
         </wsdl:operation>
     </wsdl:portType>

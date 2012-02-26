@@ -1,0 +1,33 @@
+26-feb-2012 16:25:32 oracle.mds
+NOTIFICATION: PManager-instance wordt aangemaakt zonder ondersteuning van meerdere eigenaren omdat de JVM-vlag oracle.multitenant.enabled niet is ingesteld op het activeren van meerdere eigenaren.
+26-feb-2012 16:25:35 oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+INFO: XMLSchema incremental build enabled.
+26-feb-2012 16:25:36 com.collaxa.cube.CubeLogger info
+INFO: validating "GetEmployeeNameProcess.bpel" ...
+26-feb-2012 16:25:37 oracle.integration.platform.blocks.FabricConfigManager <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+26-feb-2012 16:25:37 oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
+26-feb-2012 16:25:38 com.collaxa.cube.CubeLogger info
+INFO: Composed "GetEmployeeNameProcess" in 161,5 milliseconds [nodes 8=0+8, 49,5 nodes/sec]
+26-feb-2012 16:25:42 com.collaxa.cube.CubeLogger info
+INFO: Compiled "GetEmployeeNameProcess" in 3,995 seconds
+26-feb-2012 16:25:42 com.collaxa.cube.CubeLogger info
+INFO: Gathered 3 files in 0,9 milliseconds
+
+26-feb-2012 16:25:42 com.collaxa.cube.CubeLogger info
+INFO: Packaged "GetEmployeeNameProcess" in 11,1 milliseconds
+
+26-feb-2012 16:25:42 com.collaxa.cube.CubeLogger info
+INFO: validating "BPELEjb.bpel" ...
+26-feb-2012 16:25:43 com.collaxa.cube.CubeLogger info
+INFO: Composed "BPELEjb" in 13,2 milliseconds [nodes 8=0+8, 606,2 nodes/sec]
+26-feb-2012 16:25:43 com.collaxa.cube.CubeLogger info
+INFO: Compiled "BPELEjb" in 379,0 milliseconds
+26-feb-2012 16:25:43 com.collaxa.cube.CubeLogger info
+INFO: Gathered 3 files in 0,6 milliseconds
+
+26-feb-2012 16:25:43 com.collaxa.cube.CubeLogger info
+INFO: Packaged "BPELEjb" in 5,4 milliseconds
+

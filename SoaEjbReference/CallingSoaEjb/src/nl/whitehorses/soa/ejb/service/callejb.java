@@ -23,7 +23,7 @@ public class callejb {
 
             Properties props = new Properties();
             props.put(Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
-            props.put(Context.PROVIDER_URL, "t3://virtual:8001");
+            props.put(Context.PROVIDER_URL, "t3://soaps5:8001");
             InitialContext ctx = new InitialContext(props);
             
             HrModelSessionEJB hrEmployeeEJB = (HrModelSessionEJB)ctx.lookup("SOAHrModelSessionEJB");

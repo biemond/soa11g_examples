@@ -29,7 +29,10 @@
          xmlns:ns1="/nl.whitehorses.hr.ejb.services/"
          xmlns:ns2="/nl/whitehorses/hr/ejb/services/"
          xmlns:ns3="http://services.hr.model.soa.whitehorses.nl/"
-         xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+         xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +86,7 @@
       <copy>
         <from expression="number(bpws:getVariableData('inputVariable','payload','/client:process/client:input'))"/>
         <to variable="getEmployeesFindOne_InputVariable" part="parameters"
-            query="/ns3:getEmployeesFindOne/arg0"/>
+            query="/ns3:getEmployeesFindOne/empId"/>
       </copy>
     </assign>
     <invoke name="Invoke1"
@@ -94,7 +97,7 @@
     <assign name="Assign_2">
       <copy>
         <from variable="getEmployeesFindOne_OutputVariable" part="parameters"
-              query="/ns3:getEmployeesFindOneResponse/return/lastName"/>
+              query="/ns3:getEmployeesFindOneResponse/EmployeesResult/lastName"/>
         <to variable="outputVariable" part="payload"
             query="/client:processResponse/client:result"/>
       </copy>
