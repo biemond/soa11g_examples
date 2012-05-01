@@ -1,0 +1,157 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema targetNamespace="http://xmlns.oracle.com/bpel/workflow/TaskEvidenceService" xmlns:tns="http://xmlns.oracle.com/bpel/workflow/TaskEvidenceService"
+     xmlns:wfcommon="http://xmlns.oracle.com/bpel/workflow/common" xmlns="http://xmlns.oracle.com/bpel/workflow/TaskEvidenceService"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+     jaxb:version="1.0" elementFormDefault="qualified">
+    <xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="oracle.bpel.services.workflow.evidence.model"/>
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:import namespace="http://xmlns.oracle.com/bpel/workflow/common" schemaLocation="oramds:/soa/shared/workflow/WorkflowCommon.xsd"/>
+    <xsd:simpleType name="PolicyEnumType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="PASSWORD"/>
+            <xsd:enumeration value="CERTIFICATE"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="WFTypeEnumType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="OWF"/>
+            <xsd:enumeration value="BPELWF"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="PredicateOperatorEnumType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ANY"/>
+            <xsd:enumeration value="ALL"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="CertificateType">
+        <xsd:sequence>
+            <xsd:element name="issuerName" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="id" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="userName" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="identityContext" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="certificate" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="valid" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CertificateRevokeType">
+        <xsd:sequence>
+            <xsd:element ref="wfcommon:workflowContext" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="issuerName" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="certificateId" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="issueData" type="xsd:dateTime" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="crlData" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EvidenceType">
+        <xsd:sequence>
+            <xsd:element name="evidenceId" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="taskId" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="taskNumber" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="taskVersion" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="taskPriority" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="taskTitle" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="taskStatus" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="taskSubStatus" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="taskOutcome" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="wfType" type="tns:WFTypeEnumType" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="certIssuerName" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="certificateId" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="policy" type="tns:PolicyEnumType" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="plainText" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="plainTextEnc" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="signature" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="createDate" type="xsd:dateTime" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="signedDate" type="xsd:dateTime" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="UpdatableEvidenceAttributes" type="tns:UpdatableEvidenceAttributesType"
+                 minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EvidenceListType">
+        <xsd:sequence>
+            <xsd:element ref="tns:evidence" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EvidenceRequestType">
+        <xsd:sequence>
+            <xsd:element ref="wfcommon:workflowContext" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="userName" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="fromSignedDate" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="toSignedDate" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="taskNumber" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="signaturePolicy" type="tns:PolicyEnumType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="signedDate" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="signatureStatus" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="verifiedDate" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="taskOutcome" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="operator" type="tns:PolicyEnumType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CreateEvidenceRequestType">
+        <xsd:sequence>
+            <xsd:element ref="wfcommon:workflowContext" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="evidence" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdatableEvidenceAttributesType">
+        <xsd:sequence>
+            <xsd:element name="verifiedDate" type="xsd:dateTime" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="errorMessage" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="status" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateEvidenceRequestType">
+        <xsd:sequence>
+            <xsd:element ref="wfcommon:workflowContext" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="evidenceId" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="UpdatableEvidenceAttributes" type="tns:UpdatableEvidenceAttributesType"
+                 minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UploadCertificateRequestType">
+        <xsd:sequence>
+            <xsd:element ref="wfcommon:workflowContext" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="certificate" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ValidateEvidenceSignatureRequestType">
+        <xsd:sequence>
+            <xsd:element ref="wfcommon:workflowContext" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="evidence" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EvidenceResponseType">
+        <xsd:sequence>
+            <xsd:element ref="tns:evidence" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EvidenceListResponseType">
+        <xsd:sequence>
+            <xsd:element ref="tns:evidenceList" minOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="TaskEvidenceServiceErrorType">
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="message" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="description" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="certificate" type="CertificateType"/>
+    <xsd:element name="evidence" type="EvidenceType"/>
+    <xsd:element name="evidenceList" type="EvidenceListType"/>
+    <xsd:element name="certificateRevoke" type="CertificateRevokeType"/>
+    <xsd:element name="evidenceRequest" type="EvidenceRequestType"/>
+    <xsd:element name="createEvidenceRequest" type="CreateEvidenceRequestType"/>
+    <xsd:element name="updateEvidenceRequest" type="UpdateEvidenceRequestType"/>
+    <xsd:element name="uploadCertificateRequest" type="UploadCertificateRequestType"/>
+    <xsd:element name="validateEvidenceSignatureRequest" type="ValidateEvidenceSignatureRequestType"/>
+    <xsd:element name="evidenceResponse" type="EvidenceResponseType"/>
+    <xsd:element name="evidenceListResponse" type="EvidenceListResponseType"/>
+    <xsd:element name="evidenceServiceError" type="TaskEvidenceServiceErrorType"/>
+</xsd:schema>

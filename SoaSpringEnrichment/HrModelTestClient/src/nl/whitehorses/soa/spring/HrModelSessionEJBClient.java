@@ -17,9 +17,9 @@ public class HrModelSessionEJBClient {
         try {
             final Context context = getInitialContext();
             HrModelSessionEJB hrModelSessionEJB = (HrModelSessionEJB)context.lookup("HrModelSessionEJB#nl.whitehorses.soa.model.hr.services.HrModelSessionEJB");
-            for (Employees employees : (List<Employees>)hrModelSessionEJB.getEmployeesFindAll()) {
-                printEmployees(employees);
-            }
+//            for (Employees employees : (List<Employees>)hrModelSessionEJB.getEmployeesFindAll()) {
+//                printEmployees(employees);
+//            }
             for (Departments departments : (List<Departments>)hrModelSessionEJB.getDepartmentsFindAll()) {
                 printDepartments(departments);
             }
@@ -30,7 +30,6 @@ public class HrModelSessionEJBClient {
 
     private static void printEmployees(Employees employees) {
         System.out.println( "commissionPct = " + employees.getCommissionPct() );
-        System.out.println( "departmentId = " + employees.getDepartmentId() );
         System.out.println( "email = " + employees.getEmail() );
         System.out.println( "employeeId = " + employees.getEmployeeId() );
         System.out.println( "firstName = " + employees.getFirstName() );
@@ -46,13 +45,18 @@ public class HrModelSessionEJBClient {
         System.out.println( "departmentName = " + departments.getDepartmentName() );
         System.out.println( "locationId = " + departments.getLocationId() );
         System.out.println( "managerId = " + departments.getManagerId() );
+        
+        for ( Employees employee : departments.getEmployees() ) {
+          printEmployees(employee);
+        }
+        
     }
 
     private static Context getInitialContext() throws NamingException {
         Hashtable env = new Hashtable();
         // WebLogic Server 10.x connection details
         env.put( Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory" );
-        env.put(Context.PROVIDER_URL, "t3://soaps3:8001");
+        env.put(Context.PROVIDER_URL, "t3://soaps5:8001");
         return new InitialContext( env );
     }
 }

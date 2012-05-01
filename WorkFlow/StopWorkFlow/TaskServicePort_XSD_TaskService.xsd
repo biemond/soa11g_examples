@@ -1,0 +1,408 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<schema targetNamespace="http://xmlns.oracle.com/bpel/workflow/taskService" xmlns:tns="http://xmlns.oracle.com/bpel/workflow/taskService"
+     xmlns:task="http://xmlns.oracle.com/bpel/workflow/task" xmlns:routingslip="http://xmlns.oracle.com/bpel/workflow/routingSlip"
+     xmlns:wfcommon="http://xmlns.oracle.com/bpel/workflow/common" xmlns:tsc="http://xmlns.oracle.com/bpel/workflow/common/tsc"
+     xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     elementFormDefault="qualified" blockDefault="#all">
+    <import namespace="http://xmlns.oracle.com/bpel/workflow/task" schemaLocation="oramds:/soa/shared/workflow/WorkflowTask.xsd"/>
+    <import namespace="http://xmlns.oracle.com/bpel/workflow/common" schemaLocation="oramds:/soa/shared/workflow/WorkflowCommon.xsd"/>
+    <import namespace="http://xmlns.oracle.com/bpel/workflow/routingSlip" schemaLocation="oramds:/soa/shared/workflow/RoutingSlip.xsd"/>
+    <import namespace="http://xmlns.oracle.com/bpel/workflow/common/tsc" schemaLocation="TaskServicePort_XSD_TaskSequenceChanges.xsd"/>
+    <element name="initiateTask" type="tns:initiateTaskType"/>
+    <element name="reinitiateTask" type="tns:initiateTaskType"/>
+    <element name="initiateTaskResponse" type="tns:taskServiceContextTaskBaseType"/>
+    <element name="reinitiateTaskResponse" type="tns:taskServiceContextTaskBaseType"/>
+    <element name="overrideRoutingSlip" type="tns:overrideRoutingSlipType"/>
+    <element name="reevaluateTask" type="tns:reevaluateTaskType"/>
+    <element name="reevaluateTaskOutput" type="xsd:boolean"/>
+    <element name="skipCurrentAssignment" type="tns:taskServiceContextTaskBaseType"/>
+    <element name="updateTask" type="tns:taskServiceContextTaskBaseType"/>
+    <element name="mergeAndUpdateTask" type="tns:taskServiceContextTaskBaseType"/>
+    <element name="submitInfoForTask" type="tns:taskServiceContextTaskBaseType"/>
+    <element name="getUsersToRequestInfoForTask" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="getFutureParticipants" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="getApprovers" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="escalateTask" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="escalateTasks" type="tns:taskIdsType"/>
+    <element name="withdrawTask" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="suspendTask" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="resumeTask" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="acquireTask" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="releaseTask" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="reassignTask" type="tns:reassignTaskType"/>
+    <element name="reassignTasks" type="tns:reassignTasksType"/>
+    <element name="renewTask" type="tns:renewTaskType"/>
+    <element name="updateTaskOutcome" type="tns:updateTaskOutcomeType"/>
+    <element name="updateTaskOutcomeAndRoute" type="tns:updateTaskOutcomeAndRouteType"/>
+    <element name="requestInfoForTask" type="tns:requestInfoForTaskType"/>
+    <element name="requestInfoForTaskWithReapproval" type="tns:requestInfoForTaskType"/>
+    <element name="listOfUserIds" type="tns:listOfUserIdsType"/>
+    <element name="routeTask" type="tns:routeTaskType"/>
+    <element name="pushBackTask" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="delegateTask" type="tns:delegateTaskType"/>
+    <element name="delegateTasks" type="tns:delegateTasksType"/>
+    <element name="errorTask" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="addComment" type="tns:addCommentType"/>
+    <element name="addAttachment" type="tns:addAttachmentType"/>
+    <element name="removeAttachment" type="tns:removeAttachmentType"/>
+    <element name="addDocument" type="tns:addDocumentType"/>
+    <element name="removeDocument" type="tns:removeDocumentType"/>
+    <element name="withdrawTasks" type="tns:taskIdsType"/>
+    <element name="suspendTasks" type="tns:taskIdsType"/>
+    <element name="resumeTasks" type="tns:taskIdsType"/>
+    <element name="acquireTasks" type="tns:taskIdsType"/>
+    <element name="releaseTasks" type="tns:taskIdsType"/>
+    <element name="updateOutcomeOfTasks" type="tns:updateOutcomeOfTasks"/>
+    <element name="bulkOperationOutput" type="xsd:boolean"/>
+    <element name="staleObjectFault" type="tns:faultMessageType"/>
+    <element name="operationErroredFault" type="tns:faultMessageType"/>
+    <element name="taskUpdatedMessage" type="tns:taskUpdatedMessageType"/>
+    <element name="subTaskUpdatedMessage" type="tns:subTaskUpdatedMessageType"/>
+    <element name="stageCompleteMessage" type="tns:stageCompleteMessageType"/>
+    <element name="taskAssignedMessage" type="tns:taskAssignedMessageType"/>
+    <element name="createToDoTask" type="tns:createToDoTaskType"/>
+    <element name="deleteTask" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="deleteTasks" type="tns:taskIdsType"/>
+    <element name="purgeTask" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="purgeTasks" type="tns:taskIdsType"/>
+    <element name="purgeTaskOutput" type="xsd:boolean"/>
+    <element name="setTaskSequenceChanges" type="tns:setTaskSequenceChangesType"/>
+    <element name="setTaskSequenceChangesOutput" type="xsd:int"/>
+    <element name="restartRootTask" type="tns:restartRootTaskType"/>
+    <element name="prepareForRestartRootTask" type="tns:restartRootTaskType"/>
+    <element name="updatePriority" type="tns:priorityIdsType"/>
+    <element name="updatePriorityOfTasks" type="tns:priorityIdsListType"/>
+    <element name="suspendTimers" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="resumeTimers" type="tns:taskServiceContextTaskTaskIdBaseType"/>
+    <element name="successResponseOutput" type="xsd:string"/>
+    <complexType name="initiateTaskType">
+        <sequence>
+            <element ref="task:task"/>
+            <element ref="routingslip:routingSlip" minOccurs="0" maxOccurs="1"/>
+        </sequence>
+    </complexType>
+    <complexType name="taskAssignedMessageType">
+        <sequence>
+            <element name="action" type="tns:assignedActionType"/>
+            <element name="previousOutcome" type="xsd:string"/>
+            <element name="previousOutcomeUpdatedBy" type="xsd:string"/>
+            <element ref="task:task"/>
+        </sequence>
+    </complexType>
+    <complexType name="taskUpdatedMessageType">
+        <sequence>
+            <element name="action" type="tns:actionType"/>
+            <element name="updatedBy" type="xsd:string"/>
+            <element ref="task:task"/>
+        </sequence>
+    </complexType>
+    <complexType name="subTaskUpdatedMessageType">
+        <sequence>
+            <element name="parentTaskId" type="xsd:string"/>
+            <element name="action" type="tns:actionType"/>
+            <element name="updatedBy" type="xsd:string"/>
+            <element name="previousOutcome" type="xsd:string"/>
+            <element ref="task:task"/>
+        </sequence>
+    </complexType>
+    <complexType name="stageCompleteMessageType">
+        <sequence>
+            <element name="completedStageName" type="xsd:string"/>
+            <element name="completedStageOutcome" type="xsd:string"/>
+            <element ref="task:task"/>
+        </sequence>
+    </complexType>
+    <complexType name="faultMessageType">
+        <sequence>
+            <element name="faultInfo" type="xsd:string"/>
+            <element ref="task:task"/>
+        </sequence>
+    </complexType>
+    <complexType name="listOfUserIdsType">
+        <sequence>
+            <element name="userId" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <complexType name="taskAssigneesType">
+        <sequence>
+            <element name="taskAssignee" type="tns:taskAssigneeType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <complexType name="taskAssigneeType">
+        <simpleContent>
+            <extension base="xsd:string">
+                <attribute name="isGroup" type="xsd:boolean" use="optional"/>
+                <attribute name="type" type="xsd:string" use="optional"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+    <complexType name="taskServiceContextTaskBaseType">
+        <sequence>
+            <element ref="wfcommon:workflowContext"/>
+            <element ref="task:task"/>
+        </sequence>
+    </complexType>
+    <complexType name="taskServiceContextTaskTaskIdBaseType">
+        <sequence>
+            <element ref="wfcommon:workflowContext"/>
+            <choice>
+                <element ref="task:task"/>
+                <element name="taskId" type="xsd:string"/>
+            </choice>
+        </sequence>
+    </complexType>
+    <complexType name="reassignTaskType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element name="taskAssignees" type="tns:taskAssigneesType" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="reassignTasksType">
+        <complexContent>
+            <extension base="tns:taskIdsType">
+                <sequence>
+                    <element name="taskAssignees" type="tns:taskAssigneesType" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="overrideRoutingSlipType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element name="routingSlipURI" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="reevaluateTaskType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element name="taskAssignee" type="tns:taskAssigneeType" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="renewTaskType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element name="duration" type="xsd:duration" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="updateTaskOutcomeType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element name="outcome" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="updateTaskOutcomeAndRouteType">
+        <complexContent>
+            <extension base="tns:updateTaskOutcomeType">
+                <sequence>
+                    <element ref="routingslip:participants"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="requestInfoForTaskType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element name="taskAssignee" type="tns:taskAssigneeType" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="routeTaskType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element ref="routingslip:participants"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="delegateTaskType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element name="taskAssignees" type="tns:taskAssigneesType" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="delegateTasksType">
+        <complexContent>
+            <extension base="tns:taskIdsType">
+                <sequence>
+                    <element name="taskAssignees" type="tns:taskAssigneesType" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="addCommentType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element name="comment" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="addAttachmentType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element ref="task:attachment" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="removeAttachmentType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element name="attachmentName" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="addDocumentType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element ref="task:document" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="removeDocumentType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskTaskIdBaseType">
+                <sequence>
+                    <element name="documentName" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="taskIdsType">
+        <sequence>
+            <element ref="wfcommon:workflowContext"/>
+            <element name="taskId" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <complexType name="updateOutcomeOfTasks">
+        <sequence>
+            <element ref="wfcommon:workflowContext"/>
+            <element name="taskId" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="outcome" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </sequence>
+    </complexType>
+    <complexType name="createToDoTaskType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskBaseType">
+                <sequence>
+                    <element name="taskAssignees" type="tns:taskAssigneesType" minOccurs="1" maxOccurs="1"/>
+                    <element name="parentTaskId" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="setTaskSequenceChangesType">
+        <sequence>
+            <element ref="wfcommon:workflowContext"/>
+            <element ref="task:task"/>
+            <element ref="tsc:taskSequenceChangeList"/>
+            <element name="reset" type="xsd:boolean"/>
+        </sequence>
+    </complexType>
+    <complexType name="restartRootTaskType">
+        <complexContent>
+            <extension base="tns:taskServiceContextTaskBaseType">
+                <sequence>
+                    <element name="restartContext" type="tns:restartContextType" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="restartContextType">
+        <sequence>
+            <element name="preserveHistory" type="xsd:boolean" default="false"/>
+            <element name="preserveAdhocInsertions" type="xsd:boolean" default="true"/>
+            <element name="reapproveRequired" type="xsd:boolean" default="true"/>
+            <element name="previewRequired" type="xsd:boolean" default="false"/>
+            <element name="newCorrelationId" type="xsd:string"/>
+        </sequence>
+    </complexType>
+    <complexType name="priorityIdsType">
+        <sequence>
+            <element ref="wfcommon:workflowContext"/>
+            <element name="taskId" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <element name="updateType" type="tns:updatePriorityType"/>
+            <element name="priority" type="tns:intPriorityType"/>
+        </sequence>
+    </complexType>
+    <complexType name="priorityIdsListType">
+        <sequence>
+            <element ref="wfcommon:workflowContext"/>
+            <element name="taskId" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+            <element name="updateType" type="tns:updatePriorityType"/>
+            <element name="priority" type="tns:intPriorityType"/>
+        </sequence>
+    </complexType>
+    <simpleType name="actionType">
+        <restriction base="xsd:string">
+            <enumeration value="REINITIATE"/>
+            <enumeration value="INITIATE"/>
+            <enumeration value="OUTCOME_UPDATED"/>
+            <enumeration value="ACQUIRED"/>
+            <enumeration value="AUTO_RELEASE"/>
+            <enumeration value="COMPLETED"/>
+            <enumeration value="ERRORED"/>
+            <enumeration value="ESCALATED"/>
+            <enumeration value="EXPIRED"/>
+            <enumeration value="INFO_REQUESTED"/>
+            <enumeration value="INFO_SUBMITTED"/>
+            <enumeration value="REASSIGNED"/>
+            <enumeration value="RELEASED"/>
+            <enumeration value="RENEWED"/>
+            <enumeration value="RESUMED"/>
+            <enumeration value="SUBTASK_OUTCOME_UPDATED"/>
+            <enumeration value="SUSPENDED"/>
+            <enumeration value="UPDATED"/>
+            <enumeration value="WITHDRAWN"/>
+            <enumeration value="SKIP_CURRENT_ASSIGNMENT"/>
+            <enumeration value="OVERRIDE_ROUTING_SLIP"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="assignedActionType">
+        <restriction base="xsd:string">
+            <enumeration value="REINITIATE"/>
+            <enumeration value="INITIATE"/>
+            <enumeration value="OUTCOME_UPDATED"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="intPriorityType">
+        <restriction base="xsd:int">
+            <minInclusive value="1"/>
+            <maxInclusive value="5"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="updatePriorityType">
+        <restriction base="xsd:string">
+            <enumeration value="UPDATE"/>
+            <enumeration value="INCREMENT"/>
+            <enumeration value="DECREMENT"/>
+        </restriction>
+    </simpleType>
+</schema>

@@ -13,11 +13,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @NamedQueries({
@@ -25,10 +29,13 @@ import javax.persistence.TemporalType;
 , @NamedQuery(name = "Employees.findOne", query = "select o from Employees o where o.employeeId = :empId")
 })
 public class Employees implements Serializable {
+
     @Column(name="COMMISSION_PCT")
     private Double commissionPct;
+
     @Column(name="DEPARTMENT_ID")
     private Long departmentId;
+
     @Column(nullable = false, unique = true, length = 25)
     private String email;
     @Id
@@ -50,6 +57,9 @@ public class Employees implements Serializable {
     @Temporal(value = TemporalType.DATE)
     private Calendar hireDate;
 
+    @ManyToOne
+    @JoinColumn(name = "DEPARTMENT_ID", updatable = false, insertable = false)
+    private Departments department;    
 
     private Double salary;
 
@@ -136,5 +146,14 @@ public class Employees implements Serializable {
 
     public Calendar getHireDate() {
         return hireDate;
+    }
+
+    public void setDepartment(Departments department) {
+        this.department = department;
+    }
+
+    @XmlTransient    
+    public Departments getDepartment() {
+        return department;
     }
 }

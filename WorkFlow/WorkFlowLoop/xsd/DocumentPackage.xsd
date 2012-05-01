@@ -1,0 +1,38 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://xmlns.oracle.com/bpel/workflow/document" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0" targetNamespace="http://xmlns.oracle.com/bpel/workflow/document" elementFormDefault="qualified">
+  <xsd:annotation>
+   <xsd:documentation>
+      This schema defines elements and types
+      that are used in document package services
+    </xsd:documentation>
+    <xsd:appinfo>
+      <jaxb:schemaBindings>
+        <jaxb:package name="oracle.bpel.services.workflow.document.model"/>
+      </jaxb:schemaBindings>
+    </xsd:appinfo>
+  </xsd:annotation>
+
+
+  <xsd:element name="documentPackage" type="documentPackageType"/>
+  <xsd:complexType name="documentPackageType">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="description" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="state" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="properties" type="propertiesType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="documents" type="documentContainer" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="propertiesType">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="value" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="type" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="documentContainer">
+    <xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+</xsd:schema>

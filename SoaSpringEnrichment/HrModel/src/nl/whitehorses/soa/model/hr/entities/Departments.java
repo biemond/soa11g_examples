@@ -2,11 +2,16 @@ package nl.whitehorses.soa.model.hr.entities;
 
 import java.io.Serializable;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+
 
 @Entity
 @NamedQueries({
@@ -24,16 +29,13 @@ public class Departments implements Serializable {
     @Column(name="MANAGER_ID")
     private Long managerId;
 
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "department", targetEntity =
+            Employees.class)
+    private List<Employees> employees;
+
     public Departments() {
     }
 
-    public Departments(Long departmentId, String departmentName,
-                       Long locationId, Long managerId) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
-        this.locationId = locationId;
-        this.managerId = managerId;
-    }
 
     public Long getDepartmentId() {
         return departmentId;
@@ -65,5 +67,13 @@ public class Departments implements Serializable {
 
     public void setManagerId(Long managerId) {
         this.managerId = managerId;
+    }
+
+    public void setEmployees(List<Employees> employees) {
+        this.employees = employees;
+    }
+
+    public List<Employees> getEmployees() {
+        return employees;
     }
 }

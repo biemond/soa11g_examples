@@ -1,0 +1,62 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://xmlns.oracle.com/bpel/workflow/common/tsc"
+     xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0" targetNamespace="http://xmlns.oracle.com/bpel/workflow/common/tsc"
+     elementFormDefault="qualified">
+    <xsd:annotation>
+        <xsd:documentation>This schema defines elements and types used to describe workflow task
+      sequence changes.</xsd:documentation>
+        <xsd:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="oracle.bpel.services.workflow.common.tsc.model"/>
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:element name="taskSequenceChange" type="taskSequenceChangeType"/>
+    <xsd:complexType name="taskSequenceChangeType">
+        <xsd:sequence>
+            <xsd:element name="id" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="correlationId" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="anchorChain" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="changeType" type="changeTypeType" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="anchorType" type="anchorTypeType" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="anchorAssignee" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="changeAssignee" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="responseType" type="responseTypeType" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="updatedBy" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="updatedDate" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="sequence" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="status" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="numberOfTimesModified" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="taskSequenceChangeList">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="taskSequenceChange" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:simpleType name="responseTypeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="REQUIRED"/>
+            <xsd:enumeration value="NREQUIRE"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="anchorTypeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="START_OF_TASK"/>
+            <xsd:enumeration value="START_STAGE"/>
+            <xsd:enumeration value="END_STAGE"/>
+            <xsd:enumeration value="BEFORE_ASSIGNEE"/>
+            <xsd:enumeration value="AFTER_ASSIGNEE"/>
+            <xsd:enumeration value="PARALLEL_TO_ASSIGNEE"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="changeTypeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="CRU"/>
+            <xsd:enumeration value="DEL"/>
+            <xsd:enumeration value="COA"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

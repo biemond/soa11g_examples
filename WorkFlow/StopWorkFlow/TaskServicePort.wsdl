@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+     name="TaskService"
+     targetNamespace="http://xmlns.oracle.com/bpel/workflow/taskService"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:taskservice="http://xmlns.oracle.com/bpel/workflow/taskService"
+     xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+     xmlns:tns="http://xmlns.oracle.com/bpel/workflow/taskService"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tsc="http://xmlns.oracle.com/bpel/workflow/common/tsc"
+     xmlns:task="http://xmlns.oracle.com/bpel/workflow/task"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:routingslip="http://xmlns.oracle.com/bpel/workflow/routingSlip"
+    >
+    <documentation>Service used to interact with the task service</documentation>
+    <import namespace="http://xmlns.oracle.com/bpel/workflow/taskService" location="TaskServicePort_WSDL_TaskServiceInterface.wsdl"/>
+    <binding name="TaskServiceSOAPBinding" type="taskservice:TaskService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="initiateTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="initiateTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="initiateTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="reinitiateTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="reinitiateTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="reinitiateTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="createToDoTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="createToDoTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="createToDoTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="skipCurrentAssignment">
+            <soap:operation style="document" soapAction=""/>
+            <input name="skipCurrentAssignmentInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="skipCurrentAssignmentOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="overrideRoutingSlip">
+            <soap:operation style="document" soapAction=""/>
+            <input name="overrideRoutingSlipInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="overrideRoutingSlipOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="updateTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="updateTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="updateTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="mergeAndUpdateTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="mergeAndUpdateTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="mergeAndUpdateTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="submitInfoForTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="submitInfoForTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="submitInfoForTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="getUsersToRequestInfoForTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="getUsersToRequestInfoForTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="getUsersToRequestInfoForTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="getFutureParticipants">
+            <soap:operation style="document" soapAction=""/>
+            <input name="getFutureParticipantsInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="getFutureParticipantsOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="getApprovers">
+            <soap:operation style="document" soapAction=""/>
+            <input name="getApproversInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="getApproversOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="escalateTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="escalateTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="escalateTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="escalateTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="escalateTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="escalateTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="withdrawTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="withdrawTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="withdrawTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="withdrawTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="withdrawTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="withdrawTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="suspendTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="suspendTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="suspendTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="suspendTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="suspendTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="suspendTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="resumeTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="resumeTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="resumeTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="resumeTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="resumeTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="resumeTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="acquireTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="acquireTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="acquireTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="acquireTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="acquireTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="acquireTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="releaseTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="releaseTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="releaseTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="releaseTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="releaseTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="releaseTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="reassignTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="reassignTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="reassignTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="reassignTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="reassignTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="reassignTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="routeTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="routeTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="routeTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="pushBackTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="pushBackTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="pushBackTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="delegateTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="delegateTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="delegateTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="delegateTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="delegateTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="delegateTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="errorTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="errorTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="errorTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="addComment">
+            <soap:operation style="document" soapAction=""/>
+            <input name="addCommentInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="addCommentOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="addAttachment">
+            <soap:operation style="document" soapAction=""/>
+            <input name="addAttachmentInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="addAttachmentOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="removeAttachment">
+            <soap:operation style="document" soapAction=""/>
+            <input name="removeAttachmentInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="removeAttachmentOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="addDocument">
+            <soap:operation style="document" soapAction=""/>
+            <input name="addDocumentInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="addDocumentOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="removeDocument">
+            <soap:operation style="document" soapAction=""/>
+            <input name="removeDocumentInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="removeDocumentOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="renewTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="renewTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="renewTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="updateTaskOutcome">
+            <soap:operation style="document" soapAction=""/>
+            <input name="updateTaskOutcomeInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="updateTaskOutcomeOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="updateOutcomeOfTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="updateOutcomeOfTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="updateOutcomeOfTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="updateTaskOutcomeAndRoute">
+            <soap:operation style="document" soapAction=""/>
+            <input name="updateTaskOutcomeAndRouteInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="updateTaskOutcomeAndRouteOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="requestInfoForTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="requestInfoForTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="requestInfoForTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="requestInfoForTaskWithReapproval">
+            <soap:operation style="document" soapAction=""/>
+            <input name="requestInfoForTaskWithReapprovalInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="requestInfoForTaskWithReapprovalOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="deleteTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="deleteTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="deleteTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="deleteTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="deleteTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="deleteTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="purgeTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="purgeTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="purgeTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="purgeTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="purgeTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="purgeTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="setTaskSequenceChanges">
+            <soap:operation style="document" soapAction=""/>
+            <input name="setTaskSequenceChangesInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="setTaskSequenceChangesOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="reevaluateTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="reevaluateTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="reevaluateTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="restartRootTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="restartRootTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="restartRootTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="prepareForRestartRootTask">
+            <soap:operation style="document" soapAction=""/>
+            <input name="prepareForRestartRootTaskInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="prepareForRestartRootTaskOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="updatePriority">
+            <soap:operation style="document" soapAction=""/>
+            <input name="updatePriorityInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="updatePriorityOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="updatePriorityOfTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="updatePriorityOfTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="updatePriorityOfTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="suspendTimers">
+            <soap:operation style="document" soapAction=""/>
+            <input name="suspendTimersInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="suspendTimersOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="resumeTimers">
+            <soap:operation style="document" soapAction=""/>
+            <input name="resumeTimersInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="resumeTimersOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="operationErroredFault">
+                <soap:fault name="operationErroredFault" use="literal"/>
+            </fault>
+            <fault name="staleObjectFault">
+                <soap:fault name="staleObjectFault" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+    <service name="TaskService">
+        <documentation>Task Service</documentation>
+        <port name="TaskServicePort" binding="taskservice:TaskServiceSOAPBinding">
+            <soap:address location="http://soaps5.alfa.local:8001//integration/services/TaskService/TaskServicePort"/>
+        </port>
+        <port name="TaskServicePortSAML" binding="taskservice:TaskServiceSOAPBinding">
+            <soap:address location="http://soaps5.alfa.local:8001//integration/services/TaskService/TaskServicePortSAML/*"/>
+        </port>
+    </service>
+</definitions>

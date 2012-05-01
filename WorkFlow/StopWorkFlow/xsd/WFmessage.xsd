@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://workflow/stop"
+            elementFormDefault="qualified"
+            xmlns="http://www.w3.org/2001/XMLSchema">
+ <element name="process">
+  <complexType>
+   <sequence>
+    <element name="taskType" type="string"/>
+    <element name="refId" type="string"/>
+   </sequence>
+  </complexType>
+ </element>
+</xsd:schema>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+        targetNamespace="http://xmlns.oracle.com/WorkFlowLoop/WFProcess"
+        xmlns="http://www.w3.org/2001/XMLSchema">
+ <element name="process">
+  <complexType>
+   <sequence>
+    <element name="assignTo" type="string"/>
+    <element name="taskType" type="string"/>
+    <element name="lastName" type="string"/>
+    <element name="refId" type="string"/>
+   </sequence>
+  </complexType>
+ </element>
+</schema>

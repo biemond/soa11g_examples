@@ -1,0 +1,275 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue May 01 20:45:13 CEST 2012
+  Author:  admin
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="RemoveWF"
+               targetNamespace="http://xmlns.oracle.com/WorkFlow/StopWorkFlow/RemoveWF"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/WorkFlow/StopWorkFlow/RemoveWF"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns3="http://workflow/stop"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns1="http://xmlns.oracle.com/bpel/workflow/taskQueryService"
+         xmlns:ns2="http://xmlns.oracle.com/bpel/workflow/common"
+         xmlns:ns4="http://xmlns.oracle.com/bpel/workflow/taskQuery"
+         xmlns:ns6="http://xmlns.oracle.com/bpel/workflow/TaskEvidenceService"
+         xmlns:ns5="http://xmlns.oracle.com/bpel/workflow/task"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns7="http://xmlns.oracle.com/bpel/workflow/taskService">
+
+    <import namespace="http://xmlns.oracle.com/WorkFlow/StopWorkFlow/RemoveWF" location="RemoveWF.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="removewf_client" partnerLinkType="client:RemoveWF" myRole="RemoveWFProvider"/>
+    <partnerLink name="TaskQueryService" partnerLinkType="ns1:TaskQueryService"
+                 partnerRole="TaskQueryService"/>
+    <partnerLink name="TaskService" partnerLinkType="ns7:TaskService"
+                 partnerRole="TaskService"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:RemoveWFRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:RemoveWFResponseMessage"/>
+    <variable name="InvokeSearchWF_queryTasks_InputVariable"
+              messageType="ns1:taskListRequestMessage"/>
+    <variable name="InvokeSearchWF_queryTasks_OutputVariable"
+              messageType="ns1:taskListResponseMessage"/>
+    <variable name="result" type="xsd:string"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in RemoveWF.wsdl) -->
+    <receive name="receiveInput" partnerLink="removewf_client" portType="client:RemoveWF" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="AssignForSearchWF">
+      <copy>
+        <from><literal><tas:taskListRequest xmlns:tas="http://xmlns.oracle.com/bpel/workflow/taskQueryService"
+                                            xmlns:com="http://xmlns.oracle.com/bpel/workflow/common"
+                                            xmlns:tas1="http://xmlns.oracle.com/bpel/workflow/taskQuery"
+                                            xmlns:task="http://xmlns.oracle.com/bpel/workflow/task">
+         <com:workflowContext>
+            <com:credential>
+               <com:login/>
+               <com:password/>
+            </com:credential>
+         </com:workflowContext>
+         <tas1:taskPredicateQuery startRow="1" endRow="20">
+            <tas1:displayColumnList>
+               <tas1:displayColumn>textAttribute1</tas1:displayColumn>
+               <tas1:displayColumn>textAttribute2</tas1:displayColumn>
+               <tas1:displayColumn>textAttribute3</tas1:displayColumn>
+               <tas1:displayColumn>textAttribute4</tas1:displayColumn>
+               <tas1:displayColumn>textAttribute5</tas1:displayColumn>
+               <tas1:displayColumn>textAttribute6</tas1:displayColumn>
+               <tas1:displayColumn>textAttribute7</tas1:displayColumn>
+               <tas1:displayColumn>textAttribute8</tas1:displayColumn>
+               <tas1:displayColumn>textAttribute9</tas1:displayColumn>
+               <tas1:displayColumn>textAttribute10</tas1:displayColumn>
+               <tas1:displayColumn>dateAttribute1</tas1:displayColumn>
+               <tas1:displayColumn>dateAttribute2</tas1:displayColumn>
+               <tas1:displayColumn>numberAttribute1</tas1:displayColumn>
+               <tas1:displayColumn>numberAttribute2</tas1:displayColumn>
+               <tas1:displayColumn>numberAttribute3</tas1:displayColumn>
+            </tas1:displayColumnList>
+            <tas1:predicate>
+               <tas1:assignmentFilter>All</tas1:assignmentFilter>
+               <tas1:predicate>
+                  <tas1:lhs>
+                     <tas1:clause>
+                        <tas1:column tableName="WFTask">
+                           <tas1:columnName>state</tas1:columnName>
+                        </tas1:column>
+                        <tas1:operator>IN</tas1:operator>
+                        <tas1:valueList>
+                           <tas1:value>ASSIGNED</tas1:value>
+                           <tas1:value>INFO_REQUESTED</tas1:value>
+                           <tas1:value>OUTCOME_UPDATED</tas1:value>
+                        </tas1:valueList>
+                     </tas1:clause>
+                  </tas1:lhs>
+                  <tas1:logicalOperator>AND</tas1:logicalOperator>
+                  <tas1:rhs>
+                     <tas1:clause>
+                        <tas1:column tableName="WFTask">
+                           <tas1:columnName>textAttribute1</tas1:columnName>
+                        </tas1:column>
+                        <tas1:operator>EQ</tas1:operator>
+                        <tas1:value>SO</tas1:value>
+                     </tas1:clause>
+                     <tas1:clause joinOperator="AND">
+                        <tas1:column tableName="WFTask">
+                           <tas1:columnName>numberAttribute1</tas1:columnName>
+                        </tas1:column>
+                        <tas1:operator>EQ</tas1:operator>
+                        <tas1:value>1</tas1:value>
+                     </tas1:clause>
+                  </tas1:rhs>
+               </tas1:predicate>
+            </tas1:predicate>
+         </tas1:taskPredicateQuery>
+      </tas:taskListRequest></literal></from>
+        <to>$InvokeSearchWF_queryTasks_InputVariable.payload</to>
+      </copy>
+      <copy>
+        <from>ora:getPreference('workFlowUser')</from>
+        <to>$InvokeSearchWF_queryTasks_InputVariable.payload/ns2:workflowContext/ns2:credential/ns2:login</to>
+      </copy>
+      <copy>
+        <from>ora:getPreference('workFlowPassword')</from>
+        <to>$InvokeSearchWF_queryTasks_InputVariable.payload/ns2:workflowContext/ns2:credential/ns2:password</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:taskType</from>
+        <to>$InvokeSearchWF_queryTasks_InputVariable.payload/ns4:taskPredicateQuery/ns4:predicate/ns4:predicate/ns4:rhs/ns4:clause[1]/ns4:value</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:refId</from>
+        <to>$InvokeSearchWF_queryTasks_InputVariable.payload/ns4:taskPredicateQuery/ns4:predicate/ns4:predicate/ns4:rhs/ns4:clause[2]/ns4:value</to>
+      </copy>
+    </assign>
+    <invoke name="InvokeSearchWF"
+            partnerLink="TaskQueryService" portType="ns1:TaskQueryService"
+            operation="queryTasks"
+            inputVariable="InvokeSearchWF_queryTasks_InputVariable"
+            outputVariable="InvokeSearchWF_queryTasks_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+
+    <scope name="QueryResult" exitOnStandardFault="no">
+      <if name="IfTasksAreFound">
+        <documentation>TasksFound</documentation>
+        <condition>count($InvokeSearchWF_queryTasks_OutputVariable.payload/ns5:task) &gt; 0</condition>
+        <sequence name="Sequence1">
+          <assign name="AssignResult">
+            <copy>
+              <from>'TasksFoundAndRejected'</from>
+              <to>$result</to>
+            </copy>
+          </assign>
+          <forEach parallel="no" counterName="TaskCounter"
+                   name="ForEachTask">
+            <startCounterValue>1</startCounterValue>
+            <finalCounterValue>count($InvokeSearchWF_queryTasks_OutputVariable.payload/ns5:task)</finalCounterValue>
+            <scope name="RejectTask">
+              <variables>
+                <variable name="Task" element="ns5:task"/>
+                <variable name="InvokeUpdateOutcome_updateTaskOutcome_InputVariable"
+                          messageType="ns7:updateTaskOutcomeMessage"/>
+                <variable name="InvokeUpdateOutcome_updateTaskOutcome_OutputVariable"
+                          messageType="ns7:taskMessage"/>
+              </variables>
+              <sequence name="Sequence2">
+                <assign name="AssignCurrentTask">
+                  <copy>
+                    <from>$InvokeSearchWF_queryTasks_OutputVariable.payload/ns5:task[$TaskCounter]</from>
+                    <to>$Task</to>
+                  </copy>
+                </assign>
+                <assign name="AssignInput">
+                  <copy>
+                    <from>ora:getPreference('workFlowUser')</from>
+                    <to>$InvokeUpdateOutcome_updateTaskOutcome_InputVariable.payload/ns2:workflowContext/ns2:credential/ns2:login</to>
+                  </copy>
+                  <copy>
+                    <from>ora:getPreference('workFlowPassword')</from>
+                    <to>$InvokeUpdateOutcome_updateTaskOutcome_InputVariable.payload/ns2:workflowContext/ns2:credential/ns2:password</to>
+                  </copy>
+                  <copy>
+                    <from>'REJECT'</from>
+                    <to>$InvokeUpdateOutcome_updateTaskOutcome_InputVariable.payload/ns7:outcome</to>
+                  </copy>
+                  <copy>
+                    <from>$Task/ns5:systemAttributes/ns5:taskId</from>
+                    <to>$InvokeUpdateOutcome_updateTaskOutcome_InputVariable.payload/ns7:taskId</to>
+                  </copy>
+                </assign>
+                <invoke name="InvokeUpdateOutcome"
+                        partnerLink="TaskService" portType="ns7:TaskService"
+                        operation="updateTaskOutcome"
+                        inputVariable="InvokeUpdateOutcome_updateTaskOutcome_InputVariable"
+                        outputVariable="InvokeUpdateOutcome_updateTaskOutcome_OutputVariable"
+                        bpelx:invokeAsDetail="no"/>
+
+                <if name="IfTaakGevonden">
+                  <documentation>TaskFound</documentation>
+                  <condition>count($InvokeUpdateOutcome_updateTaskOutcome_OutputVariable.payload) &gt; 0</condition>
+                  <empty name="Empty"/>
+                  <else>
+                    <documentation>TaskNotUpdated</documentation>
+                    <assign name="AssignResult">
+                      <copy>
+                        <from>'found but not Rejected'</from>
+                        <to>$result</to>
+                      </copy>
+                    </assign>
+                  </else>
+                </if>
+
+              </sequence>
+            </scope>
+          </forEach>
+        </sequence>
+        <else>
+          <documentation>NotFound</documentation>
+          <assign name="AssignResult">
+            <copy>
+              <from>'NotFound'</from>
+              <to>$result</to>
+            </copy>
+          </assign>
+        </else>
+      </if>
+    </scope>
+
+    <assign name="AssignReponse">
+      <copy>
+        <from>$result</from>
+        <to>$outputVariable.payload/client:result</to>
+      </copy>
+    </assign>
+    <reply name="replyOutput" partnerLink="removewf_client" portType="client:RemoveWF" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

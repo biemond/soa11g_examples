@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+     name="TaskService"
+     targetNamespace="http://xmlns.oracle.com/bpel/workflow/taskService"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+     xmlns:tns="http://xmlns.oracle.com/bpel/workflow/taskService"
+     xmlns:tsc="http://xmlns.oracle.com/bpel/workflow/common/tsc"
+     xmlns:task="http://xmlns.oracle.com/bpel/workflow/task"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:java="http://schemas.xmlsoap.org/wsdl/java/"
+     xmlns:format="http://schemas.xmlsoap.org/wsdl/formatbinding/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:routingslip="http://xmlns.oracle.com/bpel/workflow/routingSlip"
+    >
+    <documentation>Service used to model user interactions within a BPEL process</documentation>
+    <bpws:property name="taskId" type="xsd:string"/>
+    <bpws:propertyAlias propertyName="tns:taskId" messageType="tns:initiateTaskResponseMessage" part="payload"
+         query="/tns:initiateTaskResponse/task:task/task:systemAttributes/task:taskId"/>
+    <bpws:propertyAlias propertyName="tns:taskId" messageType="tns:reinitiateTaskResponseMessage" part="payload"
+         query="/tns:reinitiateTaskResponse/task:task/task:systemAttributes/task:taskId"/>
+    <bpws:propertyAlias propertyName="tns:taskId" messageType="tns:taskAssignedMessage" part="payload" query="/tns:taskAssignedMessage/task:task/task:systemAttributes/task:taskId"/>
+    <bpws:propertyAlias propertyName="tns:taskId" messageType="tns:taskUpdatedMessage" part="payload" query="/tns:taskUpdatedMessage/task:task/task:systemAttributes/task:taskId"/>
+    <bpws:propertyAlias propertyName="tns:taskId" messageType="tns:subTaskUpdatedMessage" part="payload" query="/tns:subTaskUpdatedMessage/tns:parentTaskId"/>
+    <bpws:propertyAlias propertyName="tns:taskId" messageType="tns:taskMessage" part="payload" query="/task:task/task:systemAttributes/task:taskId"/>
+    <plnk:partnerLinkType name="TaskService">
+        <plnk:role name="TaskService">
+            <plnk:portType xmlns:tns="http://xmlns.oracle.com/bpel/workflow/taskService" name="tns:TaskService"/>
+        </plnk:role>
+        <plnk:role name="TaskServiceCallbackListener">
+            <plnk:portType xmlns:tns="http://xmlns.oracle.com/bpel/workflow/taskService" name="tns:TaskServiceCallback"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <types>
+        <schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/bpel/workflow/taskService/schema"
+             xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/bpel/workflow/task" schemaLocation="oramds:/soa/shared/workflow/WorkflowTask.xsd"/>
+            <import namespace="http://xmlns.oracle.com/bpel/workflow/taskService" schemaLocation="TaskServicePort_XSD_TaskService.xsd"/>
+            <import namespace="http://xmlns.oracle.com/bpel/workflow/routingSlip" schemaLocation="oramds:/soa/shared/workflow/RoutingSlip.xsd"/>
+            <import namespace="http://xmlns.oracle.com/bpel/workflow/common/tsc" schemaLocation="TaskServicePort_XSD_TaskSequenceChanges.xsd"/>
+        </schema>
+    </types>
+    <message name="taskMessage">
+        <documentation>Message that contains the task</documentation>
+        <part name="payload" element="task:task"/>
+    </message>
+    <message name="taskAssignedMessage">
+        <documentation>Message used for indicate that outcome is set and task is assigned</documentation>
+        <part name="payload" element="tns:taskAssignedMessage"/>
+    </message>
+    <message name="taskUpdatedMessage">
+        <documentation>Message used for indicate task has been updated</documentation>
+        <part name="payload" element="tns:taskUpdatedMessage"/>
+    </message>
+    <message name="subTaskUpdatedMessage">
+        <documentation>Message used for indicate that a sub task has been updated</documentation>
+        <part name="payload" element="tns:subTaskUpdatedMessage"/>
+    </message>
+    <message name="initiateTaskMessage">
+        <documentation>Message used for operation initiateTask</documentation>
+        <part name="payload" element="tns:initiateTask"/>
+    </message>
+    <message name="initiateTaskResponseMessage">
+        <documentation>Message used as response of operation initiateTask</documentation>
+        <part name="payload" element="tns:initiateTaskResponse"/>
+    </message>
+    <message name="workflowErrorMessage">
+        <documentation>Message used for indicate error in executing workflow operation</documentation>
+        <part name="payload" element="tns:operationErroredFault"/>
+    </message>
+    <message name="staleObjectFaultMessage">
+        <documentation>Message used for indicate operation on a stale task</documentation>
+        <part name="payload" element="tns:staleObjectFault"/>
+    </message>
+    <message name="reinitiateTaskMessage">
+        <documentation>Message used for operation reinitiateTask</documentation>
+        <part name="payload" element="tns:reinitiateTask"/>
+    </message>
+    <message name="reinitiateTaskResponseMessage">
+        <documentation>Message used as response of operation reinitiateTask</documentation>
+        <part name="payload" element="tns:reinitiateTaskResponse"/>
+    </message>
+    <message name="overrideRoutingSlipMessage">
+        <documentation>Message used to override routing slip</documentation>
+        <part name="payload" element="tns:overrideRoutingSlip"/>
+    </message>
+    <message name="skipCurrentAssignmentMessage">
+        <documentation>Message used to skip current assignment for the task</documentation>
+        <part name="payload" element="tns:skipCurrentAssignment"/>
+    </message>
+    <message name="updateTaskMessage">
+        <documentation>Message used for operation updateTask</documentation>
+        <part name="payload" element="tns:updateTask"/>
+    </message>
+    <message name="mergeAndUpdateTaskMessage">
+        <documentation>Message used for operation mergeAndUpdateTask</documentation>
+        <part name="payload" element="tns:mergeAndUpdateTask"/>
+    </message>
+    <message name="submitInfoForTaskMessage">
+        <documentation>Message used for operation submitInfoForTask</documentation>
+        <part name="payload" element="tns:submitInfoForTask"/>
+    </message>
+    <message name="getUsersToRequestInfoForTaskMessage">
+        <documentation>Message used for operation getUsersToRequestInfoForTask</documentation>
+        <part name="payload" element="tns:getUsersToRequestInfoForTask"/>
+    </message>
+    <message name="getUsersToRequestInfoForTaskOutputMessage">
+        <documentation>Message used for operation getUsersToRequestInfoForTask</documentation>
+        <part name="payload" element="tns:listOfUserIds"/>
+    </message>
+    <message name="getFutureParticipantsMessage">
+        <documentation>Message used for operation getFutureParticipants</documentation>
+        <part name="payload" element="tns:getFutureParticipants"/>
+    </message>
+    <message name="getFutureParticipantsOutputMessage">
+        <documentation>Message used for operation getFutureParticipants</documentation>
+        <part name="payload" element="routingslip:routingSlip"/>
+    </message>
+    <message name="getApproversMessage">
+        <documentation>Message used for operation getApprovers</documentation>
+        <part name="payload" element="tns:getApprovers"/>
+    </message>
+    <message name="getApproversOutputMessage">
+        <documentation>Message used for operation getApprovers</documentation>
+        <part name="payload" element="tns:listOfUserIds"/>
+    </message>
+    <message name="escalateTaskMessage">
+        <documentation>Message used for operation escalateTask</documentation>
+        <part name="payload" element="tns:escalateTask"/>
+    </message>
+    <message name="escalateTasksMessage">
+        <documentation>Message used for operation escalateTasks</documentation>
+        <part name="payload" element="tns:escalateTasks"/>
+    </message>
+    <message name="bulkOperationOutputMessage">
+        <documentation>Message used for reply to bulk operations</documentation>
+        <part name="payload" element="tns:bulkOperationOutput"/>
+    </message>
+    <message name="withdrawTaskMessage">
+        <documentation>Message used for operation withdrawTask</documentation>
+        <part name="payload" element="tns:withdrawTask"/>
+    </message>
+    <message name="withdrawTasksMessage">
+        <documentation>Message used for operation withdrawTasks</documentation>
+        <part name="payload" element="tns:withdrawTasks"/>
+    </message>
+    <message name="suspendTaskMessage">
+        <documentation>Message used for operation suspendTask</documentation>
+        <part name="payload" element="tns:suspendTask"/>
+    </message>
+    <message name="suspendTasksMessage">
+        <documentation>Message used for operation suspendTasks</documentation>
+        <part name="payload" element="tns:suspendTasks"/>
+    </message>
+    <message name="resumeTaskMessage">
+        <documentation>Message used for operation resumeTask</documentation>
+        <part name="payload" element="tns:resumeTask"/>
+    </message>
+    <message name="resumeTasksMessage">
+        <documentation>Message used for operation resumeTasks</documentation>
+        <part name="payload" element="tns:resumeTasks"/>
+    </message>
+    <message name="acquireTaskMessage">
+        <documentation>Message used for operation acquireTask</documentation>
+        <part name="payload" element="tns:acquireTask"/>
+    </message>
+    <message name="acquireTasksMessage">
+        <documentation>Message used for operation acquireTasks</documentation>
+        <part name="payload" element="tns:acquireTasks"/>
+    </message>
+    <message name="releaseTaskMessage">
+        <documentation>Message used for operation releaseTask</documentation>
+        <part name="payload" element="tns:releaseTask"/>
+    </message>
+    <message name="releaseTasksMessage">
+        <documentation>Message used for operation releaseTasks</documentation>
+        <part name="payload" element="tns:releaseTasks"/>
+    </message>
+    <message name="reassignTaskMessage">
+        <documentation>Message used for operation reassignTask</documentation>
+        <part name="payload" element="tns:reassignTask"/>
+    </message>
+    <message name="reassignTasksMessage">
+        <documentation>Message used for operation reassignTasks</documentation>
+        <part name="payload" element="tns:reassignTasks"/>
+    </message>
+    <message name="routeTaskMessage">
+        <documentation>Message used for operation routeTask</documentation>
+        <part name="payload" element="tns:routeTask"/>
+    </message>
+    <message name="pushBackTaskMessage">
+        <documentation>Message used for operation pushBackTask</documentation>
+        <part name="payload" element="tns:pushBackTask"/>
+    </message>
+    <message name="delegateTaskMessage">
+        <documentation>Message used for operation delegateTask</documentation>
+        <part name="payload" element="tns:delegateTask"/>
+    </message>
+    <message name="delegateTasksMessage">
+        <documentation>Message used for operation delegateTasks</documentation>
+        <part name="payload" element="tns:delegateTasks"/>
+    </message>
+    <message name="errorTaskMessage">
+        <documentation>Message used for operation errorTask</documentation>
+        <part name="payload" element="tns:errorTask"/>
+    </message>
+    <message name="addCommentMessage">
+        <documentation>Message used for operation addComment</documentation>
+        <part name="payload" element="tns:addComment"/>
+    </message>
+    <message name="addAttachmentMessage">
+        <documentation>Message used for operation addAttachment</documentation>
+        <part name="payload" element="tns:addAttachment"/>
+    </message>
+    <message name="removeAttachmentMessage">
+        <documentation>Message used for operation removeAttachment</documentation>
+        <part name="payload" element="tns:removeAttachment"/>
+    </message>
+    <message name="addDocumentMessage">
+        <documentation>Message used for operation addDocument</documentation>
+        <part name="payload" element="tns:addDocument"/>
+    </message>
+    <message name="removeDocumentMessage">
+        <documentation>Message used for operation removeDocument</documentation>
+        <part name="payload" element="tns:removeDocument"/>
+    </message>
+    <message name="renewTaskMessage">
+        <documentation>Message used for operation renewTask</documentation>
+        <part name="payload" element="tns:renewTask"/>
+    </message>
+    <message name="updateTaskOutcomeMessage">
+        <documentation>Message used for operation updateTaskOutcome</documentation>
+        <part name="payload" element="tns:updateTaskOutcome"/>
+    </message>
+    <message name="updateOutcomeOfTasksMessage">
+        <documentation>Message used for operation updateOutcomeOfTasks</documentation>
+        <part name="payload" element="tns:updateOutcomeOfTasks"/>
+    </message>
+    <message name="updateTaskOutcomeAndRouteMessage">
+        <documentation>Message used for operation updateTaskOutcomeAndRoute</documentation>
+        <part name="payload" element="tns:updateTaskOutcomeAndRoute"/>
+    </message>
+    <message name="requestInfoForTaskMessage">
+        <documentation>Message used for operation requestInfoForTask</documentation>
+        <part name="payload" element="tns:requestInfoForTask"/>
+    </message>
+    <message name="requestInfoForTaskWithReapprovalMessage">
+        <documentation>Message used for operation requestInfoForTaskWithReapproval</documentation>
+        <part name="payload" element="tns:requestInfoForTaskWithReapproval"/>
+    </message>
+    <message name="createToDoTaskMessage">
+        <documentation>Message used for operation createToDoTask</documentation>
+        <part name="payload" element="tns:createToDoTask"/>
+    </message>
+    <message name="deleteTaskMessage">
+        <documentation>Message used for operation deleteTask</documentation>
+        <part name="payload" element="tns:deleteTask"/>
+    </message>
+    <message name="deleteTasksMessage">
+        <documentation>Message used for operation deleteTasks</documentation>
+        <part name="payload" element="tns:deleteTasks"/>
+    </message>
+    <message name="purgeTaskMessage">
+        <documentation>Message used for operation purgeTask</documentation>
+        <part name="payload" element="tns:purgeTask"/>
+    </message>
+    <message name="purgeTaskOutputMessage">
+        <documentation>Message used for output of operation purgeTask</documentation>
+        <part name="payload" element="tns:purgeTaskOutput"/>
+    </message>
+    <message name="purgeTasksMessage">
+        <documentation>Message used for operation purgeTasks</documentation>
+        <part name="payload" element="tns:purgeTasks"/>
+    </message>
+    <message name="setTaskSequenceChangesMessage">
+        <documentation>Message used for operation setTaskSequenceChanges</documentation>
+        <part name="payload" element="tns:setTaskSequenceChanges"/>
+    </message>
+    <message name="setTaskSequenceChangesOutputMessage">
+        <documentation>Message used for operation setTaskSequenceChanges</documentation>
+        <part name="payload" element="tns:setTaskSequenceChangesOutput"/>
+    </message>
+    <message name="restartRootTaskMessage">
+        <documentation>Message used for operation restartRootTask</documentation>
+        <part name="payload" element="tns:restartRootTask"/>
+    </message>
+    <message name="prepareForRestartRootTaskMessage">
+        <documentation>Message used for operation prepareForRestartRootTask</documentation>
+        <part name="payload" element="tns:prepareForRestartRootTask"/>
+    </message>
+    <message name="reevaluateTaskMessage">
+        <documentation>Message used for operation reevaluateTask</documentation>
+        <part name="payload" element="tns:reevaluateTask"/>
+    </message>
+    <message name="reevaluateTaskOutputMessage">
+        <documentation>Message used for operation reevaluateTask</documentation>
+        <part name="payload" element="tns:reevaluateTaskOutput"/>
+    </message>
+    <message name="updatePriorityMessage">
+        <documentation>Message used for operation updatePriority</documentation>
+        <part name="payload" element="tns:updatePriority"/>
+    </message>
+    <message name="successResponseOutputMessage">
+        <documentation>Message used for operations with void as return type. For operations updatePriority, updatePriorityOfTasks, suspendTimers and resumeTimers.</documentation>
+        <part name="payload" element="tns:successResponseOutput"/>
+    </message>
+    <message name="updatePriorityOfTasksMessage">
+        <documentation>Message used for operation updatePriorityOfTasks</documentation>
+        <part name="payload" element="tns:updatePriorityOfTasks"/>
+    </message>
+    <message name="suspendTimersMessage">
+        <documentation>Message used for operation suspendTimers</documentation>
+        <part name="payload" element="tns:suspendTimers"/>
+    </message>
+    <message name="resumeTimersMessage">
+        <documentation>Message used for operation resumeTimers</documentation>
+        <part name="payload" element="tns:resumeTimers"/>
+    </message>
+    <portType name="TaskServiceCallback">
+        <documentation>Port implemented by the requester to receive callbacks from workflow</documentation>
+        <operation name="onTaskCompleted">
+            <documentation>Callback invoked when the task has completed, expired, withdrawn or errored</documentation>
+            <input message="tns:taskMessage"/>
+        </operation>
+        <operation name="onTaskAssigned">
+            <documentation>Callback invoked when the task has been assigned</documentation>
+            <input message="tns:taskAssignedMessage"/>
+        </operation>
+        <operation name="onTaskUpdated">
+            <documentation>Callback invoked when the task has been updated</documentation>
+            <input message="tns:taskUpdatedMessage"/>
+        </operation>
+        <operation name="onSubTaskUpdated">
+            <documentation>Callback invoked when a sub task has been updated</documentation>
+            <input message="tns:subTaskUpdatedMessage"/>
+        </operation>
+    </portType>
+    <portType name="TaskService">
+        <documentation>Port that exposes operations on task</documentation>
+        <operation name="initiateTask">
+            <documentation>Initiate a task</documentation>
+            <input name="initiateTaskInput" message="tns:initiateTaskMessage"/>
+            <output name="initiateTaskOutput" message="tns:initiateTaskResponseMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="reinitiateTask">
+            <documentation>Reintiate a task</documentation>
+            <input name="reinitiateTaskInput" message="tns:reinitiateTaskMessage"/>
+            <output name="reinitiateTaskOutput" message="tns:reinitiateTaskResponseMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="overrideRoutingSlip">
+            <documentation>Override routing slip for a task</documentation>
+            <input name="overrideRoutingSlipInput" message="tns:overrideRoutingSlipMessage"/>
+            <output name="overrideRoutingSlipOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="skipCurrentAssignment">
+            <documentation>Skip current assignment for the task</documentation>
+            <input name="skipCurrentAssignmentInput" message="tns:skipCurrentAssignmentMessage"/>
+            <output name="skipCurrentAssignmentOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="updateTask">
+            <documentation>Update a task</documentation>
+            <input name="updateTaskInput" message="tns:updateTaskMessage"/>
+            <output name="updateTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="mergeAndUpdateTask">
+            <documentation>Merge and update a task</documentation>
+            <input name="mergeAndUpdateTaskInput" message="tns:mergeAndUpdateTaskMessage"/>
+            <output name="mergeAndUpdateTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="submitInfoForTask">
+            <documentation>Submit information for a task</documentation>
+            <input name="submitInfoForTaskInput" message="tns:submitInfoForTaskMessage"/>
+            <output name="submitInfoForTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="getUsersToRequestInfoForTask">
+            <documentation>Get users to request information for a task</documentation>
+            <input name="getUsersToRequestInfoForTaskInput" message="tns:getUsersToRequestInfoForTaskMessage"/>
+            <output name="getUsersToRequestInfoForTaskOutput" message="tns:getUsersToRequestInfoForTaskOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="getFutureParticipants">
+            <documentation>Get future participants of a task</documentation>
+            <input name="getFutureParticipantsInput" message="tns:getFutureParticipantsMessage"/>
+            <output name="getFutureParticipantsOutput" message="tns:getFutureParticipantsOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="getApprovers">
+            <documentation>Get all approvers</documentation>
+            <input name="getApproversInput" message="tns:getApproversMessage"/>
+            <output name="getApproversOutput" message="tns:getApproversOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="escalateTask">
+            <documentation>Escalate a task</documentation>
+            <input name="escalateTaskInput" message="tns:escalateTaskMessage"/>
+            <output name="escalateTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="escalateTasks">
+            <documentation>Escalate a list of tasks</documentation>
+            <input name="escalateTasksInput" message="tns:escalateTasksMessage"/>
+            <output name="escalateTasksOutput" message="tns:bulkOperationOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="withdrawTask">
+            <documentation>Withdraw a task</documentation>
+            <input name="withdrawTaskInput" message="tns:withdrawTaskMessage"/>
+            <output name="withdrawTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="withdrawTasks">
+            <documentation>Withdraw a set of tasks</documentation>
+            <input name="withdrawTasksInput" message="tns:withdrawTasksMessage"/>
+            <output name="withdrawTasksOutput" message="tns:bulkOperationOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="suspendTask">
+            <documentation>Suspend a task</documentation>
+            <input name="suspendTaskInput" message="tns:suspendTaskMessage"/>
+            <output name="suspendTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="suspendTasks">
+            <documentation>Suspend a set of tasks</documentation>
+            <input name="suspendTasksInput" message="tns:suspendTasksMessage"/>
+            <output name="suspendTasksOutput" message="tns:bulkOperationOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="resumeTask">
+            <documentation>Resume a task</documentation>
+            <input name="resumeTaskInput" message="tns:resumeTaskMessage"/>
+            <output name="resumeTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="resumeTasks">
+            <documentation>Resume a set of tasks</documentation>
+            <input name="resumeTasksInput" message="tns:resumeTasksMessage"/>
+            <output name="resumeTasksOutput" message="tns:bulkOperationOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="acquireTask">
+            <documentation>Acquire a task</documentation>
+            <input name="acquireTaskInput" message="tns:acquireTaskMessage"/>
+            <output name="acquireTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="acquireTasks">
+            <documentation>Acquire a set of tasks</documentation>
+            <input name="acquireTasksInput" message="tns:acquireTasksMessage"/>
+            <output name="acquireTasksOutput" message="tns:bulkOperationOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="releaseTask">
+            <documentation>Release a task</documentation>
+            <input name="releaseTaskInput" message="tns:releaseTaskMessage"/>
+            <output name="releaseTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="releaseTasks">
+            <documentation>Release a set of tasks</documentation>
+            <input name="releaseTasksInput" message="tns:releaseTasksMessage"/>
+            <output name="releaseTasksOutput" message="tns:bulkOperationOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="reassignTask">
+            <documentation>Reassign a task</documentation>
+            <input name="reassignTaskInput" message="tns:reassignTaskMessage"/>
+            <output name="reassignTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="reassignTasks">
+            <documentation>Reassign a list of tasks</documentation>
+            <input name="reassignTasksInput" message="tns:reassignTasksMessage"/>
+            <output name="reassignTasksOutput" message="tns:bulkOperationOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="routeTask">
+            <documentation>Route a task</documentation>
+            <input name="routeTaskInput" message="tns:routeTaskMessage"/>
+            <output name="routeTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="pushBackTask">
+            <documentation>PushBack a task</documentation>
+            <input name="pushBackTaskInput" message="tns:pushBackTaskMessage"/>
+            <output name="pushBackTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="delegateTask">
+            <documentation>Delegate a task</documentation>
+            <input name="delegateTaskInput" message="tns:delegateTaskMessage"/>
+            <output name="delegateTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="delegateTasks">
+            <documentation>Delegate a list of tasks</documentation>
+            <input name="delegateTasksInput" message="tns:delegateTasksMessage"/>
+            <output name="delegateTasksOutput" message="tns:bulkOperationOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="errorTask">
+            <documentation>Error a task</documentation>
+            <input name="errorTaskInput" message="tns:errorTaskMessage"/>
+            <output name="errorTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="addComment">
+            <documentation>Add a comment to a task</documentation>
+            <input name="addCommentInput" message="tns:addCommentMessage"/>
+            <output name="addCommentOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="addAttachment">
+            <documentation>Add an attachment to a task</documentation>
+            <input name="addAttachmentInput" message="tns:addAttachmentMessage"/>
+            <output name="addAttachmentOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="removeAttachment">
+            <documentation>Remove an attachment to a task</documentation>
+            <input name="removeAttachmentInput" message="tns:removeAttachmentMessage"/>
+            <output name="removeAttachmentOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="addDocument">
+            <documentation>Add an document to a task</documentation>
+            <input name="addDocumentInput" message="tns:addDocumentMessage"/>
+            <output name="addDocumentOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="removeDocument">
+            <documentation>Remove an document to a task</documentation>
+            <input name="removeDocumentInput" message="tns:removeDocumentMessage"/>
+            <output name="removeDocumentOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="renewTask">
+            <documentation>Renew a task</documentation>
+            <input name="renewTaskInput" message="tns:renewTaskMessage"/>
+            <output name="renewTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="updateTaskOutcome">
+            <documentation>Update task outcome</documentation>
+            <input name="updateTaskOutcomeInput" message="tns:updateTaskOutcomeMessage"/>
+            <output name="updateTaskOutcomeOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="updateOutcomeOfTasks">
+            <documentation>Acquire a set of tasks</documentation>
+            <input name="updateOutcomeOfTasksInput" message="tns:updateOutcomeOfTasksMessage"/>
+            <output name="updateOutcomeOfTasksOutput" message="tns:bulkOperationOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="updateTaskOutcomeAndRoute">
+            <documentation>Update task outcome and route the task user(s)/group(s)</documentation>
+            <input name="updateTaskOutcomeAndRouteInput" message="tns:updateTaskOutcomeAndRouteMessage"/>
+            <output name="updateTaskOutcomeAndRouteOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="requestInfoForTask">
+            <documentation>Request information for task</documentation>
+            <input name="requestInfoForTaskInput" message="tns:requestInfoForTaskMessage"/>
+            <output name="requestInfoForTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="requestInfoForTaskWithReapproval">
+            <documentation>Request information for task and have the task reapproved by users who approved the task since the user to whom information is requested</documentation>
+            <input name="requestInfoForTaskWithReapprovalInput" message="tns:requestInfoForTaskWithReapprovalMessage"/>
+            <output name="requestInfoForTaskWithReapprovalOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="createToDoTask">
+            <documentation>Create Todo task</documentation>
+            <input name="createToDoTaskInput" message="tns:createToDoTaskMessage"/>
+            <output name="createToDoTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="deleteTask">
+            <documentation>Delete a task</documentation>
+            <input name="deleteTaskInput" message="tns:deleteTaskMessage"/>
+            <output name="deleteTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="deleteTasks">
+            <documentation>Delete a set of tasks</documentation>
+            <input name="deleteTasksInput" message="tns:deleteTasksMessage"/>
+            <output name="deleteTasksOutput" message="tns:bulkOperationOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="purgeTask">
+            <documentation>Purge a task</documentation>
+            <input name="purgeTaskInput" message="tns:purgeTaskMessage"/>
+            <output name="purgeTaskOutput" message="tns:purgeTaskOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="purgeTasks">
+            <documentation>Purge a set of tasks</documentation>
+            <input name="purgeTasksInput" message="tns:purgeTasksMessage"/>
+            <output name="purgeTasksOutput" message="tns:bulkOperationOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="setTaskSequenceChanges">
+            <documentation>Set Task sequence Changes</documentation>
+            <input name="setTaskSequenceChangesInput" message="tns:setTaskSequenceChangesMessage"/>
+            <output name="setTaskSequenceChangesOutput" message="tns:setTaskSequenceChangesOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="restartRootTask">
+            <documentation>Restart an approval task</documentation>
+            <input name="restartRootTaskInput" message="tns:restartRootTaskMessage"/>
+            <output name="restartRootTaskOutput" message="tns:initiateTaskResponseMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="prepareForRestartRootTask">
+            <documentation>Prepare for restarting an approval task</documentation>
+            <input name="prepareForRestartRootTaskInput" message="tns:prepareForRestartRootTaskMessage"/>
+            <output name="prepareForRestartRootTaskOutput" message="tns:taskMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="reevaluateTask">
+            <documentation>Re-evaluate task</documentation>
+            <input name="reevaluateTaskInput" message="tns:reevaluateTaskMessage"/>
+            <output name="reevaluateTaskOutput" message="tns:reevaluateTaskOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="updatePriority">
+            <documentation>Update the priority of a Task</documentation>
+            <input name="updatePriorityInput" message="tns:updatePriorityMessage"/>
+            <output name="updatePriorityOutput" message="tns:successResponseOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="updatePriorityOfTasks">
+            <documentation>Update the priority of a Task</documentation>
+            <input name="updatePriorityOfTasksInput" message="tns:updatePriorityOfTasksMessage"/>
+            <output name="updatePriorityOfTasksOutput" message="tns:successResponseOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="suspendTimers">
+            <documentation>Suspend timers for a task</documentation>
+            <input name="suspendTimersInput" message="tns:suspendTimersMessage"/>
+            <output name="suspendTimersOutput" message="tns:successResponseOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+        <operation name="resumeTimers">
+            <documentation>Resume timers for a task</documentation>
+            <input name="resumeTimersInput" message="tns:resumeTimersMessage"/>
+            <output name="resumeTimersOutput" message="tns:successResponseOutputMessage"/>
+            <fault name="operationErroredFault" message="tns:workflowErrorMessage"/>
+            <fault name="staleObjectFault" message="tns:staleObjectFaultMessage"/>
+        </operation>
+    </portType>
+</definitions>

@@ -1,0 +1,510 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://xmlns.oracle.com/bpel/workflow/userMetadata"
+     xmlns:common="http://xmlns.oracle.com/bpel/workflow/common" xmlns:query="http://xmlns.oracle.com/bpel/workflow/taskQuery"
+     xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0" targetNamespace="http://xmlns.oracle.com/bpel/workflow/userMetadata"
+     elementFormDefault="qualified">
+    <xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="oracle.bpel.services.workflow.user.model"/>
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:import schemaLocation="oramds:/soa/shared/workflow/WorkflowCommon.xsd" namespace="http://xmlns.oracle.com/bpel/workflow/common"/>
+    <xsd:import schemaLocation="TaskQueryService_XSD_TaskQuery.xsd" namespace="http://xmlns.oracle.com/bpel/workflow/taskQuery"/>
+    <xsd:element name="rulesetInfo">
+        <xsd:annotation>
+            <xsd:documentation>rulesetInfo provides information necessary to access a
+                         ruleset from the Rule Engine SDK</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="repositoryInfo" type="ruleRepositoryInfoType"/>
+                <xsd:element name="rulesetName" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="ruleRepositoryInfo" type="ruleRepositoryInfoType"/>
+    <xsd:element name="vacationInfo">
+        <xsd:annotation>
+            <xsd:documentation>Details the current vacation dates for a user. If no
+                         vacation dates are set for user, startDate and endDate
+                         elements should be empty. isOnVacation attribute will
+                         be set to true if currentDate is between startDate and
+                         endDate.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="user" type="common:principleRefType"/>
+                <xsd:element name="startDate" type="xsd:dateTime" nillable="true"/>
+                <xsd:element name="endDate" type="xsd:dateTime" nillable="true"/>
+            </xsd:sequence>
+            <xsd:attribute name="isOnVacation" type="xsd:boolean"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="ruleList">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="rule" type="ruleInfoType" maxOccurs="unbounded" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="ruleDetail">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="generalInfo" type="ruleInfoType"/>
+                <xsd:element name="taskTests" type="ruleTestListType"/>
+                <xsd:element name="payloadTests" type="ruleTestListType"/>
+                <xsd:element name="action" type="ruleActionType"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="userViewList">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="view" maxOccurs="unbounded" minOccurs="0" type="viewSummaryType"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="grantedViewList">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="viewGrant" maxOccurs="unbounded" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="viewGrant" type="viewGrantType"/>
+    <xsd:element name="userViewDetail">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="id" type="xsd:string"/>
+                <xsd:element name="name" type="xsd:string"/>
+                <xsd:element name="owner" type="common:principleRefType"/>
+                <xsd:element name="hidden" type="xsd:boolean"/>
+                <xsd:element name="description" type="xsd:string"/>
+                <xsd:element name="createdDate" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+                <xsd:element name="updatedDate" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+                <xsd:choice>
+                    <xsd:element name="presentationId" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>The id of the presentation associated with this view. View
+                presentation stores metadata on how a query should be presented,
+                including columns and ordering. If a view specifies a view
+                presentation id, it should NOT specify columns, viewOrdering or
+                viewOptionalInfo, as these will be defined in the presentation.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:sequence>
+                        <xsd:element name="viewColumns" type="columnListType"/>
+                        <xsd:element name="viewOptionalInfo" type="query:taskOptionalInfoType"/>
+                    </xsd:sequence>
+                </xsd:choice>
+                <xsd:element name="viewPredicate" type="query:taskPredicateType"/>
+                <xsd:element name="viewHistoryPredicate" type="query:predicateType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                        <xsd:documentation>Optional additional predicate clause, that is applied to all
+              versions of the task/process instance. If the viewHistoryPredicate
+              is set, then the current state of the instance is returned only if
+              one or more previous versions of the task satisfy the conditions
+              specified by the predicate. If an instance has previous versions
+              that meet the conditions specified by the history predicate, any
+              conditions specified by the viewPredicate must also be met by the
+              current state of the instance for a record to be returned by the
+              view.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="viewOrdering" type="query:taskOrderingType"/>
+                <xsd:element name="grantees" type="viewGranteeListType"/>
+                <xsd:element name="chart" minOccurs="0" type="chartType"/>
+            </xsd:sequence>
+            <xsd:attribute name="viewType" type="viewTypeEnum" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="userPreferences">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="userPreference" type="userPreferenceType" maxOccurs="unbounded" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="userApplicationData" type="userApplicationDataType"/>
+    <xsd:element name="userApplicationDataList">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="userApplicationData" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="userPreference" type="userPreferenceType"/>
+    <xsd:element name="presentation" type="presentationType"/>
+    <xsd:element name="presentationList">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="presentation" maxOccurs="unbounded" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="successResponse" type="xsd:string">
+        <xsd:annotation>
+            <xsd:documentation>This element is used in WSDL bindings to provide a return message for
+        operations that have no return value. It is used to send a
+        confirmation message to the client (since wsdl operations with a &apos;fault&apos;
+        must also have an &apos;output&apos; defined)</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="ruleRepositoryInfoType">
+        <xsd:sequence>
+            <xsd:element name="ruleEngine" type="ruleEngineEnum"/>
+            <xsd:element name="repositoryLocation" type="xsd:string"/>
+            <xsd:element name="dictionaryName" type="xsd:string"/>
+            <xsd:element name="reposProperty" type="propertyType" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="propertyType">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="ruleInfoType">
+        <xsd:sequence>
+            <xsd:element name="ruleId" type="xsd:string"/>
+            <xsd:element name="ruleName" type="xsd:string"/>
+            <xsd:element name="priority" type="xsd:int"/>
+            <xsd:element name="owner" type="common:principleRefType"/>
+            <xsd:choice minOccurs="0">
+                <xsd:element minOccurs="0" name="workflowId" type="xsd:string"/>
+                <xsd:element name="taskNamespace" type="xsd:string" minOccurs="0"/>
+            </xsd:choice>
+            <xsd:element name="startDate" type="xsd:dateTime" nillable="true"/>
+            <xsd:element name="endDate" type="xsd:dateTime" nillable="true"/>
+            <xsd:element name="isVacationRule" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="description" minOccurs="0" type="xsd:string"/>
+            <xsd:element name="createdDate" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="updatedDate" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+        <xsd:attribute name="ruleType" type="ruleTypeEnum"/>
+    </xsd:complexType>
+    <xsd:complexType name="ruleAssignmentType">
+        <xsd:sequence>
+            <xsd:element name="assignee" type="common:principleRefType"/>
+            <xsd:element name="dynamicAssignmentFunction" type="xsd:string" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ruleTestType">
+        <xsd:sequence>
+            <xsd:element name="field" type="xsd:string"/>
+            <xsd:element name="operation">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="EQ"/>
+                        <xsd:enumeration value="NEQ"/>
+                        <xsd:enumeration value="GTE"/>
+                        <xsd:enumeration value="LTE"/>
+                        <xsd:enumeration value="LT"/>
+                        <xsd:enumeration value="GT"/>
+                        <xsd:enumeration value="CONTAINS"/>
+                        <xsd:enumeration value="NOT CONTAINS"/>
+                        <xsd:enumeration value="BEGINS"/>
+                        <xsd:enumeration value="NOT BEGINS"/>
+                        <xsd:enumeration value="ENDS"/>
+                        <xsd:enumeration value="NOT ENDS"/>
+                        <xsd:enumeration value="BEFORE"/>
+                        <xsd:enumeration value="AFTER"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:choice>
+                <xsd:element name="value" type="xsd:string"/>
+                <xsd:element name="dateValue" type="xsd:dateTime"/>
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ruleTestListType">
+        <xsd:sequence>
+            <xsd:element name="test" type="ruleTestType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ruleActionType">
+        <xsd:annotation>
+            <xsd:documentation>noOperation is intended to be empty tag. Type is set to xsd:string to
+        work-around JAXB-generation issues...</xsd:documentation>
+        </xsd:annotation>
+        <xsd:choice>
+            <xsd:element name="noOperation" type="xsd:string"/>
+            <xsd:element name="reassign" type="ruleAssignmentType"/>
+            <xsd:element name="delegate" type="ruleAssignmentType"/>
+            <xsd:element name="setOutcome" type="xsd:string"/>
+        </xsd:choice>
+        <xsd:attribute name="actionType" type="actionTypeEnum" use="required"/>
+    </xsd:complexType>
+    <xsd:complexType name="viewSummaryType">
+        <xsd:sequence>
+            <xsd:element name="id" type="xsd:string"/>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element name="owner" type="common:principleRefType"/>
+            <xsd:element name="hidden" type="xsd:boolean"/>
+            <xsd:element name="viewType" type="viewTypeEnum"/>
+            <xsd:element name="description" type="xsd:string"/>
+            <xsd:element name="createdDate" type="xsd:dateTime"/>
+            <xsd:element name="updatedDate" type="xsd:dateTime"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="viewGrantType">
+        <xsd:sequence>
+            <xsd:element name="viewId" type="xsd:string"/>
+            <xsd:element name="grantee" type="common:principleRefType"/>
+            <xsd:element name="grantedName" type="xsd:string"/>
+            <xsd:element name="grantedDescription" type="xsd:string"/>
+            <xsd:element name="hidden" type="xsd:boolean"/>
+            <xsd:element name="viewOwner" type="common:principleRefType"/>
+            <xsd:element name="originalName" type="xsd:string"/>
+            <xsd:element name="originalDescription" type="xsd:string"/>
+        </xsd:sequence>
+        <xsd:attribute name="grantType" use="required" type="grantTypeEnum"/>
+    </xsd:complexType>
+    <xsd:complexType name="viewGranteeType">
+        <xsd:complexContent>
+            <xsd:extension base="common:principleRefType">
+                <xsd:attribute name="grantType" use="required" type="grantTypeEnum"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="viewGranteeListType">
+        <xsd:sequence>
+            <xsd:element name="grantee" type="viewGranteeType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="columnType">
+        <xsd:sequence>
+            <xsd:element name="columnName" type="xsd:string"/>
+            <xsd:element name="displayName" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="columnWidth" minOccurs="0" type="xsd:integer"/>
+            <xsd:element name="formatMask" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="columnListType">
+        <xsd:sequence>
+            <xsd:element name="column" type="columnType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="chartType">
+        <xsd:sequence>
+            <xsd:element name="groupByColumn" type="xsd:string"/>
+            <xsd:element name="selectValues" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="value" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="orderByCount" type="xsd:boolean"/>
+        <xsd:attribute name="ascendingOrder" type="xsd:boolean"/>
+    </xsd:complexType>
+    <xsd:complexType name="userPreferenceType">
+        <xsd:sequence>
+            <xsd:element name="user" type="common:principleRefType"/>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element name="value" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="xpathExpressionType">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="assigneeType" type="ruleTypeEnum" use="required"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="userApplicationDataType">
+        <xsd:annotation>
+            <xsd:documentation>Representation of generic application data that can be stored for users,
+        groups or application roles.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="id" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Unique (GUID) idenitier for this ApplicationData. Automatically assigned by
+            API when ApplicationData is created.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="name" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Name identifying this application data. Combination of 
+            name, applicationDataType and owner must be unique.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="owner" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Name of the user that owns this application data.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="identityContext" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>identityContext (also called realm) that the owning user belongs to.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="data" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Actual data that is stored by API. This is text of unlimited length,
+            and can be any format (XML, CSV etc.). The UserMetadataService is
+            entirely agnostic to the content of this field. All parsing,
+            validation and processing must be performed by the client.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="grantees" minOccurs="0" maxOccurs="1" type="common:principleListType">
+                <xsd:annotation>
+                    <xsd:documentation>List of users, groups or application roles that this application
+            data has been shared with. Grantees get read-only access to the
+            application data.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="createdDate" type="xsd:dateTime" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Date this application data entry was created. Automatically
+            populated by UserMetadataService API.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="updatedDate" type="xsd:dateTime" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Date this application data entry was last updated. Automatically
+            populated by UserMetadataService API.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="createdBy" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Name of user that created this application data entry. Automatically
+            populated by UserMetadataService API.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="updatedBy" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Name of user that updated this application data entry. Automatically
+            populated by UserMetadataService API.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="applicationDataType" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation>Type of application data this represents, for example &quot;LAYOUT&quot; or
+          &quot;BAMDASHBOARD&quot;. This can be any value - it is up to API clients to
+          define the types of data.</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+    <xsd:complexType name="presentationType">
+        <xsd:annotation>
+            <xsd:documentation>Metadata representing how the results of a query should be presented,
+        including which columns should be displayed, how the columns should be
+        formatted, and how the data should be orderd.
+        Presentations can be associated with views, and provide a way of
+        defining a standard presentation of data that can be shared amongst
+        multiple views.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="id" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Unique idenitier for this Presentation. Automatically assigned by
+            API when Presentation is created.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="name" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Name for this presentation - must be unique to the set of
+            presentations belonging to the same owner. i.e. the combinition of
+            name and owner must be unique.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="owner" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Username of the owner of this Presentation.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="identityContext" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>identityContext (also called realm) that the owning user belongs to.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="columns" type="columnListType"/>
+            <xsd:element name="optionalInfo" type="query:taskOptionalInfoType" minOccurs="0"/>
+            <xsd:element name="ordering" minOccurs="0" type="query:taskOrderingType"/>
+            <xsd:element name="grantees" minOccurs="0" type="common:principleListType"/>
+            <xsd:element name="createdDate" type="xsd:dateTime" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Date this Presentation was created. Automatically
+            populated by UserMetadataService API.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="updatedDate" type="xsd:dateTime" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Date this Presentation was last updated. Automatically
+            populated by UserMetadataService API.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="createdBy" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Name of user that created this Presentation. Automatically
+            populated by UserMetadataService API.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="updatedBy" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Name of user that updated this Presentation. Automatically
+            populated by UserMetadataService API.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="presentationDataType" type="presentationDataTypeEnum">
+            <xsd:annotation>
+                <xsd:documentation>What type of data this presentation is intended to format - TASK or
+          PROCESS</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+    <xsd:simpleType name="ruleEngineEnum">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ORACLE"/>
+            <xsd:enumeration value="OTHER"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="ruleTypeEnum">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="USER"/>
+            <xsd:enumeration value="GROUP"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="viewTypeEnum">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="INBOX"/>
+            <xsd:enumeration value="VIEW"/>
+            <xsd:enumeration value="STANDARD_VIEW"/>
+            <xsd:enumeration value="PROCESS_VIEW"/>
+            <xsd:enumeration value="STANDARD_PROCESS_VIEW"/>
+            <xsd:enumeration value="REPORT"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="grantTypeEnum">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="SHARE_DATA"/>
+            <xsd:enumeration value="SHARE_DEFINITION"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="actionTypeEnum">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="NOOPERATION"/>
+            <xsd:enumeration value="REASSIGN"/>
+            <xsd:enumeration value="DELEGATE"/>
+            <xsd:enumeration value="SETOUTCOME"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="presentationDataTypeEnum">
+        <xsd:annotation>
+            <xsd:documentation>Defines the diffent types of data that presentations can be applied to.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="TASK"/>
+            <xsd:enumeration value="PROCESS"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

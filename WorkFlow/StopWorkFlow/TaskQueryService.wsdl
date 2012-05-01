@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+     name="TaskQueryService"
+     targetNamespace="http://xmlns.oracle.com/bpel/workflow/taskQueryService"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:common="http://xmlns.oracle.com/bpel/workflow/common"
+     xmlns:tns="http://xmlns.oracle.com/bpel/workflow/taskQueryService"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:task="http://xmlns.oracle.com/bpel/workflow/task"
+     xmlns:taskQueryService="http://xmlns.oracle.com/bpel/workflow/taskQueryService"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <documentation>TaskQueryService is used for retrieving task information based on queries and views</documentation>
+    <import namespace="http://xmlns.oracle.com/bpel/workflow/taskQueryService" location="TaskQueryService_WSDL_TaskQueryServiceInterface.wsdl"/>
+    <binding name="TaskQueryServiceSOAPBinding" type="tns:TaskQueryService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="authenticate">
+            <soap:operation style="document" soapAction=""/>
+            <input name="authenticateInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="authenticateOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="authenticateOnBehalfOf">
+            <soap:operation style="document" soapAction=""/>
+            <input name="authenticateOnBehalfOfInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="authenticateOnBehalfOfOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="getWorkflowContext">
+            <soap:operation style="document" soapAction=""/>
+            <input name="getWorkflowContextInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="getWorkflowContextOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="destroyWorkflowContext">
+            <soap:operation style="document" soapAction=""/>
+            <input name="destroyContextInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="destroyContextOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="refreshWorkflowContext">
+            <soap:operation style="document" soapAction=""/>
+            <input name="refreshWorkflowContextInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="refreshWorkflowContextOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="updateWorkflowContext">
+            <soap:operation style="document" soapAction=""/>
+            <input name="updateWorkflowContextInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="updateWorkflowContextOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="queryTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="queryTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="queryTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="queryAggregatedTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="queryAggregatedTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="queryAggregatedTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="countTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="countTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="countTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="doesTaskExist">
+            <soap:operation style="document" soapAction=""/>
+            <input name="doesTaskExistInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="doesTaskExistOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="queryViewTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="queryViewTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="queryViewTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="queryViewAggregatedTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="queryViewAggregatedTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="queryViewAggregatedTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="countViewTasks">
+            <soap:operation style="document" soapAction=""/>
+            <input name="countViewTasksInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="countViewTasksOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="doesViewTaskExist">
+            <soap:operation style="document" soapAction=""/>
+            <input name="doesViewTaskExistInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="doesViewTaskExistOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="queryTaskErrors">
+            <soap:operation style="document" soapAction=""/>
+            <input name="queryTaskErrorsInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="queryTaskErrorsOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="getTaskHistory">
+            <soap:operation style="document" soapAction=""/>
+            <input name="getTaskHistoryInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="getTaskHistoryOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="getTaskDetailsById">
+            <soap:operation style="document" soapAction=""/>
+            <input name="getTaskDetailsByIdInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="getTaskDetailsByIdOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="getTaskDetailsByNumber">
+            <soap:operation style="document" soapAction=""/>
+            <input name="getTaskDetailsByNumberInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="getTaskDetailsByNumberOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="getTaskVersionDetails">
+            <soap:operation style="document" soapAction=""/>
+            <input name="getTaskVersionDetailsInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="getTaskVersionDetailsOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="getPermittedAssignees">
+            <soap:operation style="document" soapAction=""/>
+            <input name="getPermittedAssigneesInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="getPermittedAssigneesOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="getTaskSequence">
+            <soap:operation style="document" soapAction=""/>
+            <input name="getTaskSequenceInput">
+                <soap:body use="literal" parts="payload"/>
+            </input>
+            <output name="getTaskSequenceOutput">
+                <soap:body use="literal" parts="payload"/>
+            </output>
+            <fault name="processingErrorFault">
+                <soap:fault name="processingErrorFault" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+    <service name="TaskQueryService">
+        <port name="TaskQueryServicePortSAML" binding="tns:TaskQueryServiceSOAPBinding">
+            <soap:address location="http://soaps5.alfa.local:8001/integration/services/TaskQueryService/TaskQueryService2/*"/>
+        </port>
+        <port name="TaskQueryServicePort" binding="tns:TaskQueryServiceSOAPBinding">
+            <soap:address location="http://soaps5.alfa.local:8001/integration/services/TaskQueryService/TaskQueryService"/>
+        </port>
+    </service>
+</definitions>

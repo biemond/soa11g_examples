@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+     name="TaskQueryService"
+     targetNamespace="http://xmlns.oracle.com/bpel/workflow/taskQueryService"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:common="http://xmlns.oracle.com/bpel/workflow/common"
+     xmlns:tns="http://xmlns.oracle.com/bpel/workflow/taskQueryService"
+     xmlns:task="http://xmlns.oracle.com/bpel/workflow/task"
+     xmlns:taskQueryService="http://xmlns.oracle.com/bpel/workflow/taskQueryService"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:java="http://schemas.xmlsoap.org/wsdl/java/"
+     xmlns:format="http://schemas.xmlsoap.org/wsdl/formatbinding/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:user="http://xmlns.oracle.com/bpel/workflow/userMetadata"
+    >
+    <documentation>TaskQueryService is used for retrieving task information based on queries and views.</documentation>
+    <types>
+        <schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/bpel/workflow/taskQueryService/schema"
+             xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/bpel/workflow/common" schemaLocation="oramds:/soa/shared/workflow/WorkflowCommon.xsd"/>
+            <import namespace="http://xmlns.oracle.com/bpel/workflow/task" schemaLocation="oramds:/soa/shared/workflow/WorkflowTask.xsd"/>
+            <import namespace="http://xmlns.oracle.com/bpel/workflow/userMetadata" schemaLocation="TaskQueryService_XSD_UserMetadata.xsd"/>
+            <import namespace="http://xmlns.oracle.com/bpel/workflow/taskQueryService" schemaLocation="TaskQueryService_XSD_TaskQueryService.xsd"/>
+        </schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://xmlns.oracle.com/bpel/workflow/taskQueryService" schemaLocation="TaskQueryService_XSD_TaskQueryService.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="authenticateMessage">
+        <part name="payload" element="common:credential"/>
+    </message>
+    <message name="authenticateResponseMessage">
+        <part name="payload" element="common:workflowContext"/>
+    </message>
+    <message name="workflowErrorMessage">
+        <part name="payload" element="tns:taskQueryServiceFaultResponse"/>
+    </message>
+    <message name="authenticateOnBehalfOfMessage">
+        <part name="payload" element="tns:credentialOnBehalfOfRequest"/>
+    </message>
+    <message name="authenticateOnBehalfOfResponseMessage">
+        <part name="payload" element="common:workflowContext"/>
+    </message>
+    <message name="getWorkflowContextMessage">
+        <part name="payload" element="tns:workflowContextRequest"/>
+    </message>
+    <message name="getWorkflowContextResponseMessage">
+        <part name="payload" element="common:workflowContext"/>
+    </message>
+    <message name="destroyContextMessage">
+        <part name="payload" element="common:workflowContext"/>
+    </message>
+    <message name="destroyContextResponseMessage">
+        <part name="payload" element="tns:successResponse"/>
+    </message>
+    <message name="refreshWorkflowContextMessage">
+        <part name="payload" element="common:workflowContext"/>
+    </message>
+    <message name="refreshWorkflowContextResponseMessage">
+        <part name="payload" element="common:workflowContext"/>
+    </message>
+    <message name="updateWorkflowContextMessage">
+        <part name="payload" element="tns:updateWorkflowContextRequest"/>
+    </message>
+    <message name="updateWorkflowContextResponseMessage">
+        <part name="payload" element="common:workflowContext"/>
+    </message>
+    <message name="taskListRequestMessage">
+        <part name="payload" element="tns:taskListRequest"/>
+    </message>
+    <message name="taskListResponseMessage">
+        <part name="payload" element="tns:taskListResponse"/>
+    </message>
+    <message name="queryAggregatedTasksRequestMessage">
+        <part name="payload" element="tns:queryAggregatedTasksRequest"/>
+    </message>
+    <message name="aggregatedTasksResponseMessage">
+        <part name="payload" element="tns:aggregatedTasksResponse"/>
+    </message>
+    <message name="countTasksRequestMessage">
+        <part name="payload" element="tns:countTasksRequest"/>
+    </message>
+    <message name="taskCountResponseMessage">
+        <part name="payload" element="tns:taskCountResponse"/>
+    </message>
+    <message name="doesTaskExistRequestMessage">
+        <part name="payload" element="tns:doesTaskExistRequest"/>
+    </message>
+    <message name="taskExistsResponseMessage">
+        <part name="payload" element="tns:taskExistsResponse"/>
+    </message>
+    <message name="queryViewTasksRequestMessage">
+        <part name="payload" element="tns:queryViewTasksRequest"/>
+    </message>
+    <message name="queryViewAggregatedTasksRequestMessage">
+        <part name="payload" element="tns:queryViewAggregatedTasksRequest"/>
+    </message>
+    <message name="countViewTasksRequestMessage">
+        <part name="payload" element="tns:countViewTasksRequest"/>
+    </message>
+    <message name="doesViewTaskExistRequestMessage">
+        <part name="payload" element="tns:doesViewTaskExistRequest"/>
+    </message>
+    <message name="queryTaskErrorsRequestMessage">
+        <part name="payload" element="tns:queryTaskErrorsRequest"/>
+    </message>
+    <message name="taskErrorsResponseMessage">
+        <part name="payload" element="tns:taskErrorsResponse"/>
+    </message>
+    <message name="taskHistoryRequestMessage">
+        <part name="payload" element="tns:taskHistoryRequest"/>
+    </message>
+    <message name="taskDetailsByIdRequestMessage">
+        <part name="payload" element="tns:taskDetailsByIdRequest"/>
+    </message>
+    <message name="taskDetailsResponseMessage">
+        <part name="payload" element="task:task"/>
+    </message>
+    <message name="taskDetailsByNumberRequestMessage">
+        <part name="payload" element="tns:taskDetailsByNumberRequest"/>
+    </message>
+    <message name="taskVersionDetailsRequestMessage">
+        <part name="payload" element="tns:taskVersionDetailsRequest"/>
+    </message>
+    <message name="getPermittedAssigneesRequestMessage">
+        <part name="payload" element="tns:getPermittedAssigneesRequest"/>
+    </message>
+    <message name="getPermittedAssigneesResponseMessage">
+        <part name="payload" element="tns:getPermittedAssigneesResponse"/>
+    </message>
+    <message name="getTaskSequenceRequestMessage">
+        <part name="payload" element="tns:getTaskSequenceRequest"/>
+    </message>
+    <message name="getTaskSequenceResponseMessage">
+        <part name="payload" element="tns:taskSequence"/>
+    </message>
+    <portType name="TaskQueryService">
+        <operation name="authenticate">
+            <input name="authenticateInput" message="tns:authenticateMessage"/>
+            <output name="authenticateOutput" message="tns:authenticateResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="authenticateOnBehalfOf">
+            <input name="authenticateOnBehalfOfInput" message="tns:authenticateOnBehalfOfMessage"/>
+            <output name="authenticateOnBehalfOfOutput" message="tns:authenticateOnBehalfOfResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="getWorkflowContext">
+            <input name="getWorkflowContextInput" message="tns:getWorkflowContextMessage"/>
+            <output name="getWorkflowContextOutput" message="tns:getWorkflowContextResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="destroyWorkflowContext">
+            <input name="destroyContextInput" message="tns:destroyContextMessage"/>
+            <output name="destroyContextOutput" message="tns:destroyContextResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="refreshWorkflowContext">
+            <input name="refreshWorkflowContextInput" message="tns:refreshWorkflowContextMessage"/>
+            <output name="refreshWorkflowContextOutput" message="tns:refreshWorkflowContextResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="updateWorkflowContext">
+            <input name="updateWorkflowContextInput" message="tns:updateWorkflowContextMessage"/>
+            <output name="updateWorkflowContextOutput" message="tns:updateWorkflowContextResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="queryTasks">
+            <input name="queryTasksInput" message="tns:taskListRequestMessage"/>
+            <output name="queryTasksOutput" message="tns:taskListResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="queryAggregatedTasks">
+            <input name="queryAggregatedTasksInput" message="tns:queryAggregatedTasksRequestMessage"/>
+            <output name="queryAggregatedTasksOutput" message="tns:aggregatedTasksResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="countTasks">
+            <input name="countTasksInput" message="tns:countTasksRequestMessage"/>
+            <output name="countTasksOutput" message="tns:taskCountResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="doesTaskExist">
+            <input name="doesTaskExistInput" message="tns:doesTaskExistRequestMessage"/>
+            <output name="doesTaskExistOutput" message="tns:taskExistsResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="queryViewTasks">
+            <input name="queryViewTasksInput" message="tns:queryViewTasksRequestMessage"/>
+            <output name="queryViewTasksOutput" message="tns:taskListResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="queryViewAggregatedTasks">
+            <input name="queryViewAggregatedTasksInput" message="tns:queryViewAggregatedTasksRequestMessage"/>
+            <output name="queryViewAggregatedTasksOutput" message="tns:aggregatedTasksResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="countViewTasks">
+            <input name="countViewTasksInput" message="tns:countViewTasksRequestMessage"/>
+            <output name="countViewTasksOutput" message="tns:taskCountResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="doesViewTaskExist">
+            <input name="doesViewTaskExistInput" message="tns:doesViewTaskExistRequestMessage"/>
+            <output name="doesViewTaskExistOutput" message="tns:taskExistsResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="queryTaskErrors">
+            <input name="queryTaskErrorsInput" message="tns:queryTaskErrorsRequestMessage"/>
+            <output name="queryTaskErrorsOutput" message="tns:taskErrorsResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="getTaskHistory">
+            <input name="getTaskHistoryInput" message="tns:taskHistoryRequestMessage"/>
+            <output name="getTaskHistoryOutput" message="tns:taskListResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="getTaskDetailsById">
+            <input name="getTaskDetailsByIdInput" message="tns:taskDetailsByIdRequestMessage"/>
+            <output name="getTaskDetailsByIdOutput" message="tns:taskDetailsResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="getTaskDetailsByNumber">
+            <input name="getTaskDetailsByNumberInput" message="tns:taskDetailsByNumberRequestMessage"/>
+            <output name="getTaskDetailsByNumberOutput" message="tns:taskDetailsResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="getTaskVersionDetails">
+            <input name="getTaskVersionDetailsInput" message="tns:taskVersionDetailsRequestMessage"/>
+            <output name="getTaskVersionDetailsOutput" message="tns:taskDetailsResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="getPermittedAssignees">
+            <input name="getPermittedAssigneesInput" message="tns:getPermittedAssigneesRequestMessage"/>
+            <output name="getPermittedAssigneesOutput" message="tns:getPermittedAssigneesResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+        <operation name="getTaskSequence">
+            <input name="getTaskSequenceInput" message="tns:getTaskSequenceRequestMessage"/>
+            <output name="getTaskSequenceOutput" message="tns:getTaskSequenceResponseMessage"/>
+            <fault name="processingErrorFault" message="tns:workflowErrorMessage"/>
+        </operation>
+    </portType>
+</definitions>

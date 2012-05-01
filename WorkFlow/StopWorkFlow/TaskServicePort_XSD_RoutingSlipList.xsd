@@ -1,0 +1,244 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<schema targetNamespace="http://xmlns.oracle.com/bpel/workflow/routingSlip" xmlns:tns="http://xmlns.oracle.com/bpel/workflow/routingSlip"
+     xmlns:task="http://xmlns.oracle.com/bpel/workflow/task" attributeFormDefault="unqualified"
+     elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+     jaxb:version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
+    <element name="lists">
+        <complexType>
+            <choice minOccurs="1" maxOccurs="unbounded">
+                <element name="resourceList" type="tns:resourceListType"/>
+                <element name="managementChain" type="tns:managementChainListType"/>
+                <element name="supervisory" type="tns:supervisoryListType"/>
+                <element name="jobLevel" type="tns:jobLevelListType"/>
+                <element name="position" type="tns:positionListType"/>
+                <element name="approvalGroup" type="tns:approvalGroupListType"/>
+                <element name="ruleset" type="tns:rulesetType"/>
+                <element name="logicalPeopleGroup" type="tns:logicalPeopleGroupListType"/>
+            </choice>
+        </complexType>
+    </element>
+    <element name="list" type="tns:listType"/>
+    <complexType name="listType">
+        <choice minOccurs="1" maxOccurs="1">
+            <element name="resourceList" type="tns:resourceListType"/>
+            <element name="managementChain" type="tns:managementChainListType"/>
+            <element name="supervisory" type="tns:supervisoryListType"/>
+            <element name="jobLevel" type="tns:jobLevelListType"/>
+            <element name="position" type="tns:positionListType"/>
+            <element name="approvalGroup" type="tns:approvalGroupListType"/>
+            <element name="ruleset" type="tns:rulesetType"/>
+            <element name="logicalPeopleGroup" type="tns:logicalPeopleGroupListType"/>
+        </choice>
+    </complexType>
+    <complexType name="managementChainListType">
+        <choice>
+            <sequence>
+                <element name="resource" type="tns:resourceType" minOccurs="0" maxOccurs="unbounded"/>
+                <element name="acquiredBy" type="tns:parameterType" minOccurs="0" maxOccurs="1"/>
+                <element name="levels" type="tns:parameterType" minOccurs="1" maxOccurs="1"/>
+                <element name="title" type="tns:parameterType" minOccurs="0" maxOccurs="1"/>
+                <element name="responseType" type="tns:responseType" minOccurs="0" maxOccurs="1"/>
+                <element name="ruleName" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+            <element name="ruleset" type="tns:rulesetType"/>
+        </choice>
+    </complexType>
+    <complexType name="resourceListType">
+        <choice>
+            <sequence>
+                <element name="resource" type="tns:resourceType" minOccurs="0" maxOccurs="unbounded"/>
+                <element name="responseType" type="tns:responseType" minOccurs="0" maxOccurs="1"/>
+                <element name="ruleName" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+            <element name="ruleset" type="tns:rulesetType"/>
+        </choice>
+    </complexType>
+    <simpleType name="relativeType">
+        <restriction base="xsd:string">
+            <enumeration value="startingPoint"/>
+            <enumeration value="creator"/>
+            <enumeration value="absolute"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="includeApproversType">
+        <restriction base="xsd:string">
+            <enumeration value="everyone"/>
+            <enumeration value="firstAndLast"/>
+            <enumeration value="last"/>
+        </restriction>
+    </simpleType>
+    <complexType name="autoActionType">
+        <simpleContent>
+            <extension base="xsd:string">
+                <attribute name="enabled" type="xsd:boolean" use="required"/>
+                <attribute name="type" type="tns:valueType" use="optional"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+    <complexType name="supervisoryListType">
+        <choice>
+            <sequence>
+                <element name="levels" type="tns:parameterType" minOccurs="1" maxOccurs="1"/>
+                <element name="startingPoint" type="tns:hierarchyPrincipalType" minOccurs="0" maxOccurs="1"/>
+                <element name="uptoApprover" type="tns:hierarchyPrincipalType" minOccurs="0" maxOccurs="1"/>
+                <element name="autoAction" type="tns:autoActionType" minOccurs="0" maxOccurs="1"/>
+                <element name="responseType" type="tns:responseType" minOccurs="0" maxOccurs="1"/>
+                <element name="ruleName" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+            <element name="ruleset" type="tns:rulesetType"/>
+        </choice>
+    </complexType>
+    <complexType name="approvalGroupListType">
+        <choice>
+            <sequence>
+                <element name="name" type="tns:parameterType" minOccurs="1" maxOccurs="1"/>
+                <element name="allowEmptyApprovalGroup" type="tns:parameterType" minOccurs="0" maxOccurs="1"/>
+                <element name="responseType" type="tns:responseType" minOccurs="0" maxOccurs="1"/>
+                <element name="ruleName" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+            <element name="ruleset" type="tns:rulesetType"/>
+        </choice>
+    </complexType>
+    <complexType name="numberOfLevelsType">
+        <simpleContent>
+            <extension base="xsd:string">
+                <attribute name="type" type="tns:valueType" use="required"/>
+                <attribute name="relative" type="tns:relativeType" use="required"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+    <complexType name="baseJobLevelListType">
+        <choice>
+            <sequence>
+                <element name="atmost" type="tns:numberOfLevelsType" minOccurs="0" maxOccurs="1"/>
+                <element name="atleast" type="tns:numberOfLevelsType" minOccurs="0" maxOccurs="1"/>
+                <element name="startingPoint" type="tns:hierarchyPrincipalType" minOccurs="0" maxOccurs="1"/>
+                <element name="uptoApprover" type="tns:hierarchyPrincipalType" minOccurs="0" maxOccurs="1"/>
+                <element name="includeApprovers" type="tns:includeApproversType" minOccurs="0" maxOccurs="1"/>
+                <element name="extend" type="tns:extendType" minOccurs="0" maxOccurs="1"/>
+                <element name="truncate" type="tns:truncateType" minOccurs="0" maxOccurs="1"/>
+                <element name="autoAction" type="tns:autoActionType" minOccurs="0" maxOccurs="1"/>
+                <element name="responseType" type="tns:responseType" minOccurs="0" maxOccurs="1"/>
+                <element name="ruleName" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+            <element name="ruleset" type="tns:rulesetType"/>
+        </choice>
+    </complexType>
+    <complexType name="extendType">
+        <choice>
+            <sequence>
+                <element name="ifFinalApproverLevel" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+                <element name="extendBy" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+            </sequence>
+        </choice>
+    </complexType>
+    <complexType name="truncateType">
+        <choice>
+            <sequence>
+                <element name="afterLevel" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+            </sequence>
+        </choice>
+    </complexType>
+    <complexType name="positionListType">
+        <complexContent>
+            <extension base="tns:baseJobLevelListType">
+                <sequence/>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="jobLevelListType">
+        <complexContent>
+            <extension base="tns:baseJobLevelListType">
+                <sequence>
+                    <element name="includeAllAtSameLevel" type="xsd:boolean" minOccurs="0" maxOccurs="1"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="hierarchyPrincipalType">
+        <sequence>
+            <element name="userId" type="tns:parameterType" minOccurs="1" maxOccurs="1"/>
+            <element name="jobLevel" type="tns:parameterType" minOccurs="0" maxOccurs="1"/>
+            <element name="assignmentId" type="tns:parameterType" minOccurs="0" maxOccurs="1"/>
+            <element name="effectiveDate" type="tns:parameterType" minOccurs="0" maxOccurs="1"/>
+            <element name="hierarchyType" type="tns:parameterType" minOccurs="0" maxOccurs="1"/>
+        </sequence>
+    </complexType>
+    <complexType name="rulesetType">
+        <sequence>
+            <element name="name" type="xsd:string"/>
+        </sequence>
+    </complexType>
+    <simpleType name="responseType">
+        <restriction base="xsd:string">
+            <enumeration value="REQUIRED"/>
+            <enumeration value="NOT_REQUIRED"/>
+        </restriction>
+    </simpleType>
+    <element name="resource" type="tns:resourceType"/>
+    <complexType name="resourceType">
+        <simpleContent>
+            <extension base="xsd:string">
+                <attribute name="type" type="tns:valueType" use="required"/>
+                <attribute name="isGroup" type="xsd:boolean" use="optional"/>
+                <attribute name="identityType" type="tns:resourceIdentityType" use="optional"/>
+                <attribute name="systemAttribute" type="xsd:string" use="optional"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+    <simpleType name="resourceIdentityType">
+        <restriction base="xsd:string">
+            <enumeration value="user"/>
+            <enumeration value="group"/>
+            <enumeration value="application_role"/>
+            <enumeration value="position"/>
+            <enumeration value="logicalPeopleGroup"/>
+        </restriction>
+    </simpleType>
+    <complexType name="parameterType">
+        <simpleContent>
+            <extension base="xsd:string">
+                <attribute name="type" type="tns:valueType" use="required"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+    <simpleType name="valueType">
+        <restriction base="xsd:string">
+            <enumeration value="XPATH"/>
+            <enumeration value="STATIC"/>
+        </restriction>
+    </simpleType>
+    <element name="substitutionRules">
+        <complexType>
+            <sequence>
+                <element name="rule" type="tns:substitutionRuleType" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+    <complexType name="substitutionRuleType">
+        <sequence>
+            <element name="fromId" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <element name="toId" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <element name="ruleName" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        </sequence>
+    </complexType>
+    <complexType name="logicalPeopleGroupListType">
+        <sequence>
+            <element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <element name="lpgParameters" type="tns:lpgParametersType" minOccurs="0" maxOccurs="1"/>
+        </sequence>
+    </complexType>
+    <complexType name="lpgParametersType">
+        <sequence>
+            <element name="lpgParameter" type="tns:lpgParameterType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <complexType name="lpgParameterType">
+        <simpleContent>
+            <extension base="xsd:string">
+                <attribute name="name" type="xsd:string" use="required"/>
+                <attribute name="type" type="tns:valueType" use="required"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+</schema>

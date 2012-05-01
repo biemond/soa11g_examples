@@ -1,0 +1,283 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://xmlns.oracle.com/bpel/workflow/taskQuery"
+     xmlns:common="http://xmlns.oracle.com/bpel/workflow/common" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+     jaxb:version="1.0" targetNamespace="http://xmlns.oracle.com/bpel/workflow/taskQuery"
+     elementFormDefault="qualified" xmlns:task="http://xmlns.oracle.com/bpel/workflow/task">
+    <xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="oracle.bpel.services.workflow.query.model"/>
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:import namespace="http://xmlns.oracle.com/bpel/workflow/task" schemaLocation="oramds:/soa/shared/workflow/WorkflowTask.xsd"/>
+    <xsd:element name="taskPredicateQuery" type="taskPredicateQueryType"/>
+    <xsd:complexType name="taskPredicateQueryType">
+        <xsd:sequence>
+            <xsd:choice>
+                <xsd:element name="presentationId" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:documentation>ID of presnetation that will define the columns,
+            optional info and ordering for this query. If presentationId is 
+            specified, then displayColumnList, optionalInfoList and ordering
+            elements should NOT be specified.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:sequence>
+                    <xsd:element name="displayColumnList" type="displayColumnType" maxOccurs="1" minOccurs="0"/>
+                    <xsd:element name="optionalInfoList" type="taskOptionalInfoType" maxOccurs="1" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:choice>
+            <xsd:element name="predicate" type="taskPredicateType" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ordering" type="taskOrderingType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Specifies how tasks returned by the query should be ordered.
+            If a presentationId has been specified, then the ordering defined
+            in that presentation will be used, and this element should NOT
+            be used.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="startRow" type="xsd:positiveInteger"/>
+        <xsd:attribute name="endRow" type="xsd:positiveInteger"/>
+    </xsd:complexType>
+    <xsd:element name="taskAggregateQuery" type="taskAggregateQueryType"/>
+    <xsd:complexType name="taskAggregateQueryType">
+        <xsd:sequence>
+            <xsd:element name="groupByColumn" type="xsd:string"/>
+            <xsd:element name="predicate" type="taskPredicateType"/>
+        </xsd:sequence>
+        <xsd:attribute name="orderByCount" type="xsd:boolean"/>
+        <xsd:attribute name="ascendingOrder" type="xsd:boolean"/>
+    </xsd:complexType>
+    <xsd:element name="viewTaskPredicateQuery" type="viewTaskPredicateQueryType"/>
+    <xsd:complexType name="viewTaskPredicateQueryType">
+        <xsd:sequence>
+            <xsd:element name="viewId" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="predicate" type="taskPredicateType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Deprecated. Use extraPredicate instead.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="extraPredicate" type="predicateType" minOccurs="0"/>
+            <xsd:element name="ordering" type="taskOrderingType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+        <xsd:attribute name="startRow" type="xsd:positiveInteger"/>
+        <xsd:attribute name="endRow" type="xsd:positiveInteger"/>
+    </xsd:complexType>
+    <xsd:element name="viewTaskAggregateQuery" type="viewTaskAggregateQueryType"/>
+    <xsd:complexType name="viewTaskAggregateQueryType">
+        <xsd:sequence>
+            <xsd:element name="viewId" type="xsd:string"/>
+            <xsd:element name="defaultGroupByColumn" minOccurs="1" type="xsd:string"/>
+            <xsd:element name="extraPredicate" minOccurs="0" type="predicateType"/>
+        </xsd:sequence>
+        <xsd:attribute name="defaultOrderByCount" type="xsd:boolean"/>
+        <xsd:attribute name="defaultAscendingOrder" type="xsd:boolean"/>
+    </xsd:complexType>
+    <xsd:element name="taskErrorQuery" type="taskErrorPredicateQueryType"/>
+    <xsd:complexType name="taskErrorPredicateQueryType">
+        <xsd:sequence>
+            <xsd:element name="predicate" type="predicateType"/>
+            <xsd:element name="ordering" type="taskOrderingType" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="startRow" type="xsd:positiveInteger"/>
+        <xsd:attribute name="endRow" type="xsd:positiveInteger"/>
+    </xsd:complexType>
+    <xsd:complexType name="displayColumnType">
+        <xsd:sequence>
+            <xsd:element name="displayColumn" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="taskOptionalInfoType">
+        <xsd:sequence>
+            <xsd:element name="taskOptionalInfo" type="taskOptionalInfoEnum" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="taskPredicateType">
+        <xsd:sequence>
+            <xsd:element name="assignmentFilter" type="assignmentFilterEnum" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="keywords" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+            <xsd:choice>
+                <xsd:element name="clause" minOccurs="0" maxOccurs="unbounded" type="predicateClauseType">
+                    <xsd:annotation>
+                        <xsd:documentation>clause element is deprecated. Use predicate element instead</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="predicate" minOccurs="0" maxOccurs="1" type="predicateType"/>
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="predicateClauseType">
+        <xsd:annotation>
+            <xsd:documentation>This type is deprecatd. Use clauseType instead.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="column" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="operator" type="predicateOperationEnum"/>
+            <xsd:choice>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                <xsd:element name="dateValue" maxOccurs="1" minOccurs="0" type="xsd:dateTime"/>
+                <xsd:element name="valueList" type="valueListType" minOccurs="0" maxOccurs="1"/>
+            </xsd:choice>
+        </xsd:sequence>
+        <xsd:attribute name="joinOperator" type="predicateJoinOperatorEnum"/>
+        <xsd:attribute name="ignoreCase" type="xsd:boolean"/>
+    </xsd:complexType>
+    <xsd:complexType name="clauseType">
+        <xsd:sequence>
+            <xsd:element name="column" type="columnType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="operator" type="predicateOperationEnum"/>
+            <xsd:choice>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                <xsd:element name="dateValue" maxOccurs="1" minOccurs="0" type="xsd:dateTime"/>
+                <xsd:element name="valueList" type="valueListType" minOccurs="0" maxOccurs="1"/>
+                <xsd:element name="columnValue" type="columnType" minOccurs="0" maxOccurs="1"/>
+                <xsd:element name="identityTypeValue" type="task:identityType" minOccurs="0" maxOccurs="1"/>
+                <xsd:element name="identityTypeValueList" type="identityTypeValueListType" minOccurs="0"
+                     maxOccurs="1"/>
+            </xsd:choice>
+        </xsd:sequence>
+        <xsd:attribute name="joinOperator" type="predicateJoinOperatorEnum"/>
+        <xsd:attribute name="ignoreCase" type="xsd:boolean"/>
+    </xsd:complexType>
+    <xsd:element name="predicate" type="predicateType"/>
+    <xsd:complexType name="predicateType">
+        <xsd:sequence>
+            <xsd:choice>
+                <xsd:sequence minOccurs="0" maxOccurs="1">
+                    <xsd:element name="lhs" type="predicateType" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="logicalOperator" type="predicateJoinOperatorEnum" minOccurs="1"
+                         maxOccurs="1"/>
+                    <xsd:element name="rhs" type="predicateType" minOccurs="1" maxOccurs="1"/>
+                </xsd:sequence>
+                <xsd:element name="clause" type="clauseType" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="columnType">
+        <xsd:sequence>
+            <xsd:element name="columnName" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+        <xsd:attribute name="tableName" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:complexType name="valueListType">
+        <xsd:sequence>
+            <xsd:element name="value" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="identityTypeValueListType">
+        <xsd:sequence>
+            <xsd:element name="value" type="task:identityType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="taskOrderingType">
+        <xsd:sequence>
+            <xsd:element name="clause" type="orderingClauseType" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="orderingClauseType">
+        <xsd:sequence>
+            <xsd:choice>
+                <xsd:sequence>
+                    <xsd:element name="column" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="table" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>The name of the table to which the ordering clause column
+                belongs. Field is optional only for backwards compatibility, and
+                a value should be specified if a value is specified for the
+                column field. If no value is specfied, the table name will be
+                defaulted, depending on the context the ordering clause is used
+                - but usually, the default table name will be WFTask.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+                <xsd:sequence>
+                    <xsd:element name="aggregateColumnAlias" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>If the column being ordered on is an aggregate column, there is
+                no corresponding column and table name. Instead, the aggregate
+                column must be aliased, and the ordering clause must use this
+                alias.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:choice>
+            <xsd:element name="sortOrder" type="sortOrderEnum" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="nullFirst" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="taskCountType">
+        <xsd:sequence>
+            <xsd:element name="value" type="xsd:string"/>
+            <xsd:element name="count" type="xsd:int"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="predicateOperationEnum">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="EQ"/>
+            <xsd:enumeration value="NEQ"/>
+            <xsd:enumeration value="GT"/>
+            <xsd:enumeration value="GTE"/>
+            <xsd:enumeration value="LT"/>
+            <xsd:enumeration value="LTE"/>
+            <xsd:enumeration value="LIKE"/>
+            <xsd:enumeration value="NOT_LIKE"/>
+            <xsd:enumeration value="IN"/>
+            <xsd:enumeration value="NOT_IN"/>
+            <xsd:enumeration value="CONTAINS"/>
+            <xsd:enumeration value="NOT_CONTAINS"/>
+            <xsd:enumeration value="BEGINS"/>
+            <xsd:enumeration value="NOT_BEGINS"/>
+            <xsd:enumeration value="ENDS"/>
+            <xsd:enumeration value="NOT_ENDS"/>
+            <xsd:enumeration value="BEFORE"/>
+            <xsd:enumeration value="AFTER"/>
+            <xsd:enumeration value="ON"/>
+            <xsd:enumeration value="NEXT_N_DAYS"/>
+            <xsd:enumeration value="LAST_N_DAYS"/>
+            <xsd:enumeration value="IS_IN_FUTURE"/>
+            <xsd:enumeration value="IS_IN_PAST"/>
+            <xsd:enumeration value="IS_NULL"/>
+            <xsd:enumeration value="IS_NOT_NULL"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="predicateJoinOperatorEnum">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="AND"/>
+            <xsd:enumeration value="OR"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="sortOrderEnum">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ASCENDING"/>
+            <xsd:enumeration value="DESCENDING"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="assignmentFilterEnum">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="All"/>
+            <xsd:enumeration value="My"/>
+            <xsd:enumeration value="Group"/>
+            <xsd:enumeration value="My+Group"/>
+            <xsd:enumeration value="My+Group+All"/>
+            <xsd:enumeration value="Reportees"/>
+            <xsd:enumeration value="Creator"/>
+            <xsd:enumeration value="Owner"/>
+            <xsd:enumeration value="Previous"/>
+            <xsd:enumeration value="Admin"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="taskOptionalInfoEnum">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Actions"/>
+            <xsd:enumeration value="GroupActions"/>
+            <xsd:enumeration value="CustomActions"/>
+            <xsd:enumeration value="Attachments"/>
+            <xsd:enumeration value="Comments"/>
+            <xsd:enumeration value="Payload"/>
+            <xsd:enumeration value="ShortHistory"/>
+            <xsd:enumeration value="TemplateTasks"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

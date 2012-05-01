@@ -1,0 +1,350 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema targetNamespace="http://xmlns.oracle.com/bpel/workflow/taskQueryService" xmlns:tns="http://xmlns.oracle.com/bpel/workflow/taskQueryService"
+     xmlns:common="http://xmlns.oracle.com/bpel/workflow/common" xmlns:task="http://xmlns.oracle.com/bpel/workflow/task"
+     xmlns:taskError="http://xmlns.oracle.com/bpel/workflow/taskError" xmlns:query="http://xmlns.oracle.com/bpel/workflow/taskQuery"
+     xmlns:tsc="http://xmlns.oracle.com/bpel/workflow/common/tsc" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+     jaxb:version="1.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     elementFormDefault="qualified">
+    <xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="oracle.bpel.services.workflow.query.model"/>
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:import namespace="http://xmlns.oracle.com/bpel/workflow/common" schemaLocation="oramds:/soa/shared/workflow/WorkflowCommon.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/bpel/workflow/task" schemaLocation="oramds:/soa/shared/workflow/WorkflowTask.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/bpel/workflow/taskQuery" schemaLocation="TaskQueryService_XSD_TaskQuery.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/bpel/workflow/taskError" schemaLocation="TaskQueryService_XSD_WorkflowTaskError.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/bpel/workflow/common/tsc" schemaLocation="TaskQueryService_XSD_TaskSequenceChanges.xsd"/>
+    <xsd:element name="credentialOnBehalfOfRequest" type="tns:credentialOnBehalfOfRequestType"/>
+    <xsd:element name="workflowContextRequest" type="tns:workflowContextRequestType"/>
+    <xsd:element name="updateWorkflowContextRequest" type="tns:updateWorkflowContextRequestType"/>
+    <xsd:element name="taskListRequest" type="tns:taskListRequestType"/>
+    <xsd:element name="queryAggregatedTasksRequest" type="tns:queryAggregatedTasksRequestType"/>
+    <xsd:element name="countTasksRequest" type="tns:countTasksRequestType"/>
+    <xsd:element name="doesTaskExistRequest" type="tns:countTasksRequestType"/>
+    <xsd:element name="queryViewTasksRequest" type="tns:queryViewTasksRequestType"/>
+    <xsd:element name="queryViewAggregatedTasksRequest" type="tns:queryViewAggregatedTasksRequestType"/>
+    <xsd:element name="countViewTasksRequest" type="tns:countViewTasksRequestType"/>
+    <xsd:element name="doesViewTaskExistRequest" type="tns:countViewTasksRequestType"/>
+    <xsd:element name="queryTaskErrorsRequest" type="tns:queryTaskErrorsRequestType"/>
+    <xsd:element name="taskHistoryRequest" type="tns:taskHistoryRequestType"/>
+    <xsd:element name="taskDetailsByIdRequest" type="tns:taskDetailsByIdRequestType"/>
+    <xsd:element name="taskDetailsByNumberRequest" type="tns:taskDetailsByNumberRequestType"/>
+    <xsd:element name="taskVersionDetailsRequest" type="tns:taskVersionDetailsRequestType"/>
+    <xsd:element name="getPermittedAssigneesRequest" type="tns:getPermittedAssigneesRequestType"/>
+    <xsd:element name="getTaskSequenceRequest" type="tns:getTaskSequenceRequestType"/>
+    <xsd:element name="taskQueryServiceFaultResponse" type="tns:taskQueryServiceFaultType"/>
+    <xsd:element name="taskListResponse" type="tns:taskListResponseType"/>
+    <xsd:element name="aggregatedTasksResponse" type="tns:aggregatedTasksResponseType"/>
+    <xsd:element name="taskCountResponse" type="xsd:int"/>
+    <xsd:element name="taskExistsResponse" type="xsd:boolean"/>
+    <xsd:element name="getPermittedAssigneesResponse" type="tns:getPermittedAssigneesResponseType"/>
+    <xsd:element name="taskErrorsResponse" type="tns:taskErrorsResponseType"/>
+    <xsd:element name="successResponse" type="xsd:string"/>
+    <xsd:complexType name="credentialOnBehalfOfRequestType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element name="onBehalfOfUser" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="workflowContextRequestType">
+        <xsd:sequence>
+            <xsd:element name="token" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="updateWorkflowContextRequestType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element name="attribute" type="tns:attributeType" minOccurs="1" maxOccurs="unbounded"/>
+            <xsd:element name="force" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="attributeType">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="value" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="contextAndPredicateQueryRequestBaseType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element ref="query:taskPredicateQuery"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="contextAndTaskIdRequestBaseType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element name="taskId" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="contextAndTaskNumberRequestBaseType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element name="taskNumber" type="xsd:positiveInteger" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="taskListRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="tns:contextAndPredicateQueryRequestBaseType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="queryAggregatedTasksRequestType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element ref="query:taskAggregateQuery"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="countTasksRequestType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element name="predicate" type="query:taskPredicateType" maxOccurs="1" minOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="queryViewTasksRequestType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element ref="query:viewTaskPredicateQuery"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="queryViewAggregatedTasksRequestType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element ref="query:viewTaskAggregateQuery"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="countViewTasksRequestType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element name="viewId" type="xsd:string"/>
+            <xsd:element name="extraPredicate" type="query:predicateType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="queryTaskErrorsRequestType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element ref="query:taskErrorQuery"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="taskHistoryRequestType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element name="taskId" type="xsd:string"/>
+            <xsd:element name="displayColumns" maxOccurs="1" minOccurs="0" type="query:displayColumnType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="taskDetailsByIdRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="tns:contextAndTaskIdRequestBaseType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="taskDetailsByNumberRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="tns:contextAndTaskNumberRequestBaseType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="taskVersionDetailsRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="tns:contextAndTaskIdRequestBaseType">
+                <xsd:sequence>
+                    <xsd:element name="versionNumber" type="xsd:positiveInteger" minOccurs="1" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="getPermittedAssigneesRequestType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <xsd:element ref="task:task" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="operation" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="getPermittedAssigneesResponseType">
+        <xsd:sequence>
+            <xsd:element name="permittedAssignee" type="tns:taskAssigneeType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="restricted" maxOccurs="1" minOccurs="1" type="xsd:boolean" default="false"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="getTaskSequenceRequestType">
+        <xsd:sequence>
+            <xsd:element ref="common:workflowContext"/>
+            <choice>
+                <element ref="task:task"/>
+                <element name="taskId" type="xsd:string"/>
+            </choice>
+            <xsd:element name="taskDisplayColumns" maxOccurs="1" minOccurs="0" type="query:displayColumnType"/>
+            <xsd:element name="taskSequenceTypes" maxOccurs="unbounded" minOccurs="0" type="tns:taskSequenceTypesType"/>
+            <xsd:element name="taskSequenceBuilderContext" maxOccurs="unbounded" minOccurs="0" type="tns:taskSequenceBuilderContextType"/>
+            <xsd:element name="fetchTaskSequenceForRootTask" maxOccurs="1" minOccurs="0" type="xsd:boolean"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="taskSequenceTypesType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ALL"/>
+            <xsd:enumeration value="PAST"/>
+            <xsd:enumeration value="APPROVERS"/>
+            <xsd:enumeration value="FUTURE"/>
+            <xsd:enumeration value="CURRENT"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="taskSequenceBuilderContextType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="STAGE"/>
+            <xsd:enumeration value="WORKFLOW_PATTERN"/>
+            <xsd:enumeration value="INCLUDE_SEQUENCE_FOR_SINGLE_CHILD"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="taskAssigneeType">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="isGroup" type="xsd:boolean" use="optional"/>
+                <xsd:attribute name="type" type="xsd:string" use="optional"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="taskListResponseType">
+        <xsd:sequence>
+            <xsd:element ref="task:task" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="aggregatedTasksResponseType">
+        <xsd:sequence>
+            <xsd:element name="entry" maxOccurs="unbounded" minOccurs="0" type="query:taskCountType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="taskErrorsResponseType">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" ref="taskError:taskError"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="taskQueryServiceFaultType">
+        <xsd:sequence>
+            <xsd:element name="message" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="taskSequence" type="tns:taskSequenceType"/>
+    <xsd:element name="parallel" type="tns:parallelType"/>
+    <xsd:element name="taskSequenceRecord" type="tns:taskSequenceRecordType"/>
+    <xsd:element name="taskSequenceGroup" type="tns:taskSequenceType"/>
+    <xsd:complexType name="taskSequenceType">
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <jaxb:property name="Children"/>
+                    </xsd:appinfo>
+                </xsd:annotation>
+                <xsd:element ref="tns:taskSequenceRecord"/>
+                <xsd:element ref="tns:parallel"/>
+                <xsd:element ref="tns:taskSequenceGroup"/>
+            </xsd:choice>
+            <xsd:element name="flexString1" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString2" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString3" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString4" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString5" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString6" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString7" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString8" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString9" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString10" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString11" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString12" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="actions" type="tns:actionsType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="optional"/>
+        <xsd:attribute name="sequenceNumber" type="xsd:string" use="required"/>
+        <xsd:attribute name="label" type="xsd:string" use="optional"/>
+        <xsd:attribute name="pattern" type="tns:patternType" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="displayName" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="parallelType">
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <jaxb:property name="Children"/>
+                    </xsd:appinfo>
+                </xsd:annotation>
+                <xsd:element ref="tns:taskSequenceRecord"/>
+                <xsd:element ref="tns:parallel"/>
+                <xsd:element ref="tns:taskSequence"/>
+                <xsd:element ref="tns:taskSequenceGroup"/>
+            </xsd:choice>
+            <xsd:element name="flexString1" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString2" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString3" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString4" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString5" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString6" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString7" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString8" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString9" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString10" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString11" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString12" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="actions" type="tns:actionsType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="optional"/>
+        <xsd:attribute name="sequenceNumber" type="xsd:string" use="required"/>
+        <xsd:attribute name="label" type="xsd:string" use="optional"/>
+        <xsd:attribute name="pattern" type="tns:patternType" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="stage" type="xsd:string" use="optional"/>
+        <xsd:attribute name="stageDisplayName" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="taskSequenceRecordType">
+        <xsd:sequence>
+            <xsd:element name="assignees" type="task:identityType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="task:task" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString1" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString2" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString3" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString4" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString5" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString6" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString7" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString8" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString9" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString10" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString11" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flexString12" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="change" type="tsc:taskSequenceChangeType" minOccurs="0" maxOccurs="1"/>
+            <element ref="task:collectionTarget"/>
+            <xsd:element name="actions" type="tns:actionsType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="optional"/>
+        <xsd:attribute name="sequenceNumber" type="xsd:string" use="required"/>
+        <xsd:attribute name="label" type="xsd:string" use="optional"/>
+        <xsd:attribute name="pattern" type="tns:patternType" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="stage" type="xsd:string" use="optional"/>
+        <xsd:attribute name="stageDisplayName" type="xsd:string" use="optional"/>
+        <xsd:attribute name="isFutureTaskSequenceRecord" type="boolean" use="optional"/>
+        <xsd:attribute name="dimension" type="xsd:string" use="optional"/>
+        <xsd:attribute name="dimensionIdentifier" type="xsd:string" use="optional"/>
+        <xsd:attribute name="chainIdentifier" type="xsd:string" use="optional"/>
+        <xsd:attribute name="displayName" type="xsd:string" use="optional"/>
+        <xsd:attribute name="labelDisplayName" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:simpleType name="patternType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Fyi"/>
+            <xsd:enumeration value="ManagementChain"/>
+            <xsd:enumeration value="Parallel"/>
+            <xsd:enumeration value="Participant"/>
+            <xsd:enumeration value="Sequence"/>
+            <xsd:enumeration value="SequentialParticipant"/>
+            <xsd:enumeration value="Stage"/>
+            <xsd:enumeration value="TODO"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="actionsType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="allowInitiatorEditParticipants"/>
+            <xsd:enumeration value="allowParticipantsEditParticipants"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

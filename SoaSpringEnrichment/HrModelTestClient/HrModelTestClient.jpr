@@ -45,9 +45,10 @@
       <value n="oracle.tip.tools.ide.fabric.addin.SCAProjectMigrator" v="11.1.1.1.0.06"/>
       <value n="oracle.tip.tools.ide.pm.addin.migrator.PMProjectMigrator" v="11.1.1.1.0"/>
       <value n="oracle.tip.tools.ide.workflow.addin.TaskFormMigratorAddin" v="11.1.1.1.0"/>
-      <value n="oracle.tip.tools.ide.workflow.addin.WorkflowProjectMigrator" v="11.1.1.1.0.08;11.1.1.1.0.09"/>
+      <value n="oracle.tip.tools.ide.workflow.addin.WorkflowProjectMigrator" v="11.1.1.1.0.08;11.1.1.1.0.09;11.1.1.1.0.10"/>
       <value n="oracle.toplink.workbench.addin.migration.PersistenceProjectMigrator" v="11.1.1.1.1"/>
       <value n="oracle.toplink.workbench.addin.migration.TopLinkProjectMigrator" v="11.1.1.1.0"/>
+      <value n="oracle.webcenter.internal.dt.migration.WebCenterProjectMigrator" v="11.1.1.4.0.101019.0800"/>
    </hash>
    <list n="contentSets">
       <string v="oracle.jdeveloper.model.PathsConfiguration/javaContentSet"/>
@@ -71,9 +72,9 @@
    <hash n="oracle.ide.model.DependencyConfiguration">
       <list n="dependencyList">
          <hash>
-            <value n="class" v="oracle.jdeveloper.library.ProjectLibrary"/>
-            <url n="sourceOwnerURL" path="../SoaSpringEnrichment.jws"/>
-            <url n="sourceURL" path="../HrModel/HrModel.jpr"/>
+            <value n="adapterClass" v="oracle.jdevimpl.deploy.common.DefaultProfileDependable"/>
+            <url n="ownerURL" path="../HrModel/HrModel.jpr"/>
+            <value n="profileName" v="HrModelServiceInterface"/>
          </hash>
       </list>
    </hash>
@@ -105,7 +106,7 @@
             <value n="custom" v="false"/>
             <value n="javaOptions" v="-javaagent:../modules/org.eclipse.persistence_1.0.0.0_2-0.jar"/>
             <value n="name" v="EclipseLink JPA Client"/>
-            <url n="runDirectoryURL" path="../../../../../oracle/JDev11114PS/jdeveloper/"/>
+            <url n="runDirectoryURL" protocol="file" path="/oracle/JDev11114PS/jdeveloper/"/>
             <value n="VMName" v="client"/>
          </hash>
       </hash>

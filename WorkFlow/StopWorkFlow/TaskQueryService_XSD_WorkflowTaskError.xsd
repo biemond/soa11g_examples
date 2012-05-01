@@ -1,0 +1,54 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<schema targetNamespace="http://xmlns.oracle.com/bpel/workflow/taskError" xmlns:tns="http://xmlns.oracle.com/bpel/workflow/taskError"
+     xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0" elementFormDefault="qualified"
+     blockDefault="#all">
+    <xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="oracle.bpel.services.workflow.task.error.model"/>
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+    <element name="taskError">
+        <complexType>
+            <sequence>
+                <element name="id" type="xsd:string"/>
+                <element name="taskId" type="xsd:string"/>
+                <element name="taskNumber" type="xsd:integer"/>
+                <element name="taskVersion" type="xsd:integer"/>
+                <element name="taskDefinitionId" type="xsd:string"/>
+                <element name="errorId" type="xsd:integer"/>
+                <element name="errorArgs" type="xsd:string"/>
+                <element name="errorMessage" type="xsd:string"/>
+                <element name="errorDate" type="xsd:dateTime"/>
+                <element name="errorStackTrace" type="xsd:string"/>
+                <element name="errorType" type="tns:errorType"/>
+                <element name="isRecoverable" type="xsd:boolean"/>
+                <element name="sca">
+                    <complexType>
+                        <sequence>
+                            <element name="componentName" type="xsd:string"/>
+                            <element name="compositeDN" type="xsd:string"/>
+                            <element name="compositeName" type="xsd:string"/>
+                            <element name="compositeVersion" type="xsd:string"/>
+                            <element name="compositeInstanceId" type="xsd:string"/>
+                            <element name="ecid" type="xsd:string"/>
+                            <element name="compositeCreatedTime" type="xsd:dateTime" minOccurs="0"
+                                 maxOccurs="1"/>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+    <simpleType name="errorType">
+        <annotation>
+            <documentation>SYSTEM</documentation>
+        </annotation>
+        <restriction base="xsd:string">
+            <enumeration value="BUSINESS"/>
+            <enumeration value="SYSTEM"/>
+        </restriction>
+    </simpleType>
+</schema>
