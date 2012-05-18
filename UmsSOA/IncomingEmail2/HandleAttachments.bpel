@@ -1,0 +1,85 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed May 16 22:28:23 CEST 2012
+  Author:  admin
+  Type: BPEL 2.0 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="HandleAttachments"
+               targetNamespace="http://xmlns.oracle.com/UmsSOA/IncomingEmail2/HandleAttachments"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/UmsSOA/IncomingEmail2/HandleAttachments"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/ums/UmsSOA/IncomingEmail2/ReceiveMessage"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/file/UmsSOA/IncomingEmail2/Write"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ns3="http://platform.integration.oracle/blocks/adapter/fw/metadata/ReceiveMessage"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/opaque/">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <partnerLinks>
+    <partnerLink name="ReceiveMessage"
+                 partnerLinkType="ns1:ReceiveNotification_plt"
+                 myRole="ReceiveNotification_role"/>
+    <partnerLink name="Write" partnerLinkType="ns2:Write_plt"
+                 partnerRole="Write_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="ReceiveMail_InputVariable"
+              messageType="ns1:ReceiveNotification_msg"/>
+  </variables>
+  <sequence name="main">
+    <receive name="ReceiveMail" createInstance="yes"
+             partnerLink="ReceiveMessage"
+             portType="ns1:ReceiveNotification_ptt"
+             operation="ReceiveNotification"
+             variable="ReceiveMail_InputVariable"/>
+    <forEach parallel="yes" counterName="ForEachCounter"
+             name="ForEachAttachment">
+      <startCounterValue>1</startCounterValue>
+      <finalCounterValue>count($ReceiveMail_InputVariable.body/ns3:attachment/ns3:Attachment)</finalCounterValue>
+      <scope name="Scope1">
+        <variables>
+          <variable name="InvokeWriteFile_InputVariable"
+                    messageType="ns2:Write_msg"/>
+        </variables>
+        <sequence name="Sequence1">
+          <assign name="AssignInput">
+            <copy>
+              <from>ora:getAttachmentContent('ReceiveMail_InputVariable'
+                                            ,'body'
+                                            ,'/ns3:message/ns3:attachment/ns3:Attachment[$ForEachCounter]')
+              </from>
+              <to>$InvokeWriteFile_InputVariable.opaque</to>
+            </copy>
+          </assign>
+          <invoke name="InvokeWriteFile" partnerLink="Write"
+                  portType="ns2:Write_ptt" operation="Write"
+                  inputVariable="InvokeWriteFile_InputVariable"
+                  bpelx:invokeAsDetail="no"/>
+        </sequence>
+      </scope>
+    </forEach>
+  </sequence>
+</process>

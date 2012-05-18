@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="HandleAttachment" targetNamespace="http://xmlns.oracle.com/UmsSOA/IncomingEmail2/HandleAttachment" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/UmsSOA/IncomingEmail2/HandleAttachment" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/ums/UmsSOA/IncomingEmail2/ReceiveMessage" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/file/UmsSOA/IncomingEmail2/Write" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns3="http://platform.integration.oracle/blocks/adapter/fw/metadata/ReceiveMessage" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/opaque/" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" id="BpPrc0">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <partnerLinks>
+    <partnerLink name="ReceiveMessage" partnerLinkType="ns1:ReceiveNotification_plt" myRole="ReceiveNotification_role"/>
+    <partnerLink name="Write" partnerLinkType="ns2:Write_plt" partnerRole="Write_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="InputVariable" messageType="ns1:ReceiveNotification_msg"/>
+    <variable name="InvokeSaveFile_Write_InputVariable" messageType="ns2:Write_msg"/>
+  </variables>
+  <sequence name="main" id="BpSeq0">
+    <receive name="Receive" createInstance="yes" variable="InputVariable" partnerLink="ReceiveMessage" portType="ns1:ReceiveNotification_ptt" operation="ReceiveNotification" id="BpRcv0"/>
+    <assign name="AssignBase64" id="BpAss0">
+      <copy>
+        <from expression="ora:getAttachmentContent('InputVariable','body','/ns3:message/ns3:attachment/ns3:Attachment[1]')"/>
+        <to variable="InvokeSaveFile_Write_InputVariable" part="opaque" query="/ns4:opaqueElement"/>
+      </copy>
+    </assign>
+    <invoke name="InvokeSaveFile" inputVariable="InvokeSaveFile_Write_InputVariable" partnerLink="Write" portType="ns2:Write_ptt" operation="Write" bpelx:invokeAsDetail="no" id="BpInv0"/>
+  </sequence>
+</process><!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed May 16 00:19:10 CEST 2012
+  Author:  admin
+  Type: BPEL 1.1 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->

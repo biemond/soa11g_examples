@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<graphics>
+   <diagram optimizeLayout="false" popupEditor="true" fixedWidthSwimlanes="true" roundedPartnerlinks="true" centerZoom="true" validateOnLoad="true" confirmBeforeDelete="true" selectedPartnerLinkColor="0,0,153" swimlaneBackground="240,240,240" swimlaneDividerBackground="218,218,218" graphBackground="255,255,255" selectedBorderBackground="49,105,198" connectedPartnerLinkColor="204,204,255" connectablePartnerLinkColor="0,0,255" unconnectedPartnerLinkColor="192,192,192"/>
+   <annotationfile/>
+   <iconize/>
+   <partnerlink_locations>
+      <partnerlink name="ReceiveMessage" x="13" y="90" side="left"/>
+      <partnerlink name="Write" x="559" y="377" side="right"/>
+   </partnerlink_locations>
+   <graph_layout viewport="0,0,675,550" show_swimlanes="true">
+      <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/forEach" type="foreach"/>
+      <layout_item collapsed="false" xpath="/process/sequence/forEach/scope" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/forEach/scope/sequence" type="sequence"/>
+   </graph_layout>
+   <bookmarks/>
+</graphics>

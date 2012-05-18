@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns="http://b2b/Employee"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://b2b/Employee"
+           elementFormDefault="qualified" 
+           attributeFormDefault="qualified">
+  <xs:element name="message" type="messageType"/>
+  <xs:complexType name="messageType">
+    <xs:sequence>
+      <xs:element name="header"  type="headerType" />
+      <xs:element name="employee" type="employeeType" />
+    </xs:sequence>
+  </xs:complexType> 
+  <xs:complexType name="headerType">
+    <xs:sequence>
+      <xs:element name="type" type="xs:string"/>
+  	  <xs:element name="sender" type="xs:string"/>
+      <xs:element name="receiver" type="xs:string"/>
+      <xs:element name="id" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="employeeType">
+    <xs:sequence>
+      <xs:element name="employeeId" type="xs:int"/>
+      <xs:element name="name" nillable="true" minOccurs="0"/>
+      <xs:element name="job" nillable="true" minOccurs="0"/>
+      <xs:element name="departmentId" type="xs:int" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

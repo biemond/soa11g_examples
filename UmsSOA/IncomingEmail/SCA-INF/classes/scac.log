@@ -1,0 +1,4 @@
+15-mei-2012 23:37:14 oracle.mds
+NOTIFICATION: PManager-instance wordt aangemaakt zonder ondersteuning van meerdere eigenaren omdat de JVM-vlag oracle.multitenant.enabled niet is ingesteld op het activeren van meerdere eigenaren.
+15-mei-2012 23:37:14 oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+INFO: XMLSchema incremental build enabled.

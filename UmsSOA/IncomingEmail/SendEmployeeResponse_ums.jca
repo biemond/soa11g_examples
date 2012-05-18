@@ -1,0 +1,13 @@
+<adapter-config name="SendEmployeeResponse" adapter="UMS Adapter" wsdlLocation="SendEmployeeResponse.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/ums/UMSAdapterOutbound"/>
+  <endpoint-interaction portType="SendNotification_ptt" operation="SendNotification">
+    <interaction-spec className="oracle.tip.adapter.ums.outbound.UmsInteractionSpec">
+      <property name="DeliveryType" value="Email"/>
+      <property name="Subject" value="Employee Responsed"/>
+      <property name="To" value="client@local.nl"/>
+      <property name="From" value="soa@local.nl"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

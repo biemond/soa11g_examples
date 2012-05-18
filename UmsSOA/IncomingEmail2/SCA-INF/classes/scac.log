@@ -1,0 +1,8 @@
+16-mei-2012 22:43:47 oracle.mds
+NOTIFICATION: PManager-instance wordt aangemaakt zonder ondersteuning van meerdere eigenaren omdat de JVM-vlag oracle.multitenant.enabled niet is ingesteld op het activeren van meerdere eigenaren.
+16-mei-2012 22:43:48 oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+INFO: XMLSchema incremental build enabled.
+16-mei-2012 22:43:48 oracle.integration.platform.blocks.FabricConfigManager <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+16-mei-2012 22:43:48 oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+WARNING: JRF is unable to determine the current application server platform.

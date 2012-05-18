@@ -1,0 +1,13 @@
+<adapter-config name="ReceiveEmployeeEmail" adapter="UMS Adapter" wsdlLocation="ReceiveEmployeeEmail.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/ums/UMSAdapterInbound"/>
+  <endpoint-activation portType="ReceiveNotification_ptt" operation="ReceiveNotification">
+    <activation-spec className="oracle.tip.adapter.ums.inbound.UmsActivationSpec">
+      <property name="ConsumeMode" value="listener"/>
+      <property name="InboundThreadCount" value="1"/>
+      <property name="DeliveryType" value="Email"/>
+      <property name="To" value="soa@local.nl"/>
+    </activation-spec>
+  </endpoint-activation>
+
+</adapter-config>
