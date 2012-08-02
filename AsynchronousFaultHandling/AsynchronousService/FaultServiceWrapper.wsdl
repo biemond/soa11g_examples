@@ -1,0 +1,16 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="EmployeeService"
+     targetNamespace="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:client="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    >
+    <plnk:partnerLinkType name="FaultCallback">
+        <plnk:role name="EmployeeServiceFaultCallback" portType="client:EmployeeServiceFaultCallback"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+         location="FaultService.wsdl"/>
+</wsdl:definitions>

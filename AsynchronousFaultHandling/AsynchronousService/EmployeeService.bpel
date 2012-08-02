@@ -1,0 +1,201 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Mon Jul 30 20:22:18 CEST 2012
+  Author:  Edwin_b
+  Type: BPEL 2.0 Process
+  Purpose: Asynchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="EmployeeService"
+         targetNamespace="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://amis.nl/fault"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <import namespace="http://amis.nl/fault" location="xsd/Employee.xsd"
+            importType="http://www.w3.org/2001/XMLSchema"/>
+    <import namespace="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService" location="EmployeeService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+    <partnerLinks>
+        <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+        <partnerLink name="employeeservice_client" partnerLinkType="client:EmployeeService" myRole="EmployeeServiceProvider" partnerRole="EmployeeServiceRequester"/>
+        <partnerLink name="FaultCallback" partnerLinkType="client:FaultCallback"
+                     partnerRole="EmployeeServiceFaultCallback"/>
+    </partnerLinks>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        VARIABLES                                                        
+        List of messages and XML documents used within this BPEL process 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <variables>
+        <!-- Reference to the message passed as input during initiation -->
+        <variable name="inputVariable" messageType="client:EmployeeServiceRequestMessage"/>
+
+        <!-- Reference to the message that will be sent back to the requester during callback -->
+        <variable name="outputVariable" messageType="client:EmployeeServiceResponseMessage"/>
+        <variable name="FaultResponse" element="ns1:EmployeeResponse"/>
+        <variable name="callbackUnknownId_processResponse_Input"
+                  messageType="client:EmployeeServiceResponseMessage"/>
+        <variable name="callbackCatchAll_processResponse_Input"
+                  messageType="client:EmployeeServiceResponseMessage"/>
+        <variable name="callBackUrl" type="xsd:string"/>
+        <variable name="faultCallBackUrl" type="xsd:string"/>
+        <variable name="FaultCallBack" element="ns1:EmployeeResponseFault"/>
+        <variable name="InvokeFault_processFaultResponse_Input"
+                  messageType="client:EmployeeServiceResponseFaultMessage"/>
+    </variables>
+    <faultHandlers>
+        <catch faultName="ns1:Fault" faultVariable="fault"
+               faultElement="ns1:EmployeeResponseFault">
+            <sequence name="Sequence6">
+                <assign name="AssignFaultCallback">
+                    <copy>
+                        <from>$fault</from>
+                        <to>$InvokeFault_processFaultResponse_Input.payload</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeFault"
+                        partnerLink="FaultCallback"
+                        portType="client:EmployeeServiceFaultCallback"
+                        operation="processFaultResponse"
+                        inputVariable="InvokeFault_processFaultResponse_Input"
+                        bpelx:invokeAsDetail="no">
+                    <bpelx:toProperties>
+                        <bpelx:toProperty name="endpointURI"
+                                          variable="faultCallBackUrl"/>
+                    </bpelx:toProperties>
+                </invoke>
+            </sequence>
+        </catch>
+        <catch faultName="ns1:UnknownId" faultVariable="Fault"
+               faultElement="ns1:EmployeeResponse">
+            <sequence name="Sequence2">
+                <assign name="AssignResponse">
+                    <copy>
+                        <from>$Fault</from>
+                        <to>$callbackUnknownId_processResponse_Input.payload</to>
+                    </copy>
+                </assign>
+                <invoke name="callbackUnknownId"
+                        partnerLink="employeeservice_client"
+                        portType="client:EmployeeServiceCallback"
+                        operation="processResponse"
+                        inputVariable="callbackUnknownId_processResponse_Input"
+                        bpelx:invokeAsDetail="no"/>
+            </sequence>
+        </catch>
+    </faultHandlers>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       ORCHESTRATION LOGIC                                               
+       Set of activities coordinating the flow of messages across the    
+       services integrated within this business process                  
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <sequence name="main">
+        <!-- Receive input from requestor. (Note: This maps to operation defined in EmployeeService.wsdl) -->
+        <receive name="receiveInput" partnerLink="employeeservice_client" portType="client:EmployeeService" operation="process" variable="inputVariable" createInstance="yes">
+            <bpelx:fromProperties>
+                <bpelx:fromProperty name="faultToAddress"
+                                    variable="faultCallBackUrl"/>
+                <bpelx:fromProperty name="replyToAddress"
+                                    variable="callBackUrl"/>
+            </bpelx:fromProperties>
+        </receive>
+        <if name="IfEmployeeAbove100">
+            <documentation>True</documentation>
+            <condition>$inputVariable.payload/ns1:Employee/ns1:EmployeeId &lt; 101</condition>
+            <assign name="AssignResponse">
+                <copy>
+                    <from>$inputVariable.payload/ns1:Employee/ns1:EmployeeId</from>
+                    <to>$outputVariable.payload/ns1:Employee/ns1:EmployeeId</to>
+                </copy>
+                <copy>
+                    <from>'success'</from>
+                    <to>$outputVariable.payload/ns1:Status</to>
+                </copy>
+                <copy>
+                    <from>'Larry'</from>
+                    <to>$outputVariable.payload/ns1:Employee/ns1:Name</to>
+                </copy>
+            </assign>
+            <else>
+                <documentation>False</documentation>
+                <sequence name="Sequence1">
+                    <if name="IfEmployeeAbove1000">
+                        <documentation>True</documentation>
+                        <condition>$inputVariable.payload/ns1:Employee/ns1:EmployeeId &lt; 1001</condition>
+                        <sequence>
+                            <assign name="AssignFault">
+                                <copy>
+                                    <from>$inputVariable.payload/ns1:Employee/ns1:EmployeeId</from>
+                                    <to>$FaultResponse/ns1:Fault/ns1:EmployeeId</to>
+                                </copy>
+                                <copy>
+                                    <from>'fault'</from>
+                                    <to>$FaultResponse/ns1:Status</to>
+                                </copy>
+                                <copy>
+                                    <from>'EmployeeId is above 100'</from>
+                                    <to>$FaultResponse/ns1:Fault/ns1:Message</to>
+                                </copy>
+                            </assign>
+                            <throw name="ThrowUnknownId"
+                                   faultName="ns1:UnknownId"
+                                   faultVariable="FaultResponse"/>
+                        </sequence>
+                        <else>
+                            <documentation>False</documentation>
+                            <sequence name="Sequence5">
+                                <assign name="AssignFault">
+                                    <copy>
+                                        <from>$inputVariable.payload/ns1:Employee/ns1:EmployeeId</from>
+                                        <to>$FaultCallBack/ns1:Fault/ns1:EmployeeId</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'EmployeeId is above 1000'</from>
+                                        <to>$FaultCallBack/ns1:Fault/ns1:Message</to>
+                                    </copy>
+                                </assign>
+                                <throw name="ThrowFault"
+                                       faultName="ns1:Fault"
+                                       faultVariable="FaultCallBack"/>
+                            </sequence>
+                        </else>
+                    </if>
+                </sequence>
+            </else>
+        </if>
+        <!-- 
+          Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
+        -->
+        <invoke name="callbackClient" partnerLink="employeeservice_client" portType="client:EmployeeServiceCallback" operation="processResponse" inputVariable="outputVariable"/>
+    </sequence>
+</process>

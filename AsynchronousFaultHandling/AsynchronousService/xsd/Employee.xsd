@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://amis.nl/fault" targetNamespace="http://amis.nl/fault"
+            elementFormDefault="qualified">
+  <xsd:element name="EmployeeRequest">
+    <xsd:complexType>
+      <xsd:sequence maxOccurs="1">
+        <xsd:element name="Employee">
+          <xsd:complexType>
+            <xsd:sequence maxOccurs="1">
+              <xsd:element ref="EmployeeId"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="EmployeeResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="Status"/>
+        <xsd:choice maxOccurs="1">
+          <xsd:element name="Employee" minOccurs="0" maxOccurs="1">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="EmployeeId"/>
+                <xsd:element ref="Name"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="Fault" minOccurs="0" maxOccurs="1">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="EmployeeId"/>
+                <xsd:element ref="Message"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="EmployeeResponseFault">
+    <xsd:complexType>
+      <xsd:sequence>
+          <xsd:element name="Fault" minOccurs="0" maxOccurs="1">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="EmployeeId"/>
+                <xsd:element ref="Message"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="EmployeeId" type="xsd:int"/>
+  <xsd:element name="Status" type="xsd:string"/>
+  <xsd:element name="Name" type="xsd:string"/>
+  <xsd:element name="Message" type="xsd:string"/>
+</xsd:schema>

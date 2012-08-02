@@ -1,0 +1,44 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+    
+     targetNamespace="http://amis.nl/CallingService"
+     xmlns:ns1="http://amis.nl/fault"
+     xmlns:ns="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+     xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:cor="http://xmlns.oracle.com/AsynchronousFaultHandling/CallingService/CallingBPELProcess/correlationset"
+     xmlns:client="http://amis.nl/CallingService"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+    >
+    <vprop:propertyAlias propertyName="cor:employeeIdProperty" messageType="client:EmployeeServiceResponseFaultMessage"
+         part="payload">
+        <vprop:query>ns1:Fault/ns1:EmployeeId</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias propertyName="cor:employeeIdProperty" messageType="client:EmployeeServiceRequestMessage"
+         part="payload">
+        <vprop:query>ns1:Employee/ns1:EmployeeId</vprop:query>
+    </vprop:propertyAlias>
+    <wsdl:import namespace="http://xmlns.oracle.com/AsynchronousFaultHandling/CallingService/CallingBPELProcess/correlationset"
+         location="CallingBPELProcess_properties.wsdl"/>
+    <wsdl:import namespace="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+         location="EmployeeService.wsdl"/>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://amis.nl/fault" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <import namespace="http://amis.nl/fault" schemaLocation="xsd/Employee.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="EmployeeServiceRequestMessage">
+        <wsdl:part name="payload" element="ns1:EmployeeRequest"/>
+    </wsdl:message>
+    <wsdl:message name="EmployeeServiceResponseFaultMessage">
+        <wsdl:part name="payload" element="ns1:EmployeeResponseFault"/>
+    </wsdl:message>
+    <wsdl:portType name="service">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:EmployeeServiceRequestMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="processFaultResponse">
+            <wsdl:input message="client:EmployeeServiceResponseFaultMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,49 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions name="EmployeeService"
+                  targetNamespace="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+                  xmlns:ns1="http://amis.nl/fault"
+                  xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+                  xmlns:client="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema"
+                xmlns:ns1="http://amis.nl/fault"
+                xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+                xmlns:client="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+                xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <import namespace="http://amis.nl/fault"
+                    schemaLocation="xsd/Employee.xsd"/>
+        </schema>
+    </wsdl:types>
+
+    <wsdl:message name="EmployeeServiceResponseFaultMessage">
+        <wsdl:part name="payload" element="ns1:EmployeeResponseFault"/>
+    </wsdl:message>
+
+    <wsdl:portType name="EmployeeServiceFaultCallback">
+        <wsdl:operation name="processFaultResponse">
+            <wsdl:input message="client:EmployeeServiceResponseFaultMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="EmployeeServiceCallbackBinding"
+                  type="client:EmployeeServiceFaultCallback">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="processFaultResponse">
+            <soap:operation style="document" soapAction="processFaultResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"
+                      namespace="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="employeeservice_client_ep">
+        <wsdl:port name="EmployeeService_pt"
+                   binding="client:EmployeeServiceCallbackBinding">
+            <soap:address location="http://xxxxx"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

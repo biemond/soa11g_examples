@@ -1,0 +1,13 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="properties"
+     targetNamespace="http://xmlns.oracle.com/AsynchronousFaultHandling/CallingService/CallingBPELProcess/correlationset"
+     xmlns:cor1="http://amis.nl/fault"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+    >
+    <vprop:property name="employeeIdProperty" element="cor1:EmployeeId"/>
+</wsdl:definitions>

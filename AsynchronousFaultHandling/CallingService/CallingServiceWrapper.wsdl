@@ -1,0 +1,15 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+    
+     targetNamespace="http://amis.nl/CallingService"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:client="http://amis.nl/CallingService"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    >
+    <plnk:partnerLinkType name="CallingBPELProcess">
+        <plnk:role name="service" portType="client:service"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://amis.nl/CallingService" location="CallingService.wsdl"/>
+</wsdl:definitions>

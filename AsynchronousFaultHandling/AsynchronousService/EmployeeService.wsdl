@@ -1,0 +1,41 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="EmployeeService"
+     targetNamespace="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+     xmlns:ns1="http://amis.nl/fault"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:client="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="EmployeeService">
+        <plnk:role name="EmployeeServiceProvider" portType="client:EmployeeService"/>
+        <plnk:role name="EmployeeServiceRequester" portType="client:EmployeeServiceCallback"/>
+    </plnk:partnerLinkType>
+
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://amis.nl/fault" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+             xmlns:client="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <import namespace="http://amis.nl/fault" schemaLocation="xsd/Employee.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="EmployeeServiceRequestMessage">
+        <wsdl:part name="payload" element="ns1:EmployeeRequest"/>
+    </wsdl:message>
+    <wsdl:message name="EmployeeServiceResponseMessage">
+        <wsdl:part name="payload" element="ns1:EmployeeResponse"/>
+    </wsdl:message>
+
+
+    <wsdl:portType name="EmployeeService">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:EmployeeServiceRequestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="EmployeeServiceCallback">
+        <wsdl:operation name="processResponse">
+            <wsdl:input message="client:EmployeeServiceResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+</wsdl:definitions>

@@ -1,0 +1,107 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Aug 01 21:49:00 CEST 2012
+  Author:  admin
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="CallingBPELProcess"
+               targetNamespace="http://xmlns.oracle.com/AsynchronousFaultHandling/CallingService/CallingBPELProcess"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/AsynchronousFaultHandling/CallingService/CallingBPELProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+               xmlns:ns1="http://amis.nl/CallingService"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns2="http://xmlns.oracle.com/AsynchronousFaultHandling/AsynchronousService/EmployeeService"
+         xmlns:ns3="http://amis.nl/fault"
+         xmlns:ns4="http://xmlns.oracle.com/AsynchronousFaultHandling/CallingService/CallingBPELProcess/correlationset">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="callingbpelprocess_client" partnerLinkType="ns1:CallingBPELProcess" myRole="service"/>
+    <partnerLink name="EmployeeReference" partnerLinkType="ns2:EmployeeService"
+                 partnerRole="EmployeeServiceProvider"
+                 myRole="EmployeeServiceRequester"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="ns1:EmployeeServiceRequestMessage"/>
+    <variable name="InvokeEmployee_process_Input"
+              messageType="ns2:EmployeeServiceRequestMessage"/>
+    <variable name="OnMessage_processResponse_Input"
+              messageType="ns2:EmployeeServiceResponseMessage"/>
+    <variable name="OnMessage_processFaultResponse_Input"
+              messageType="ns1:EmployeeServiceResponseFaultMessage"/>
+  </variables>
+  <correlationSets>
+    <correlationSet name="EmployeeCorrelation"
+                    properties="ns4:employeeIdProperty"/>
+  </correlationSets>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in CallingBPELProcess.wsdl) -->
+    <receive name="receiveInput" partnerLink="callingbpelprocess_client" portType="ns1:service" operation="process" variable="inputVariable" createInstance="yes">
+      <correlations>
+        <correlation set="EmployeeCorrelation" initiate="yes"/>
+      </correlations>
+    </receive>
+    <assign name="AssignInput">
+      <copy>
+        <from>$inputVariable.payload/ns3:Employee/ns3:EmployeeId</from>
+        <to>$InvokeEmployee_process_Input.payload/ns3:Employee/ns3:EmployeeId</to>
+      </copy>
+    </assign>
+    <invoke name="InvokeEmployee"
+            partnerLink="EmployeeReference" portType="ns2:EmployeeService"
+            operation="process" inputVariable="InvokeEmployee_process_Input"
+            bpelx:invokeAsDetail="no">
+      <bpelx:toProperties>
+        <bpelx:toProperty name="faultToAddress">'http://SOAPS5.alfa.local:8001/soa-infra/services/github/CallingService/callingbpelprocess_client_ep'</bpelx:toProperty>
+      </bpelx:toProperties>
+    </invoke>
+    <pick name="Pick1">
+      <onMessage variable="OnMessage_processResponse_Input"
+                 partnerLink="EmployeeReference"
+                 portType="ns2:EmployeeServiceCallback"
+                 operation="processResponse">
+        <empty name="GotResponse"/>
+      </onMessage>
+      <onMessage variable="OnMessage_processFaultResponse_Input"
+                 partnerLink="callingbpelprocess_client" portType="ns1:service"
+                 operation="processFaultResponse">
+        <correlations>
+          <correlation set="EmployeeCorrelation" initiate="no"/>
+        </correlations>
+        <empty name="Fault"/>
+      </onMessage>
+    </pick>
+  </sequence>
+</process>

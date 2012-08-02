@@ -1,1 +1,18 @@
 My SOA Suite 11g R1 examples
+
+AsynchronousFaultHandling, Returning a fault from asynchronous process
+EDN_JAVA, publish a soa edn jms event from java
+EDN_SOA, composites for publishing an EDN and listen for EDN events
+HumanTaskListApp, Custom ADF humantask application and a composite to initiate human workflow
+OWSM_AXIS, Oracle Web Service Manager in combination with AXIS
+OWSM_Kerberos, OWSM with microsoft kerberos policies
+OWSM_SAML, OWSM with SAML examples 
+SOA_Directbinding , calling from java a composite with a direct and adf binding service
+SOAdecouple_businessFault, Contract First plus handle business fault in BPEL
+SoaEjbReference, EJB adapter with Oracle SOA Suite. 
+SoaHTTPBinding, HTTP binding adapter examples
+SoaRequestReply, JMS request / reply adapter  , synchronous and async
+SoaSpringEnrichment, SOA Spring component and integration with other soa service components
+SoaUMSMessaging, Send email, IM with the UMS service
+UmsSOA, UMS adapter PS5, listen and send email + attachments
+WorkFlow, A workflow loop composite like BPM plus searching and stopping a WorkFlow process from a composite
