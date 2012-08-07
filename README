@@ -10,6 +10,7 @@ OWSM_SAML, OWSM with SAML examples
 SOA_Directbinding , calling from java a composite with a direct and adf binding service
 SOAdecouple_businessFault, Contract First plus handle business fault in BPEL
 SoaEjbReference, EJB adapter with Oracle SOA Suite. 
+SoaEjbSdoReference, (PS5) EJB adapter with SDO interface used in Oracle SOA Suite. 
 SoaHTTPBinding, HTTP binding adapter examples
 SoaRequestReply, JMS request / reply adapter  , synchronous and async
 SoaSpringEnrichment, SOA Spring component and integration with other soa service components

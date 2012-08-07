@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<wsdl:definitions
+     name="HrSessionEJBBeanWS"
+     targetNamespace="/nl.amis.sdo.jpa.services/"
+     xmlns:tns="/nl.amis.sdo.jpa.services/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:types="/nl.amis.sdo.jpa.services/"
+    >
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="/nl.amis.sdo.jpa.services/" schemaLocation="xsd/HrSessionEJBBeanWS.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="HrSessionEJBBeanWS_persistDepartmentsSDO">
+        <wsdl:part name="parameters" element="tns:persistDepartmentsSDO"/>
+    </wsdl:message>
+    <wsdl:message name="HrSessionEJBBeanWS_persistDepartmentsSDOResponse">
+        <wsdl:part name="parameters" element="tns:persistDepartmentsSDOResponse"/>
+    </wsdl:message>
+    <wsdl:message name="HrSessionEJBBeanWS_mergeDepartmentsSDO">
+        <wsdl:part name="parameters" element="tns:mergeDepartmentsSDO"/>
+    </wsdl:message>
+    <wsdl:message name="HrSessionEJBBeanWS_mergeDepartmentsSDOResponse">
+        <wsdl:part name="parameters" element="tns:mergeDepartmentsSDOResponse"/>
+    </wsdl:message>
+    <wsdl:message name="HrSessionEJBBeanWS_removeDepartmentsSDO">
+        <wsdl:part name="parameters" element="tns:removeDepartmentsSDO"/>
+    </wsdl:message>
+    <wsdl:message name="HrSessionEJBBeanWS_removeDepartmentsSDOResponse">
+        <wsdl:part name="parameters" element="tns:removeDepartmentsSDOResponse"/>
+    </wsdl:message>
+    <wsdl:message name="HrSessionEJBBeanWS_getDepartmentsFindAllSDO">
+        <wsdl:part name="parameters" element="tns:getDepartmentsFindAllSDO"/>
+    </wsdl:message>
+    <wsdl:message name="HrSessionEJBBeanWS_getDepartmentsFindAllSDOResponse">
+        <wsdl:part name="parameters" element="tns:getDepartmentsFindAllSDOResponse"/>
+    </wsdl:message>
+    <wsdl:message name="HrSessionEJBBeanWS_getDepartmentsFindOneSDO">
+        <wsdl:part name="parameters" element="tns:getDepartmentsFindOneSDO"/>
+    </wsdl:message>
+    <wsdl:message name="HrSessionEJBBeanWS_getDepartmentsFindOneSDOResponse">
+        <wsdl:part name="parameters" element="tns:getDepartmentsFindOneSDOResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="HrSessionEJBBeanWS">
+        <wsdl:operation name="persistDepartmentsSDO">
+            <wsdl:input message="tns:HrSessionEJBBeanWS_persistDepartmentsSDO"/>
+            <wsdl:output message="tns:HrSessionEJBBeanWS_persistDepartmentsSDOResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="mergeDepartmentsSDO">
+            <wsdl:input message="tns:HrSessionEJBBeanWS_mergeDepartmentsSDO"/>
+            <wsdl:output message="tns:HrSessionEJBBeanWS_mergeDepartmentsSDOResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="removeDepartmentsSDO">
+            <wsdl:input message="tns:HrSessionEJBBeanWS_removeDepartmentsSDO"/>
+            <wsdl:output message="tns:HrSessionEJBBeanWS_removeDepartmentsSDOResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getDepartmentsFindAllSDO">
+            <wsdl:input message="tns:HrSessionEJBBeanWS_getDepartmentsFindAllSDO"/>
+            <wsdl:output message="tns:HrSessionEJBBeanWS_getDepartmentsFindAllSDOResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getDepartmentsFindOneSDO">
+            <wsdl:input message="tns:HrSessionEJBBeanWS_getDepartmentsFindOneSDO"/>
+            <wsdl:output message="tns:HrSessionEJBBeanWS_getDepartmentsFindOneSDOResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="HrSessionEJBBeanWSSoapHttp" type="tns:HrSessionEJBBeanWS">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="persistDepartmentsSDO">
+            <soap:operation soapAction="/nl.amis.sdo.jpa.services/persistDepartmentsSDO"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="mergeDepartmentsSDO">
+            <soap:operation soapAction="/nl.amis.sdo.jpa.services/mergeDepartmentsSDO"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="removeDepartmentsSDO">
+            <soap:operation soapAction="/nl.amis.sdo.jpa.services/removeDepartmentsSDO"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getDepartmentsFindAllSDO">
+            <soap:operation soapAction="/nl.amis.sdo.jpa.services/getDepartmentsFindAllSDO"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getDepartmentsFindOneSDO">
+            <soap:operation soapAction="/nl.amis.sdo.jpa.services/getDepartmentsFindOneSDO"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="HrSessionEJBBeanWS">
+        <wsdl:port name="HrSessionEJBBeanWSSoapHttpPort" binding="tns:HrSessionEJBBeanWSSoapHttp">
+            <soap:address location="http://localhost:7101/EjbSdoService-ModelSDO-context-root/HrSessionEJBBeanWS"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

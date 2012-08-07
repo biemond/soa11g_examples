@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="/nl.amis.sdo.jpa.services/"
+            xmlns="/nl.amis.sdo.jpa.services/" xmlns:sdoJava="commonj.sdo/java"
+            sdoJava:package="nl.amis.sdo.jpa.entities">
+   <xsd:import namespace="commonj.sdo/java"/>
+   <xsd:include schemaLocation="DepartmentsSDO.xsd"/>
+   <xsd:complexType name="EmployeesSDO">
+      <xsd:sequence>
+         <xsd:element name="commissionPct" type="xsd:double" minOccurs="0"/>
+         <xsd:element name="email" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="employeeId" type="xsd:long" minOccurs="0"/>
+         <xsd:element name="firstName" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="hireDate" minOccurs="0">
+            <xsd:simpleType xmlns:sdoJava="commonj.sdo/java"
+                            sdoJava:instanceClass="java.util.Date">
+               <xsd:restriction base="xsd:dateTime"/>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="jobId" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="lastName" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="managerId" type="xsd:long" minOccurs="0"/>
+         <xsd:element name="phoneNumber" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="salary" type="xsd:double" minOccurs="0"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="employeesSDO" type="EmployeesSDO"/>
+</xsd:schema>

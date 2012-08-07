@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="/nl.amis.sdo.jpa.services/"
+            xmlns="/nl.amis.sdo.jpa.services/" xmlns:sdoJava="commonj.sdo/java"
+            sdoJava:package="nl.amis.sdo.jpa.entities">
+   <xsd:import namespace="commonj.sdo/java"/>
+   <xsd:include schemaLocation="EmployeesSDO.xsd"/>
+   <xsd:complexType name="DepartmentsSDO">
+      <xsd:sequence>
+         <xsd:element name="departmentId" type="xsd:long" minOccurs="0"/>
+         <xsd:element name="departmentName" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="employeesList" type="EmployeesSDO" minOccurs="0" maxOccurs="unbounded"/>
+         <xsd:element name="locationId" type="xsd:long" minOccurs="0"/>
+         <xsd:element name="manager" type="EmployeesSDO" minOccurs="0"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="departmentsSDO" type="DepartmentsSDO"/>
+</xsd:schema>

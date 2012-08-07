@@ -1,0 +1,72 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="/nl.amis.sdo.jpa.services/"
+     xmlns:tns="/nl.amis.sdo.jpa.services/">
+    <include schemaLocation="../entities/DepartmentsSDO.xsd"/>
+    <include schemaLocation="../entities/EmployeesSDO.xsd"/>
+    <element name="persistDepartmentsSDO">
+        <complexType>
+            <sequence>
+                <element name="departmentsSDO" type="tns:DepartmentsSDO"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="persistDepartmentsSDOResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="tns:DepartmentsSDO"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="mergeDepartmentsSDO">
+        <complexType>
+            <sequence>
+                <element name="departmentsSDO" type="tns:DepartmentsSDO"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="mergeDepartmentsSDOResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="tns:DepartmentsSDO"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="removeDepartmentsSDO">
+        <complexType>
+            <sequence>
+                <element name="departmentsSDO" type="tns:DepartmentsSDO"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="removeDepartmentsSDOResponse">
+        <complexType>
+            <sequence/>
+        </complexType>
+    </element>
+    <element name="getDepartmentsFindAllSDO">
+        <complexType>
+            <sequence/>
+        </complexType>
+    </element>
+    <element name="getDepartmentsFindAllSDOResponse">
+        <complexType>
+            <sequence>
+                <element name="result" minOccurs="0" maxOccurs="unbounded"  type="tns:DepartmentsSDO"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getDepartmentsFindOneSDO">
+        <complexType>
+            <sequence>
+                <element name="deptId" type="long"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getDepartmentsFindOneSDOResponse">
+        <complexType>
+            <sequence>
+                <element name="result" minOccurs="0" maxOccurs="unbounded"  type="tns:DepartmentsSDO"/>
+            </sequence>
+        </complexType>
+    </element>
+
+</schema>
