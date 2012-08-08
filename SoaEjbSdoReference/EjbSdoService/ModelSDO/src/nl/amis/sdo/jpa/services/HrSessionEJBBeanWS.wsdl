@@ -92,6 +92,26 @@
             <wsdl:input message="tns:HrSessionEJBBeanWS_getDepartmentsFindOneSDO"/>
             <wsdl:output message="tns:HrSessionEJBBeanWS_getDepartmentsFindOneSDOResponse"/>
         </wsdl:operation>
+        <wsdl:operation name="persistEmployeesSDO">
+            <wsdl:input message="tns:HrSessionEJBBeanWS_persistEmployeesSDO"/>
+            <wsdl:output message="tns:HrSessionEJBBeanWS_persistEmployeesSDOResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="mergeEmployeesSDO">
+            <wsdl:input message="tns:HrSessionEJBBeanWS_mergeEmployeesSDO"/>
+            <wsdl:output message="tns:HrSessionEJBBeanWS_mergeEmployeesSDOResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="removeEmployeesSDO">
+            <wsdl:input message="tns:HrSessionEJBBeanWS_removeEmployeesSDO"/>
+            <wsdl:output message="tns:HrSessionEJBBeanWS_removeEmployeesSDOResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getEmployeesFindAllSDO">
+            <wsdl:input message="tns:HrSessionEJBBeanWS_getEmployeesFindAllSDO"/>
+            <wsdl:output message="tns:HrSessionEJBBeanWS_getEmployeesFindAllSDOResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getEmployeesFindOneSDO">
+            <wsdl:input message="tns:HrSessionEJBBeanWS_getEmployeesFindOneSDO"/>
+            <wsdl:output message="tns:HrSessionEJBBeanWS_getEmployeesFindOneSDOResponse"/>
+        </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="HrSessionEJBBeanWSSoapHttp" type="tns:HrSessionEJBBeanWS">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -133,6 +153,51 @@
         </wsdl:operation>
         <wsdl:operation name="getDepartmentsFindOneSDO">
             <soap:operation soapAction="/nl.amis.sdo.jpa.services/getDepartmentsFindOneSDO"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="persistEmployeesSDO">
+            <soap:operation soapAction="/nl.amis.sdo.jpa.services/persistEmployeesSDO"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="mergeEmployeesSDO">
+            <soap:operation soapAction="/nl.amis.sdo.jpa.services/mergeEmployeesSDO"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="removeEmployeesSDO">
+            <soap:operation soapAction="/nl.amis.sdo.jpa.services/removeEmployeesSDO"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getEmployeesFindAllSDO">
+            <soap:operation soapAction="/nl.amis.sdo.jpa.services/getEmployeesFindAllSDO"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getEmployeesFindOneSDO">
+            <soap:operation soapAction="/nl.amis.sdo.jpa.services/getEmployeesFindOneSDO"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>

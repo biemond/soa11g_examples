@@ -4,6 +4,7 @@
       <value n="adrs-instance-binding" v="DefaultServer"/>
    </hash>
    <value n="application-package-prefix" v="nl.amis.sdo.jpa"/>
+   <url n="application-source-directory" path="src/"/>
    <value n="appTemplateId" v="#genericApplicationTemplate"/>
    <hash n="component-versions">
       <value n="oracle.adf.share.dt.migration.jps.JaznCredStoreMigratorHelper" v="11.1.1.1.0"/>
@@ -77,5 +78,9 @@
       <list n="profileList">
          <string v="ejbsdoservice"/>
       </list>
+      <value n="Security-Deployment-Migrate-Users-And-Groups-Key" v="false"/>
+      <value n="Security-Deployment-Overwrite-Application-Policies-Key" v="false"/>
+      <value n="Security-Deployment-Overwrite-Credentials-Key" v="false"/>
+      <value n="Weblogic-JDBC-Auto-Sync-Key" v="false"/>
    </hash>
 </jws:workspace>

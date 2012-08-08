@@ -75,7 +75,6 @@
       <list n="technologyScope">
          <string v="EJB"/>
          <string v="Java"/>
-         <string v="WebServices"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
@@ -94,12 +93,12 @@
    </hash>
    <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
       <hash n="profileDefinitions">
-         <hash n="sdo_svc_modelsdo">
+         <hash n="hrSdoEjbService">
             <hash n="archiveOptions">
                <value n="hasManifest" v="true"/>
             </hash>
-            <url n="earURL" path="deploy/sdo_svc_modelsdo.ear"/>
-            <value n="enterpriseAppName" v="sdo_svc_modelsdo"/>
+            <url n="earURL" path="deploy/hrSdoEjbService.ear"/>
+            <value n="enterpriseAppName" v="hrSdoEjbService"/>
             <hash n="fileGroups">
                <list n="groups">
                   <hash>
@@ -120,12 +119,12 @@
                   </hash>
                </list>
             </hash>
-            <url n="jarURL" path="deploy/sdo_svc_modelsdo.jar"/>
+            <url n="jarURL" path="deploy/hrSdoEjbService.jar"/>
             <hash n="libraryDependencies">
                <value n="IncludeLibrariesFromOtherContainers" v="true"/>
             </hash>
             <value n="profileClass" v="oracle.jdeveloper.deploy.ejb.EjbProfile"/>
-            <value n="profileName" v="sdo_svc_modelsdo"/>
+            <value n="profileName" v="hrSdoEjbService"/>
          </hash>
          <hash n="sdoHrInterface">
             <hash n="archiveOptions">
@@ -248,8 +247,8 @@
          </hash>
       </hash>
       <list n="profileList">
+         <string v="hrSdoEjbService"/>
          <string v="sdoHrInterface"/>
-         <string v="sdo_svc_modelsdo"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
@@ -292,23 +291,15 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Java EE 1.5 API"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Oracle JDBC"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="EJB SDO Client"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="BC4J Service Client"/>
+            <value n="id" v="JAX-WS Client"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="BC4J Service Runtime"/>
+            <value n="id" v="ADF Common Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -326,23 +317,15 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Java EE 1.5 API"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Oracle JDBC"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="EJB SDO Client"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="BC4J Service Client"/>
+            <value n="id" v="JAX-WS Client"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="BC4J Service Runtime"/>
+            <value n="id" v="ADF Common Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -364,5 +347,8 @@
             <url path="toplink/"/>
          </list>
       </hash>
+   </hash>
+   <hash n="ResourceBundleOptions">
+      <list n="RegisteredResourceBundles"/>
    </hash>
 </jpr:project>

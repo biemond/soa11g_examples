@@ -51,7 +51,7 @@
     <element name="getDepartmentsFindAllSDOResponse">
         <complexType>
             <sequence>
-                <element name="result" minOccurs="0" maxOccurs="unbounded" type="tns:DepartmentsSDO"/>
+                <element name="result" minOccurs="0" maxOccurs="unbounded"/>
             </sequence>
         </complexType>
     </element>
@@ -65,7 +65,73 @@
     <element name="getDepartmentsFindOneSDOResponse">
         <complexType>
             <sequence>
-                <element name="result" minOccurs="0" maxOccurs="unbounded" type="tns:DepartmentsSDO"/>
+                <element name="result" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="persistEmployeesSDO">
+        <complexType>
+            <sequence>
+                <element name="employeesSDO" type="tns:EmployeesSDO"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="persistEmployeesSDOResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="tns:EmployeesSDO"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="mergeEmployeesSDO">
+        <complexType>
+            <sequence>
+                <element name="employeesSDO" type="tns:EmployeesSDO"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="mergeEmployeesSDOResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="tns:EmployeesSDO"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="removeEmployeesSDO">
+        <complexType>
+            <sequence>
+                <element name="employeesSDO" type="tns:EmployeesSDO"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="removeEmployeesSDOResponse">
+        <complexType>
+            <sequence/>
+        </complexType>
+    </element>
+    <element name="getEmployeesFindAllSDO">
+        <complexType>
+            <sequence/>
+        </complexType>
+    </element>
+    <element name="getEmployeesFindAllSDOResponse">
+        <complexType>
+            <sequence>
+                <element name="result" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getEmployeesFindOneSDO">
+        <complexType>
+            <sequence>
+                <element name="empId" type="long"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getEmployeesFindOneSDOResponse">
+        <complexType>
+            <sequence>
+                <element name="result" minOccurs="0" maxOccurs="unbounded"/>
             </sequence>
         </complexType>
     </element>

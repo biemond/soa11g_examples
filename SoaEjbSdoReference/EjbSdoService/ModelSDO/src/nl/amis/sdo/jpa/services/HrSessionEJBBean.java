@@ -1,6 +1,7 @@
 package nl.amis.sdo.jpa.services;
 
 
+import commonj.sdo.DataObject;
 import commonj.sdo.helper.DataFactory;
 
 import commonj.sdo.helper.XSDHelper;
@@ -27,10 +28,8 @@ import nl.amis.sdo.jpa.entities.EmployeesSDO;
 
 import oracle.webservices.annotations.PortableWebService;
 
-
 @Stateless(name="HrSessionEJB", mappedName = "EjbSdoService-HrSessionEJB")
-@PortableWebService(serviceName="HrSessionEJBBeanWS",
-    targetNamespace="/nl.amis.sdo.jpa.services/",
+@PortableWebService(serviceName="HrSessionEJBBeanWS", targetNamespace="/nl.amis.sdo.jpa.services/",
     portName="HrSessionEJBBeanWSSoapHttpPort", endpointInterface="nl.amis.sdo.jpa.services.HrSessionEJB")
 public class HrSessionEJBBean implements HrSessionEJB {
     @PersistenceContext(unitName="ModelSDO")
@@ -107,24 +106,10 @@ public class HrSessionEJBBean implements HrSessionEJB {
     }
 
 
-    static {
-        synchronized (HrSessionEJBBean.class) {
-            try {
-                ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                XSDHelper.INSTANCE.define(loader.getResourceAsStream("nl/amis/sdo/jpa/entities/EmployeesSDO.xsd"), "nl/amis/sdo/jpa/entities/");
-                XSDHelper.INSTANCE.define(loader.getResourceAsStream("nl/amis/sdo/jpa/entities/DepartmentsSDO.xsd"), "nl/amis/sdo/jpa/entities/");
-                XSDHelper.INSTANCE.define(loader.getResourceAsStream("nl/amis/sdo/jpa/services/HrSessionEJBBeanWS.xsd"), "nl/amis/sdo/jpa/services/");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
     private Employees unMarshallEmployees(EmployeesSDO employeesSDO) {
         if (employeesSDO == null)
             return null;
         Employees employees = new Employees();
-        
         employees.setCommissionPct(employeesSDO.getCommissionPct());
         employees.setEmail(employeesSDO.getEmail());
         employees.setEmployeeId(employeesSDO.getEmployeeId());
@@ -157,27 +142,6 @@ public class HrSessionEJBBean implements HrSessionEJB {
         return departments;
     }
 
-    private EmployeesSDO marshallEmployees(Employees employees) {
-        if (employees == null)
-            return null;
-        EmployeesSDO employeesSDO = ( EmployeesSDO )DataFactory.INSTANCE.create(EmployeesSDO.class);
-
-        if (employees.getCommissionPct() != null )
-          employeesSDO.setCommissionPct(employees.getCommissionPct());
-        employeesSDO.setEmail(employees.getEmail());
-        employeesSDO.setEmployeeId(employees.getEmployeeId());
-        employeesSDO.setFirstName(employees.getFirstName());
-        employeesSDO.setHireDate(employees.getHireDate());
-        employeesSDO.setJobId(employees.getJobId());
-        employeesSDO.setLastName(employees.getLastName());
-
-        if (employees.getManagerId() != null )
-          employeesSDO.setManagerId(employees.getManagerId());
-        employeesSDO.setPhoneNumber(employees.getPhoneNumber());
-        employeesSDO.setSalary(employees.getSalary());
-        return employeesSDO;
-    }
-
     private DepartmentsSDO marshallDepartments(Departments departments) {
         if (departments == null)
             return null;
@@ -196,6 +160,31 @@ public class HrSessionEJBBean implements HrSessionEJB {
         departmentsSDO.setManager(marshallEmployees(departments.getManager()));
         return departmentsSDO;
     }
+
+    private EmployeesSDO marshallEmployees(Employees employees) {
+        if (employees == null)
+            return null;
+        EmployeesSDO employeesSDO = ( EmployeesSDO )DataFactory.INSTANCE.create(EmployeesSDO.class);
+        
+        if (employees.getCommissionPct() != null )
+          employeesSDO.setCommissionPct(employees.getCommissionPct());
+
+        employeesSDO.setEmail(employees.getEmail());
+        employeesSDO.setEmployeeId(employees.getEmployeeId());
+        employeesSDO.setFirstName(employees.getFirstName());
+        employeesSDO.setHireDate(employees.getHireDate());
+        employeesSDO.setJobId(employees.getJobId());
+        employeesSDO.setLastName(employees.getLastName());
+
+        if (employees.getManagerId() != null )
+          employeesSDO.setManagerId(employees.getManagerId());
+
+        employeesSDO.setPhoneNumber(employees.getPhoneNumber());
+        employeesSDO.setSalary(employees.getSalary());
+        return employeesSDO;
+    }
+
+
 
     public DepartmentsSDO persistDepartmentsSDO(DepartmentsSDO departmentsSDO) throws RuntimeException {
         Departments departments = unMarshallDepartments(departmentsSDO);
@@ -230,4 +219,48 @@ public class HrSessionEJBBean implements HrSessionEJB {
         return departmentsSDO;
     }
 
+    public EmployeesSDO persistEmployeesSDO(EmployeesSDO employeesSDO) throws RuntimeException {
+        Employees employees = unMarshallEmployees(employeesSDO);
+        return marshallEmployees(persistEmployees(employees));
+    }
+
+    public EmployeesSDO mergeEmployeesSDO(EmployeesSDO employeesSDO) throws RuntimeException {
+        Employees employees = unMarshallEmployees(employeesSDO);
+        return marshallEmployees(mergeEmployees(employees));
+    }
+
+    public void removeEmployeesSDO(EmployeesSDO employeesSDO) throws RuntimeException {
+        Employees employees = unMarshallEmployees(employeesSDO);
+        removeEmployees(employees);
+    }
+
+    public List<EmployeesSDO> getEmployeesFindAllSDO() throws RuntimeException {
+        List<Employees> employees = getEmployeesFindAll();
+        List<EmployeesSDO> employeesSDO = new ArrayList<EmployeesSDO>(employees.size());
+        for (Employees employees1 : employees) {
+            employeesSDO.add(marshallEmployees(employees1));
+        }
+        return employeesSDO;
+    }
+
+    public List<EmployeesSDO> getEmployeesFindOneSDO(Long empId) throws RuntimeException {
+        List<Employees> employees = getEmployeesFindOne(empId);
+        List<EmployeesSDO> employeesSDO = new ArrayList<EmployeesSDO>(employees.size());
+        for (Employees employees1 : employees) {
+            employeesSDO.add(marshallEmployees(employees1));
+        }
+        return employeesSDO;
+    }
+    static {
+        synchronized (HrSessionEJBBean.class) {
+            try {
+                ClassLoader loader = Thread.currentThread().getContextClassLoader();
+                XSDHelper.INSTANCE.define(loader.getResourceAsStream("nl/amis/sdo/jpa/entities/EmployeesSDO.xsd"), "nl/amis/sdo/jpa/entities/");
+                XSDHelper.INSTANCE.define(loader.getResourceAsStream("nl/amis/sdo/jpa/entities/DepartmentsSDO.xsd"), "nl/amis/sdo/jpa/entities/");
+                XSDHelper.INSTANCE.define(loader.getResourceAsStream("nl/amis/sdo/jpa/services/HrSessionEJBBeanWS.xsd"), "nl/amis/sdo/jpa/services/");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }

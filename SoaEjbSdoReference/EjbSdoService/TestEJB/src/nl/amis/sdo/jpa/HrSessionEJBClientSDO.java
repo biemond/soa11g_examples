@@ -9,14 +9,11 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
-
 import nl.amis.sdo.jpa.entities.DepartmentsSDO;
 import nl.amis.sdo.jpa.services.HrSessionEJB;
 
 public class HrSessionEJBClientSDO {
     public HrSessionEJBClientSDO() {
-
     }
 
     public static void main(String[] args) {
@@ -29,7 +26,6 @@ public class HrSessionEJBClientSDO {
                                       "nl/amis/sdo/jpa/entities/");
             XSDHelper.INSTANCE.define(loader.getResourceAsStream("nl/amis/sdo/jpa/services/HrSessionEJBBeanWS.xsd"),
                                       "nl/amis/sdo/jpa/services/");
-
 
             final Context context = getInitialContext();
             HrSessionEJB hrSessionEJB =
