@@ -1,0 +1,76 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue Apr 02 19:51:08 CEST 2013
+  Author:  edwin
+  Type: BPEL 2.0 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="CallHelloworld"
+               targetNamespace="http://xmlns.oracle.com/token_mds/TokenCaller/CallHelloworld"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/token_mds/TokenCaller/CallHelloworld"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://nl.amis.helloworldservice"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:ns2="http://nl.amis.helloworld">
+
+  <import namespace="http://xmlns.oracle.com/token_mds/TokenCaller/CallHelloworld" location="CallHelloworld.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="callhelloworld_client" partnerLinkType="client:CallHelloworld" myRole="CallHelloworldProvider"/>
+    <partnerLink name="HelloworldService"
+                 partnerLinkType="ns1:HelloworldService"
+                 partnerRole="HelloWorldService"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:CallHelloworldRequestMessage"/>
+    <variable name="InvokeService_sayHelloOneWay_Input"
+              messageType="ns1:sayHelloOneWay"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in CallHelloworld.wsdl) -->
+    <receive name="receiveInput" partnerLink="callhelloworld_client" portType="client:CallHelloworld" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="AssignInput">
+      <copy ignoreMissingFromData="yes" bpelx:insertMissingToData="yes">
+        <from>$inputVariable.payload/client:input</from>
+        <to>$InvokeService_sayHelloOneWay_Input.parameters/message</to>
+      </copy>
+    </assign>
+    <invoke name="InvokeService" bpelx:invokeAsDetail="no"
+            partnerLink="HelloworldService" portType="ns1:HelloWorldService"
+            operation="sayHelloOneWay"
+            inputVariable="InvokeService_sayHelloOneWay_Input"/>
+  </sequence>
+</process>

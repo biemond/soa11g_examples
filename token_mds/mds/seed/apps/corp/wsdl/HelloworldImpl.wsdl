@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions
+     name="HelloWorldService"
+     targetNamespace="http://nl.amis.helloworldservice"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:svc="http://nl.amis.helloworldservice"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://nl.amis.helloworld"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <documentation>
+        <abstractWSDL>http://devagent1.alfa.local:8001/soa-infra/services/default/Reference!1.0/apps/corp/wsdl/Helloworld.wsdl</abstractWSDL>
+    </documentation>
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://nl.amis.helloworld" schemaLocation="../xsd/Helloworld.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="sayHelloOneWay">
+        <part name="parameters" element="tns:sayHelloOneWay"/>
+    </message>
+    <portType name="HelloWorldService">
+        <operation name="sayHelloOneWay">
+            <input message="svc:sayHelloOneWay"/>
+        </operation>
+    </portType>
+    <binding name="HelloWorldServiceBinding" type="svc:HelloWorldService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="sayHelloOneWay">
+            <soap:operation style="document" soapAction="sayHelloOneWay"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+        </operation>
+    </binding>
+    <service name="HelloworldService">
+        <port name="HelloWorldService_pt" binding="svc:HelloWorldServiceBinding">
+            <soap:address location="http://devagent1.alfa.local:8001/soa-infra/services/default/Reference/HelloworldService"/>
+        </port>
+    </service>
+</definitions>

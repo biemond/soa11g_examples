@@ -1,0 +1,21 @@
+<definitions targetNamespace="http://nl.amis.helloworldservice" 
+             name="HelloWorldService" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns:tns="http://nl.amis.helloworld" 
+             xmlns:svc="http://nl.amis.helloworldservice" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://nl.amis.helloworld" schemaLocation="../xsd/Helloworld.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="sayHelloOneWay">
+		<part name="parameters" element="tns:sayHelloOneWay"/>
+	</message>
+	<portType name="HelloWorldService">
+		<operation name="sayHelloOneWay">
+			<input message="svc:sayHelloOneWay"/>
+		</operation>
+	</portType>
+</definitions>
